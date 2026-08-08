@@ -21,25 +21,30 @@
 .hero__atmosphere {
   position: absolute;
   z-index: var(--z-canvas);
-  top: 4%;
-  right: -18%;
-  width: min(78vw, 1180px);
-  height: 118%;
+  /* The box ends exactly where the hero does, so the hero's own overflow
+     never cuts a visible edge. */
+  top: 0;
+  right: -12%;
+  width: min(72vw, 1500px);
+  height: 100%;
   pointer-events: none;
-  /* Focus sits low and right so the hero's contact column stays clean. */
+  /* The radius is half the box and the centre is inside it, so the mask is
+     fully transparent before every edge — at any viewport width. A radius
+     larger than that is what produced a hard rectangular seam on wide
+     screens, where the capped box put its own left edge back on screen. */
   -webkit-mask-image: radial-gradient(
-    70% 66% at 58% 62%,
+    50% 50% at 54% 50%,
     #000 0%,
-    rgba(0, 0, 0, 0.9) 34%,
-    rgba(0, 0, 0, 0.42) 62%,
-    transparent 88%
+    rgba(0, 0, 0, 0.92) 26%,
+    rgba(0, 0, 0, 0.45) 58%,
+    transparent 100%
   );
   mask-image: radial-gradient(
-    70% 66% at 58% 62%,
+    50% 50% at 54% 50%,
     #000 0%,
-    rgba(0, 0, 0, 0.9) 34%,
-    rgba(0, 0, 0, 0.42) 62%,
-    transparent 88%
+    rgba(0, 0, 0, 0.92) 26%,
+    rgba(0, 0, 0, 0.45) 58%,
+    transparent 100%
   );
 }
 
@@ -207,10 +212,9 @@
 
   /* Large optical effects become much quieter on phones. */
   .hero__atmosphere {
-    top: -4%;
-    right: -34%;
-    width: 128vw;
-    height: 74%;
+    right: -26%;
+    width: 150vw;
+    height: 78%;
     opacity: 0.6;
   }
 }
