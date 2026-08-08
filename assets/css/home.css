@@ -356,11 +356,12 @@
   );
 }
 
+/* Deliberately neither positioned nor z-indexed. Either one makes this a
+   stacking context, and then the buttons inside it can never rise above the
+   card's click overlay no matter what z-index they are given. The two halves
+   of the card are separate grid columns and never overlap, so nothing here
+   needs its own layer. */
 .work-card__body {
-  /* Deliberately NOT positioned: a positioned ancestor here would trap the
-     card's stretched link inside this half of the card. Grid items honour
-     z-index without it. */
-  z-index: 3;
   padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
   display: grid;
   align-content: space-between;

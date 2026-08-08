@@ -846,23 +846,25 @@ hr {
    the card, so clicking anywhere opens the web version, while the secondary
    controls (PDF) stay clickable above it. Only one real <a> is involved, so
    keyboard and screen-reader behaviour is unchanged. */
-/* backdrop-filter would make this button its own containing block and trap the
-   stretched area inside it, so the glass blur is dropped on this one control. */
-.card-link {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-.card-link::after {
-  content: "";
+/* A dedicated, empty link layer sitting directly inside the card. Stretching a
+   button's ::after instead would inherit whatever containing block its
+   ancestors happen to create (transform, backdrop-filter, will-change), which
+   is exactly how this silently stopped working before. As a direct child of
+   .card it cannot be trapped by anything. */
+/* Must outrank every layer a card can contain — .work-card__body raises
+   itself to 3 to sit above the artwork, so anything at 3 or below would be
+   covered by it and the card's text half would stop responding. */
+.card-overlay {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 5;
+  border-radius: inherit;
 }
 
-.card :where(a, button):not(.card-link) {
+/* Real controls sit above the overlay so they keep their own targets. */
+.card :where(a, button):not(.card-overlay) {
   position: relative;
-  z-index: 4;
+  z-index: 6;
 }
 
 /* Extremely subtle pointer-aware sheen; disabled on touch and reduced motion */

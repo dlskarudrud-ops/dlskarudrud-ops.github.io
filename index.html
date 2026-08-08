@@ -18,10 +18,10 @@
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/css/tokens.css?v=3">
-<link rel="stylesheet" href="assets/css/global.css?v=3">
-<link rel="stylesheet" href="assets/css/home.css?v=3">
-<link rel="stylesheet" href="assets/css/print.css?v=3" media="print">
+<link rel="stylesheet" href="assets/css/tokens.css?v=4">
+<link rel="stylesheet" href="assets/css/global.css?v=4">
+<link rel="stylesheet" href="assets/css/home.css?v=4">
+<link rel="stylesheet" href="assets/css/print.css?v=4" media="print">
 
 <script>
   /* Resolve the theme before first paint so the page never flashes. */
@@ -398,11 +398,15 @@
 
       <div class="work-minor" data-reveal-group="80">
         <article class="card work-minor__item" data-reveal>
+          <!-- Whole-card link: one hidden anchor covering the card. The visible
+               "웹으로 보기" button below is the accessible, focusable link. -->
+          <a class="card-overlay" href="documents/career.html" tabindex="-1" aria-hidden="true"></a>
+
           <span class="eyebrow eyebrow--muted">Career</span>
           <div class="work-minor__head">
             <h3 class="h3">경력 기술서</h3>
             <div class="btn-row">
-              <a class="btn btn--secondary card-link" href="documents/career.html">웹으로 보기</a>
+              <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
               <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
             </div>
           </div>
@@ -413,11 +417,15 @@
         </article>
 
         <article class="card work-minor__item" data-reveal>
+          <!-- Whole-card link: one hidden anchor covering the card. The visible
+               "웹으로 보기" button below is the accessible, focusable link. -->
+          <a class="card-overlay" href="documents/postmortem.html" tabindex="-1" aria-hidden="true"></a>
+
           <span class="eyebrow eyebrow--muted">Retrospective</span>
           <div class="work-minor__head">
             <h3 class="h3">포스트모템</h3>
             <div class="btn-row">
-              <a class="btn btn--secondary card-link" href="documents/postmortem.html">웹으로 보기</a>
+              <a class="btn btn--secondary" href="documents/postmortem.html">웹으로 보기</a>
               <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
             </div>
           </div>
@@ -432,6 +440,10 @@
 
         <!-- Fire Vow -->
         <article class="card card--reactive work-card" data-reveal>
+          <!-- Whole-card link: one hidden anchor covering the card. The visible
+               "웹으로 보기" button below is the accessible, focusable link. -->
+          <a class="card-overlay" href="projects/fire-vow.html" tabindex="-1" aria-hidden="true"></a>
+
           <div class="work-card__visual">
             <img src="assets/images/firevow-cover.jpeg"
                  alt="FireVow: DarkFantasy 타이틀 아트 — 어둠에 잠긴 석조 계단 위의 게임 로고"
@@ -452,7 +464,7 @@
                 <div class="work-card__role-head">
                   <span class="work-card__role-label">My Role</span>
                   <div class="btn-row">
-                    <a class="btn btn--secondary card-link" href="projects/fire-vow.html">웹으로 보기</a>
+                    <a class="btn btn--secondary" href="projects/fire-vow.html">웹으로 보기</a>
                     <a class="btn btn--quiet" href="pdf/dark/fire-vow.pdf" data-pdf-variant data-pdf-label="Fire Vow" target="_blank" rel="noopener">PDF로 보기</a>
                   </div>
                 </div>
@@ -477,6 +489,10 @@
 
         <!-- Project-TS -->
         <article class="card card--reactive work-card" data-reveal>
+          <!-- Whole-card link: one hidden anchor covering the card. The visible
+               "웹으로 보기" button below is the accessible, focusable link. -->
+          <a class="card-overlay" href="projects/project-ts.html" tabindex="-1" aria-hidden="true"></a>
+
           <div class="work-card__visual work-card__visual--dense">
             <img src="assets/images/ts-squad-manager.jpeg"
                  alt="Project-TS 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
@@ -497,7 +513,7 @@
                 <div class="work-card__role-head">
                   <span class="work-card__role-label">My Role</span>
                   <div class="btn-row">
-                    <a class="btn btn--secondary card-link" href="projects/project-ts.html">웹으로 보기</a>
+                    <a class="btn btn--secondary" href="projects/project-ts.html">웹으로 보기</a>
                     <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener">PDF로 보기</a>
                   </div>
                 </div>
@@ -657,9 +673,9 @@
   </div>
 </footer>
 
-<script src="assets/js/theme.js?v=3" defer></script>
-<script src="assets/js/main.js?v=3" defer></script>
-<script src="assets/js/motion.js?v=3" defer></script>
-<script src="assets/js/webgl/scene.js?v=3" type="module"></script>
+<script src="assets/js/theme.js?v=4" defer></script>
+<script src="assets/js/main.js?v=4" defer></script>
+<script src="assets/js/motion.js?v=4" defer></script>
+<script src="assets/js/webgl/scene.js?v=4" type="module"></script>
 </body>
 </html>
