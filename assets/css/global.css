@@ -6,12 +6,10 @@
    1. Reset & base
    -------------------------------------------------------------------------- */
 
-/* Cross-document page transitions, declared rather than scripted. Browsers
-   without support simply navigate normally; no JavaScript ever sits between a
-   link and its navigation. */
-@view-transition {
-  navigation: auto;
-}
+/* No @view-transition on purpose. A cross-document transition holds the old
+   page on screen until the next one is ready, which on a page that loads a
+   webfont and a WebGL scene reads as "the click did nothing". Navigation
+   stays instant. */
 
 *,
 *::before,
