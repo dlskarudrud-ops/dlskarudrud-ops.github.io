@@ -1,0 +1,154 @@
+/* ==========================================================================
+   print.css — clean paper output for resume / career / postmortem
+   Strips atmosphere, navigation and glass; keeps typography and structure.
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 15mm;
+  }
+
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --bg-inset: #ffffff;
+    --surface-primary: #ffffff;
+    --surface-raised: #ffffff;
+    --surface-glass: transparent;
+    --surface-tint: transparent;
+    --text-primary: #000000;
+    --text-secondary: #2b2b2b;
+    --text-muted: #5a5a5a;
+    --border-subtle: #cccccc;
+    --border-strong: #999999;
+    --accent: #000000;
+    --accent-line: #999999;
+    --accent-soft: transparent;
+    --shadow-soft: none;
+    --shadow-lifted: none;
+    --nav-h: 0px;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  /* Remove everything that only exists on screen */
+  .nav,
+  .mobile-menu,
+  .skip-link,
+  .hero__atmosphere,
+  .hero__fallback,
+  .page-hero::before,
+  .lightbox,
+  .case-toc,
+  .case-toc-mobile,
+  .theme-toggle,
+  .nav__burger,
+  .print-hide,
+  .btn,
+  .arrow-link {
+    display: none !important;
+  }
+
+  .glass,
+  .card,
+  .pillars,
+  .pipeline__stage,
+  .pm-case,
+  .table-wrap,
+  .media {
+    background: #fff !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    border-color: #ccc !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  /* Surface link targets that carry information */
+  .doc-block__body a[href^="http"]::after,
+  .doc-block__body a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8.5pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .section,
+  .doc,
+  .case,
+  .page-hero {
+    padding-block: 0 !important;
+  }
+
+  .doc {
+    gap: 8mm;
+  }
+
+  .page-hero {
+    padding-top: 0 !important;
+    margin-bottom: 6mm;
+  }
+
+  .shell {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* Page-break discipline */
+  h1,
+  h2,
+  h3,
+  h4,
+  .case-section__title,
+  .doc-block__label,
+  .resume-entry__head {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .doc-block,
+  .resume-entry,
+  .pm-case,
+  .pm-case__row,
+  .timeline__item,
+  .figure,
+  table.spec {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .doc-block {
+    break-before: auto;
+  }
+
+  .footer {
+    border-top: 1px solid #ccc;
+    padding-top: 4mm;
+    margin-top: 6mm;
+  }
+
+  .footer__colophon {
+    display: none;
+  }
+
+  img {
+    max-width: 100% !important;
+    filter: none !important;
+  }
+}

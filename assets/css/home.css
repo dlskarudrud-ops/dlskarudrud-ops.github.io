@@ -1,0 +1,753 @@
+/* ==========================================================================
+   home.css — homepage-only layout
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  min-height: min(100svh, 920px);
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--nav-h) + clamp(2rem, 6vh, 5rem));
+  padding-bottom: clamp(2.5rem, 6vh, 5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* WebGL / fallback atmosphere layer. Deliberately off-centre and cropped. */
+.hero__atmosphere {
+  position: absolute;
+  z-index: var(--z-canvas);
+  top: 4%;
+  right: -18%;
+  width: min(78vw, 1180px);
+  height: 118%;
+  pointer-events: none;
+  /* Focus sits low and right so the hero's contact column stays clean. */
+  -webkit-mask-image: radial-gradient(
+    70% 66% at 58% 62%,
+    #000 0%,
+    rgba(0, 0, 0, 0.9) 34%,
+    rgba(0, 0, 0, 0.42) 62%,
+    transparent 88%
+  );
+  mask-image: radial-gradient(
+    70% 66% at 58% 62%,
+    #000 0%,
+    rgba(0, 0, 0, 0.9) 34%,
+    rgba(0, 0, 0, 0.42) 62%,
+    transparent 88%
+  );
+}
+
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 1100ms var(--ease-out);
+}
+
+.hero__atmosphere[data-ready="true"] .hero__canvas {
+  opacity: 1;
+}
+
+/* CSS-only fallback: layered soft light fields, no blobs, no motion.
+   It is the base state — WebGL fades in on top and dims it, so a failed
+   three.js load simply leaves this in place. */
+.hero__fallback {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1100ms var(--ease-out);
+  background:
+    radial-gradient(
+      54% 48% at 62% 34%,
+      var(--ambient-light) 0%,
+      transparent 68%
+    ),
+    radial-gradient(
+      42% 56% at 84% 62%,
+      color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+      transparent 72%
+    ),
+    linear-gradient(
+      205deg,
+      color-mix(in srgb, var(--text-primary) 5%, transparent) 0%,
+      transparent 58%
+    );
+  filter: blur(6px);
+}
+
+.hero__atmosphere[data-ready="true"] .hero__fallback {
+  opacity: 0.4;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: var(--z-content);
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+/* Identity on the left, direct contact on the right. */
+.hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  gap: clamp(2rem, 1rem + 3.5vw, 4.5rem);
+  align-items: start;
+}
+
+.hero__identity {
+  display: grid;
+  gap: clamp(1.1rem, 0.6rem + 1.4vw, 1.75rem);
+  max-width: 58ch;
+}
+
+.hero__name {
+  font-size: var(--fs-display);
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero__role-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.35rem);
+  margin-top: clamp(-0.6rem, -0.4rem - 0.4vw, -0.2rem);
+}
+
+.hero__name-role {
+  font-size: var(--fs-heading);
+  line-height: 1.16;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.hero__contact {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: clamp(0.5rem, 0.2rem + 1vw, 1.75rem);
+}
+
+@media (max-width: 900px) {
+  .hero__top {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+
+  .hero__contact {
+    padding-top: 0;
+    max-width: 46ch;
+  }
+}
+
+.hero__summary {
+  font-size: var(--fs-body-lg);
+  line-height: 1.72;
+  color: var(--text-secondary);
+  max-width: 46ch;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+
+.hero__summary b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Compact masthead rail at the foot of the hero */
+.hero__rail {
+  position: relative;
+  z-index: var(--z-content);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 0.4rem + 2vw, 3rem);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-subtle);
+  max-width: 900px;
+}
+
+.hero__rail dt {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.hero__rail dd {
+  font-size: var(--fs-micro);
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: auto;
+    padding-bottom: var(--space-8);
+  }
+
+  .hero__rail {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Large optical effects become much quieter on phones. */
+  .hero__atmosphere {
+    top: -4%;
+    right: -34%;
+    width: 128vw;
+    height: 74%;
+    opacity: 0.6;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Profile / professional summary
+   -------------------------------------------------------------------------- */
+
+.profile {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.profile__body {
+  display: grid;
+  gap: var(--space-5);
+  max-width: var(--measure-narrow);
+}
+
+.profile__body p {
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.profile__body p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.profile__aside {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Scope figures — real counts drawn from the source documents, kept compact */
+.scope {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.scope > div {
+  padding: var(--space-4) var(--space-4) calc(var(--space-4) + 0.15rem);
+}
+
+.scope dt {
+  font-size: var(--fs-heading);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.scope dd {
+  margin-top: 0.35rem;
+  font-size: var(--fs-eyebrow);
+  color: var(--text-muted);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 860px) {
+  .profile {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Selected work
+   -------------------------------------------------------------------------- */
+
+.work {
+  display: grid;
+  gap: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+}
+
+.work-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 340px;
+}
+
+.work-card:nth-child(even) .work-card__visual {
+  order: 2;
+}
+
+.work-card__visual {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-inset);
+  min-height: 260px;
+}
+
+.work-card__visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform var(--dur-slow) var(--ease-out),
+    filter var(--dur-slow) var(--ease-out);
+}
+
+/* Screenshots of dense interfaces read as texture here, not as readable UI.
+   Muting them keeps the card's typography dominant; the case-study page shows
+   the same image full size in the lightbox. */
+.work-card__visual--dense img {
+  filter: saturate(0.55) contrast(0.9);
+  opacity: 0.62;
+}
+
+.work-card:hover .work-card__visual--dense img {
+  opacity: 0.7;
+}
+
+.work-card:hover .work-card__visual img {
+  transform: scale(1.055);
+}
+
+.work-card__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 52%,
+    color-mix(in srgb, var(--surface-primary) 62%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.work-card:nth-child(even) .work-card__visual::after {
+  background: linear-gradient(
+    260deg,
+    transparent 52%,
+    color-mix(in srgb, var(--surface-primary) 62%, transparent) 100%
+  );
+}
+
+.work-card__body {
+  /* Deliberately NOT positioned: a positioned ancestor here would trap the
+     card's stretched link inside this half of the card. Grid items honour
+     z-index without it. */
+  z-index: 3;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-5);
+}
+
+.work-card__head {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.work-card__title {
+  font-size: var(--fs-heading);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.work-card__context {
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  max-width: 42ch;
+  text-wrap: pretty;
+}
+
+.work-card__role {
+  display: grid;
+  gap: 0.55rem;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Label on the left, the document actions on the same line to the right. */
+.work-card__role-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+}
+
+.work-card__role-head .btn {
+  padding: 0.42rem 0.85rem;
+}
+
+.work-card__role-label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.work-card__role-value {
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.work-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+@media (max-width: 860px) {
+  .work-card,
+  .work-card:nth-child(even) .work-card__visual {
+    grid-template-columns: minmax(0, 1fr);
+    order: 0;
+  }
+
+  .work-card__visual {
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+
+  .work-card__visual img {
+    transform: none;
+  }
+
+  .work-card__visual::after,
+  .work-card:nth-child(even) .work-card__visual::after {
+    background: linear-gradient(
+      to bottom,
+      transparent 55%,
+      color-mix(in srgb, var(--surface-primary) 70%, transparent) 100%
+    );
+  }
+}
+
+/* Secondary work entries (documents that are also portfolio artefacts) */
+.work-minor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  gap: clamp(1rem, 0.5rem + 1.4vw, 1.5rem);
+  /* Sits above the featured cards; matches the .work grid's own gap. */
+  margin-bottom: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+}
+
+.work-minor__item {
+  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+/* Title on the left, the document actions on the same line to the right. */
+.work-minor__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+  margin-top: 0.15rem;
+}
+
+.work-minor__head .btn {
+  padding: 0.42rem 0.85rem;
+}
+
+.work-minor__item p {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  line-height: 1.62;
+}
+
+/* --------------------------------------------------------------------------
+   4. Experience
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  display: grid;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: minmax(8.5rem, 11rem) minmax(0, 1fr);
+  gap: clamp(1rem, 0.4rem + 2vw, 3rem);
+  padding-block: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.timeline__period {
+  font-size: var(--fs-tag);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-top: 0.35rem;
+}
+
+.timeline__period span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 0.35rem;
+}
+
+.timeline__main {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.timeline__title {
+  font-size: var(--fs-h3);
+  font-weight: 650;
+  letter-spacing: -0.018em;
+}
+
+.timeline__role {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.timeline__role b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.timeline__item .facts {
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 700px) {
+  .timeline__item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .timeline__period {
+    padding-top: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .timeline__period span {
+    margin-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Skills
+   -------------------------------------------------------------------------- */
+
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1.75rem, 1rem + 2.4vw, 3.25rem);
+}
+
+.skills__group {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.skills__title {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.skills__list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.skills__list li {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.skills__list li b {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+
+.skills__list li span {
+  display: block;
+  font-size: var(--fs-micro);
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   6. Documents
+   -------------------------------------------------------------------------- */
+
+.docs {
+  display: grid;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.docs__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  align-items: center;
+  padding-block: clamp(1.1rem, 0.8rem + 1vw, 1.6rem);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.docs__row:hover {
+  background: var(--surface-tint);
+}
+
+.docs__info {
+  display: grid;
+  gap: 0.3rem;
+  padding-inline: 0.35rem;
+}
+
+.docs__title {
+  font-size: var(--fs-h4);
+  font-weight: 650;
+  letter-spacing: -0.014em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.docs__title .tag {
+  font-weight: 550;
+}
+
+.docs__desc {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 56ch;
+}
+
+.docs__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding-inline: 0.35rem;
+}
+
+.docs__actions .btn {
+  padding: 0.5rem 0.9rem;
+  font-size: var(--fs-micro);
+}
+
+@media (max-width: 620px) {
+  .docs__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   7. Contact
+   -------------------------------------------------------------------------- */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.contact__statement {
+  font-size: var(--fs-heading);
+  line-height: 1.34;
+  letter-spacing: -0.024em;
+  font-weight: 650;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.contact__list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contact__list a,
+.contact__list div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 7rem) minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: 0.95rem;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.contact__list a:hover {
+  color: var(--accent);
+}
+
+.contact__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.contact__value {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+@media (max-width: 860px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+}

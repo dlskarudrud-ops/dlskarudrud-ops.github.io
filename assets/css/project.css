@@ -1,0 +1,887 @@
+/* ==========================================================================
+   project.css — case-study and document page layout
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Page hero
+   -------------------------------------------------------------------------- */
+
+.page-hero {
+  position: relative;
+  padding-top: calc(var(--nav-h) + clamp(3rem, 7vh, 6rem));
+  padding-bottom: clamp(2.5rem, 4vw, 4.5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.page-hero::before {
+  content: "";
+  position: absolute;
+  inset: -30% -10% auto -10%;
+  height: 150%;
+  z-index: -1;
+  background: radial-gradient(
+      46% 62% at 78% 12%,
+      var(--ambient-light) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--text-primary) 4%, transparent) 0%,
+      transparent 46%
+    );
+  pointer-events: none;
+}
+
+.page-hero__crumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+}
+
+.page-hero__crumb a:hover {
+  color: var(--accent);
+}
+
+.page-hero__crumb span {
+  opacity: 0.5;
+}
+
+.page-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: end;
+}
+
+.page-hero__title {
+  font-size: var(--fs-title);
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  font-weight: 700;
+  margin-top: 0.55rem;
+}
+
+.page-hero__sub {
+  margin-top: clamp(0.75rem, 0.4rem + 1vw, 1.15rem);
+  font-size: var(--fs-sub);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  color: var(--text-secondary);
+}
+
+.page-hero__lede {
+  margin-top: clamp(1rem, 0.6rem + 1.2vw, 1.5rem);
+  font-size: var(--fs-sub);
+  line-height: 1.68;
+  color: var(--text-secondary);
+  max-width: 46ch;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+
+/* Key figures beside the title. The hairline grid rules live in global.css. */
+.page-hero__figures {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.page-hero__figures > div {
+  padding: var(--space-4);
+}
+
+.page-hero__figures dt {
+  font-size: var(--fs-heading);
+  font-weight: 650;
+  letter-spacing: -0.032em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.08;
+  color: var(--accent);
+}
+
+.page-hero__figures dd {
+  margin-top: 0.35rem;
+  font-size: var(--fs-eyebrow);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .page-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+/* Same figure treatment, reusable inside case sections */
+.stat-row {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 166px), 1fr));
+}
+
+.stat-row > div {
+  padding: var(--space-4);
+}
+
+.stat-row dt {
+  font-size: var(--fs-heading);
+  font-weight: 650;
+  letter-spacing: -0.032em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.08;
+  color: var(--accent);
+}
+
+.stat-row dd {
+  margin-top: 0.35rem;
+  font-size: var(--fs-eyebrow);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* Full-bleed key visual under the hero */
+.page-hero__visual {
+  margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-inset);
+  aspect-ratio: 16 / 7;
+}
+
+.page-hero__visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 720px) {
+  .page-hero__visual {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* Fact strip: role / period / team / engine */
+.fact-strip {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 206px), 1fr));
+  border-radius: 0;
+  border-inline: 0;
+  margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+}
+
+.fact-strip > div {
+  padding: var(--space-4) var(--space-4) var(--space-5);
+}
+
+.fact-strip dt {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.fact-strip dd {
+  font-size: var(--fs-small);
+  font-weight: 550;
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   2. Case layout — sticky TOC + article column
+   -------------------------------------------------------------------------- */
+
+.case {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: start;
+  padding-block: var(--section-gap);
+}
+
+.case-toc {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  display: grid;
+  gap: 0.1rem;
+  max-height: calc(100vh - var(--nav-h) - 4rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.case-toc__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.case-toc a {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.35rem;
+  padding: 0.42rem 0;
+  font-size: var(--fs-micro);
+  line-height: 1.4;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.case-toc a span {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  opacity: 0.7;
+  padding-top: 0.05em;
+}
+
+.case-toc a:hover {
+  color: var(--text-primary);
+}
+
+.case-toc a[aria-current="true"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.case-toc a[aria-current="true"] span {
+  opacity: 1;
+}
+
+.case-body {
+  display: grid;
+  gap: clamp(3rem, 2rem + 3.5vw, 5.5rem);
+  min-width: 0;
+}
+
+/* Mobile: collapsible TOC pinned under the nav */
+.case-toc-mobile {
+  display: none;
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 40;
+  margin-inline: calc(var(--shell-pad) * -1);
+  padding: 0.6rem var(--shell-pad);
+  background: var(--surface-glass);
+  border-bottom: 1px solid var(--border-subtle);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  backdrop-filter: blur(16px) saturate(150%);
+}
+
+.case-toc-mobile summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  padding-block: 0.35rem;
+}
+
+.case-toc-mobile summary::-webkit-details-marker {
+  display: none;
+}
+
+.case-toc-mobile summary::after {
+  content: "";
+  width: 0.8em;
+  height: 0.8em;
+  background: currentColor;
+  -webkit-mask: var(--icon-chevron) center / contain no-repeat;
+  mask: var(--icon-chevron) center / contain no-repeat;
+  transition: transform var(--dur-base) var(--ease-out);
+  opacity: 0.6;
+}
+
+.case-toc-mobile[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.case-toc-mobile ol {
+  display: grid;
+  gap: 0.1rem;
+  padding-block: var(--space-3) var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 0.5rem;
+}
+
+.case-toc-mobile a {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+}
+
+.case-toc-mobile a[aria-current="true"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+:root {
+  --icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 1000px) {
+  .case {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case-toc {
+    display: none;
+  }
+
+  .case-toc-mobile {
+    display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Case sections
+   -------------------------------------------------------------------------- */
+
+.case-section {
+  display: grid;
+  gap: clamp(1.25rem, 0.8rem + 1.4vw, 2rem);
+  scroll-margin-top: calc(var(--nav-h) + 4rem);
+}
+
+.case-section__head {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--measure);
+}
+
+.case-section__title {
+  font-size: var(--fs-heading);
+  line-height: 1.26;
+  letter-spacing: -0.026em;
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+.case-section__lede {
+  color: var(--text-secondary);
+  font-size: var(--fs-body);
+  line-height: 1.72;
+  max-width: var(--measure-narrow);
+  text-wrap: pretty;
+}
+
+.case-prose {
+  display: grid;
+  gap: var(--space-4);
+  max-width: var(--measure-narrow);
+  color: var(--text-secondary);
+}
+
+.case-prose p {
+  line-height: 1.78;
+  text-wrap: pretty;
+}
+
+.case-prose strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. Numbered pillar / concept grid
+   -------------------------------------------------------------------------- */
+
+.pillars {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr));
+}
+
+.pillars > * {
+  padding: clamp(1.25rem, 1rem + 1vw, 1.85rem);
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+}
+
+/* This slot carries Korean words as often as it carries numerals, so it stays
+   in the sans stack — monospaced Hangul renders badly. */
+.pillars__num {
+  font-family: var(--font-sans);
+  font-size: var(--fs-tag);
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.pillars__title {
+  font-size: var(--fs-sub);
+  font-weight: 650;
+  letter-spacing: -0.016em;
+  line-height: 1.4;
+}
+
+.pillars__text {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   5. Process flow — horizontal on wide screens, vertical on narrow
+   -------------------------------------------------------------------------- */
+
+.flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr));
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
+  counter-reset: flow;
+}
+
+.flow__step {
+  position: relative;
+  padding: var(--space-4) var(--space-4) var(--space-5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-sm);
+  background: var(--surface-tint);
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+}
+
+.flow__step::before {
+  counter-increment: flow;
+  content: "0" counter(flow);
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.flow__title {
+  font-size: var(--fs-small);
+  font-weight: 650;
+  letter-spacing: -0.012em;
+}
+
+.flow__text {
+  font-size: var(--fs-eyebrow);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   6. Pipeline (authoring → import → runtime)
+   -------------------------------------------------------------------------- */
+
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 252px), 1fr));
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
+  align-items: stretch;
+}
+
+.pipeline__stage {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  background: var(--surface-primary);
+}
+
+.section--inset .pipeline__stage {
+  background: var(--bg-primary);
+}
+
+.pipeline__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.pipeline__name {
+  font-size: var(--fs-sub);
+  font-weight: 650;
+  letter-spacing: -0.016em;
+}
+
+.pipeline__desc {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+  line-height: 1.62;
+}
+
+/* --------------------------------------------------------------------------
+   7. Spec table
+   -------------------------------------------------------------------------- */
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  -webkit-overflow-scrolling: touch;
+}
+
+table.spec {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-micro);
+  min-width: 540px;
+}
+
+table.spec caption {
+  text-align: left;
+  padding: var(--space-4) var(--space-4) 0;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+table.spec th,
+table.spec td {
+  text-align: left;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+table.spec thead th {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: var(--surface-tint);
+  white-space: nowrap;
+}
+
+table.spec tbody th {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+table.spec tbody th code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--accent);
+}
+
+table.spec td {
+  color: var(--text-secondary);
+}
+
+table.spec tbody tr:last-child th,
+table.spec tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+table.spec .numeral {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   8. Callout
+   -------------------------------------------------------------------------- */
+
+.callout {
+  border-left: 2px solid var(--accent-line);
+  padding: 0.35rem 0 0.35rem 1.15rem;
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: var(--measure-narrow);
+  text-wrap: pretty;
+}
+
+.callout strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.pullquote {
+  font-size: var(--fs-heading);
+  line-height: 1.44;
+  letter-spacing: -0.024em;
+  font-weight: 600;
+  max-width: 26ch;
+  text-wrap: balance;
+}
+
+.pullquote--muted {
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Galleries
+   -------------------------------------------------------------------------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 265px), 1fr));
+  gap: clamp(0.85rem, 0.5rem + 1vw, 1.35rem);
+}
+
+.gallery--wide {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+}
+
+.gallery .figure__caption strong {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  margin-bottom: 0.15rem;
+}
+
+.gallery .media--portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.gallery .media--portrait img {
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   10. Two-column split inside a case section
+   -------------------------------------------------------------------------- */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  align-items: start;
+}
+
+/* Two-column splits should not collapse to a single wide column early. */
+.split--pair {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 325px), 1fr));
+}
+
+.split__col {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.split__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   11. Case footer — original document + next project
+   -------------------------------------------------------------------------- */
+
+.case-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.case-footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.case-footer__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.case-footer__title {
+  font-size: var(--fs-sub);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------------------------------------
+   12. Document pages (resume / career / postmortem)
+   -------------------------------------------------------------------------- */
+
+.doc {
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.5rem) var(--section-gap);
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
+.doc-block {
+  display: grid;
+  grid-template-columns: minmax(9.5rem, 13rem) minmax(0, 1fr);
+  gap: clamp(1rem, 0.4rem + 2vw, 3rem);
+  padding-top: clamp(1.5rem, 1rem + 1.4vw, 2.25rem);
+  border-top: 1px solid var(--border-subtle);
+  scroll-margin-top: calc(var(--nav-h) + 3rem);
+}
+
+.doc-block__label {
+  display: grid;
+  gap: 0.3rem;
+  align-content: start;
+}
+
+.doc-block__label h2 {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.doc-block__label p {
+  font-size: var(--fs-eyebrow);
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.doc-block__body {
+  display: grid;
+  gap: clamp(1.25rem, 0.8rem + 1.4vw, 2rem);
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .doc-block {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+/* Postmortem: six-field case record */
+.pm-case {
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.pm-case__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  padding: clamp(1rem, 0.85rem + 0.6vw, 1.4rem) clamp(1rem, 0.85rem + 0.8vw, 1.6rem);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pm-case__row:last-child {
+  border-bottom: 0;
+}
+
+.pm-case__row:nth-child(odd) {
+  background: var(--surface-tint);
+}
+
+.pm-case__key {
+  display: grid;
+  gap: 0.2rem;
+  align-content: start;
+}
+
+.pm-case__key b {
+  font-size: var(--fs-small);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.pm-case__key span {
+  font-size: var(--fs-eyebrow);
+  color: var(--text-muted);
+}
+
+.pm-case__val {
+  font-size: var(--fs-small);
+  line-height: 1.72;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.pm-case__val strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .pm-case__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .pm-case__key {
+    grid-auto-flow: column;
+    justify-content: start;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+}
+
+/* Resume-specific compact entry */
+.resume-entry {
+  display: grid;
+  gap: 0.6rem;
+  padding-bottom: var(--space-5);
+}
+
+.resume-entry:last-child {
+  padding-bottom: 0;
+}
+
+.resume-entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.85rem;
+}
+
+.resume-entry__title {
+  font-size: var(--fs-sub);
+  font-weight: 650;
+  letter-spacing: -0.016em;
+}
+
+.resume-entry__meta {
+  font-size: var(--fs-tag);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.resume-entry__role {
+  font-size: var(--fs-micro);
+  color: var(--text-secondary);
+}
+
+.resume-entry__role b {
+  color: var(--text-primary);
+  font-weight: 600;
+}

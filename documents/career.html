@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>경력 기술서 — 이남경 · System &amp; Combat Designer</title>
+<meta name="description" content="이남경 경력 기술서. 아이러브마트 · 용사 여관 라이브 서비스, Taimanin Squad 시스템 / 전투 메인 기획, 공동 개발 인수, FireVow: DarkFantasy 1인 개발의 담당 범위.">
+<meta name="color-scheme" content="dark light">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="경력 기술서 — 이남경">
+<meta property="og:description" content="라이브 서비스, 수집형 RPG, 카드 기반 생존 게임에서 전투 규칙 · 데이터 구조 · 제작 흐름을 설계했습니다.">
+<meta property="og:image" content="../assets/images/firevow-cover.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+<link rel="stylesheet" href="../assets/css/print.css" media="print">
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        theme = saved;
+      } else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        theme = "light";
+      }
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">
+      이남경
+      <span class="nav__brand-role">System &amp; Combat Design</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#work">프로젝트</a>
+      <a class="nav__link" href="../resume.html">이력서</a>
+      <a class="nav__link" href="postmortem.html">포스트모템</a>
+      <a class="nav__link" href="../index.html#documents">문서</a>
+      <a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/>
+        </svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="10" cy="10" r="3.6"/>
+          <path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/>
+        </svg>
+      </button>
+
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#work">프로젝트</a>
+  <a href="../resume.html">이력서</a>
+  <a href="postmortem.html">포스트모템</a>
+  <a href="../index.html#documents">문서</a>
+  <a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="shell shell--narrow">
+      <p class="page-hero__crumb print-hide">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="../index.html#documents">Documents</a>
+        <span>/</span>
+        경력 기술서
+      </p>
+
+      <span class="eyebrow">System &amp; Combat Designer</span>
+      <h1 class="page-hero__title">경력 기술서</h1>
+      <p class="page-hero__sub">이남경 · 시스템 / 전투 기획</p>
+      <p class="page-hero__lede">
+        라이브 서비스, 수집형 RPG, 카드 기반 생존 게임에서 전투 규칙 · 데이터 구조 ·
+        제작 흐름을 설계했습니다.
+      </p>
+
+      <div class="btn-row print-hide" style="margin-top: var(--space-5);">
+        <a class="btn btn--primary" href="../pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
+      </div>
+
+      <dl class="fact-strip">
+        <div>
+          <dt>2022.06 — 2022.12</dt>
+          <dd>아이러브마트 · 용사 여관<br>라이브 서비스 기획</dd>
+        </div>
+        <div>
+          <dt>2023.05 — 2025.12</dt>
+          <dd>Taimanin Squad<br>시스템 / 전투 메인 기획</dd>
+        </div>
+        <div>
+          <dt>2026.01 — 2026.05</dt>
+          <dd>Survival Game (가제)<br>공동 2인 개발 · 단독 인수</dd>
+        </div>
+        <div>
+          <dt>2026.06 — 현재</dt>
+          <dd>FireVow: DarkFantasy<br>1인 단독 개발</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="shell shell--narrow">
+    <div class="doc">
+
+      <!-- 01 LIVE SERVICE -->
+      <section class="doc-block" id="live">
+        <div class="doc-block__label">
+          <h2>01 · 라이브 서비스</h2>
+          <p>2022.06 — 2022.12<br>아이러브마트 · 용사 여관</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">라이브 서비스 기획 · 한국 · 일본 서비스 대응과 유럽 퍼블리셔 협업</h3>
+
+          <div class="split split--pair">
+            <div class="split__col">
+              <h4 class="split__label">라이브 서비스 대응</h4>
+              <ul class="facts">
+                <li>한국 라이브 이슈 대응과 웹이벤트 · 추가 콘텐츠 · BM 기획</li>
+                <li>운영 일정과 콘텐츠 목적을 맞춰 유저 경험과 사업 요구를 함께 조율</li>
+                <li>라이브 환경에서 필요한 데이터 확인과 배포 단위를 정리</li>
+              </ul>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">다국어 · 협업</h4>
+              <ul class="facts">
+                <li>일본 라이브 서비스 대응과 한국 런칭 콘텐츠 이식</li>
+                <li>유럽 퍼블리셔와 일정 · 요건 · 콘텐츠 범위를 조율</li>
+                <li>지역별 서비스 조건을 한 제작 흐름 안에서 관리</li>
+              </ul>
+            </div>
+          </div>
+
+          <blockquote class="callout">
+            라이브 운영 경험을 이후 <strong>데이터 규칙과 제작 흐름 설계의 기준</strong>으로
+            확장했습니다.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- 02 TAIMANIN SQUAD -->
+      <section class="doc-block" id="taimanin">
+        <div class="doc-block__label">
+          <h2>02 · 시스템 / 전투</h2>
+          <p>2023.05 — 2025.12<br>Taimanin Squad</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">약 40명+ 규모 모바일 수집형 RPG · 시스템 / 전투 메인 기획</h3>
+          <p class="case-prose">
+            데이터 적용은 <strong>Pre-OBT까지</strong> 수행했으며 정식 출시는
+            2026.03입니다. 2.5년 동안 시스템
+            기획을 담당하고, <strong>전체 데이터 테이블의 50% 이상</strong>을
+            작성했습니다.
+          </p>
+
+          <dl class="stat-row">
+            <div>
+              <dt class="numeral">300+</dt>
+              <dd>캐릭터 설계 범위</dd>
+            </div>
+            <div>
+              <dt class="numeral">20+</dt>
+              <dd>보스 설계 범위</dd>
+            </div>
+            <div>
+              <dt class="numeral">41종</dt>
+              <dd>턴제 상태이상</dd>
+            </div>
+            <div>
+              <dt class="numeral">10+</dt>
+              <dd>성장 · 콘텐츠 시스템</dd>
+            </div>
+          </dl>
+
+          <div class="split split--pair">
+            <div class="split__col">
+              <h4 class="split__label">전투 시스템</h4>
+              <ul class="facts">
+                <li>발동 시점 22종 · 대상 25종 · 조건 40+종 · 기능 50+종의 통합 전투 효과 시스템</li>
+                <li>41종 상태이상: 버프 17 / 디버프 24, 중첩 · 갱신 · 시전자 종속 규칙</li>
+              </ul>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">성장 · 제작 흐름</h4>
+              <ul class="facts">
+                <li>인연 · 고유 무기 · 속성 연구 · 로그라이트 · 타워 등 성장 · 콘텐츠 10개+</li>
+                <li>Unity 리소스 네임 규칙, 제작 툴, 외주 규격과 검수 기준, 파트별 제작 문서 정리</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="callout print-hide">
+            상세 시스템 · 전투 사례는
+            <a class="link" href="../projects/project-ts.html">Project-TS 시스템 &amp; 전투 설계</a>에서
+            확인할 수 있습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 03 HANDOVER -->
+      <section class="doc-block" id="handover">
+        <div class="doc-block__label">
+          <h2>03 · 인수와 전환</h2>
+          <p>2026.01 — 2026.05<br>Survival Game (가제)</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">공동 2인 개발로 시작한 신작을 단독 인수해 정리</h3>
+          <p class="case-prose">
+            2인 체제로 착수한 신작의 기획 · 데이터 구조와 진행 상태를 단독으로
+            정리했습니다. 정리 과정에서 남은 기획 의도를 카드 기반 생존 게임의
+            시스템 · 콘텐츠 방향으로 재구성했고, 이후 1인 개발작
+            《FireVow: DarkFantasy》로 발전시켰습니다.
+          </p>
+
+          <div class="flow">
+            <div class="flow__step">
+              <h4 class="flow__title">인수</h4>
+              <p class="flow__text">진행 중인 구조와 데이터의 상태를 확인</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">정리</h4>
+              <p class="flow__text">단독 개발이 가능한 범위로 기획을 재배치</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">전환</h4>
+              <p class="flow__text">FireVow의 시스템 · 서사 방향으로 발전</p>
+            </div>
+          </div>
+
+          <p class="callout print-hide">
+            이 시기의 판단과 한계는
+            <a class="link" href="postmortem.html#case-03">포스트모템 CASE 03</a>에
+            정리했습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 04 FIRE VOW -->
+      <section class="doc-block" id="firevow">
+        <div class="doc-block__label">
+          <h2>04 · 1인 개발</h2>
+          <p>2026.06 — 현재<br>FireVow: DarkFantasy</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">카드 기반 다크 판타지 생존 게임 · 1인 단독 개발</h3>
+          <p class="case-prose">
+            기획과 데이터 설계를 중심으로 카드 · 맵 · 제작 · 전투 · 엔딩이 같은 정본을
+            사용하도록 구성했습니다. <strong>클라이언트 개발, 아트워크, 사운드는 AI를
+            활용</strong>했습니다.
+          </p>
+
+          <div class="split">
+            <div class="split__col">
+              <h4 class="split__label">13개 데이터 테이블</h4>
+              <p class="case-prose">카드 · 맵 · 드랍 · 레시피 · 전투 · 엔딩을 같은 참조 구조로 관리합니다.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">생존과 전투</h4>
+              <p class="case-prose">부위별 상처 · 붕대, 노드 그래프 텍스트 전투, 인격 스탯 기반 엔딩 분기.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">출품과 언어</h4>
+              <p class="case-prose">한 · 영 · 중 · 일 · 독 5개 언어로 Stove · Steam 데모 출품, 정식 출시 대기.</p>
+            </div>
+          </div>
+
+          <blockquote class="callout">
+            데이터 참조와 플레이 흐름을 검증하며 다국어 데모 출품과 정식 출시 준비를
+            병행합니다. <strong>정식 출시까지의 개발은 완료된 상태</strong>입니다.
+          </blockquote>
+
+          <p class="callout print-hide">
+            상세 설계는
+            <a class="link" href="../projects/fire-vow.html">FireVow: DarkFantasy 상세 페이지</a>에서
+            확인할 수 있습니다.
+          </p>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="doc-block" id="contact">
+        <div class="doc-block__label">
+          <h2>Contact</h2>
+        </div>
+        <div class="doc-block__body">
+          <dl class="deflist">
+            <div>
+              <dt>Email</dt>
+              <dd><a class="link" href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a></dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd><a class="link" href="tel:+821063897045">010-6389-7045</a></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell shell--narrow">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__name">이남경</div>
+        <div class="footer__role">System &amp; Combat Designer</div>
+      </div>
+      <div class="footer__links">
+        <a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a>
+        <a href="tel:+821063897045">010-6389-7045</a>
+        <a href="../index.html">포트폴리오 홈</a>
+      </div>
+    </div>
+    <div class="footer__colophon">
+      <span>© <span data-year>2026</span> 이남경. All rights reserved.</span>
+      <span>Built with HTML · CSS · JavaScript · WebGL</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/theme.js" defer></script>
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/motion.js" defer></script>
+</body>
+</html>

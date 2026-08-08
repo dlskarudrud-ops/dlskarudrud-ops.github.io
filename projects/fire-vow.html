@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FireVow: DarkFantasy · 1인 개발 상세 — 이남경</title>
+<meta name="description" content="카드 기반 다크 판타지 생존 게임 FireVow: DarkFantasy. 13개 데이터 테이블 구조, 부위별 상처 시스템, 노드 그래프 텍스트 전투, 인격 스탯 기반 엔딩 분기 설계.">
+<meta name="color-scheme" content="dark light">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="FireVow: DarkFantasy · 1인 개발 상세">
+<meta property="og:description" content="15일의 한 런에서 무엇을 얻었는가보다 어떻게 살아남았는가를 기록하는 게임. 기획 · 시스템 · 데이터 설계 전 과정 1인 담당.">
+<meta property="og:image" content="../assets/images/firevow-cover.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+<link rel="stylesheet" href="../assets/css/print.css" media="print">
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        theme = saved;
+      } else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        theme = "light";
+      }
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">
+      이남경
+      <span class="nav__brand-role">System &amp; Combat Design</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#work">프로젝트</a>
+      <a class="nav__link" href="../index.html#experience">경력</a>
+      <a class="nav__link" href="../index.html#skills">역량</a>
+      <a class="nav__link" href="../index.html#documents">문서</a>
+      <a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/>
+        </svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="10" cy="10" r="3.6"/>
+          <path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/>
+        </svg>
+      </button>
+
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#work">프로젝트</a>
+  <a href="../index.html#experience">경력</a>
+  <a href="../index.html#skills">역량</a>
+  <a href="../index.html#documents">문서</a>
+  <a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+
+  <!-- ================================================================
+       PROJECT HERO
+       ================================================================ -->
+  <section class="page-hero">
+    <div class="shell">
+      <p class="page-hero__crumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="../index.html#work">Selected Work</a>
+        <span>/</span>
+        Fire Vow
+      </p>
+
+      <div class="page-hero__grid">
+        <div>
+          <span class="eyebrow">Solo Development Portfolio</span>
+          <h1 class="page-hero__title">FireVow:<br>DarkFantasy</h1>
+          <p class="page-hero__sub">카드 기반 다크 판타지 생존</p>
+          <p class="page-hero__lede">
+            15일의 한 런에서 무엇을 얻었는가보다 <strong>어떻게 살아남았는가</strong>를
+            기록하는 게임. 저주받은 변경에서 카드로 탐험하고 제작하며 밤 · 공포 ·
+            허기 · 상처를 버텨 마왕성에 닿습니다.
+          </p>
+        </div>
+
+        <dl class="page-hero__figures">
+          <div>
+            <dt class="numeral">15일</dt>
+            <dd>약 2주의 한 런</dd>
+          </div>
+          <div>
+            <dt class="numeral">3개</dt>
+            <dd>왕 · 용사 · 성녀 서사 루트</dd>
+          </div>
+          <div>
+            <dt class="numeral">13개</dt>
+            <dd>게임을 굴리는 데이터 테이블</dd>
+          </div>
+          <div>
+            <dt class="numeral">5개</dt>
+            <dd>한 · 영 · 중 · 일 · 독</dd>
+          </div>
+        </dl>
+      </div>
+
+      <figure class="page-hero__visual">
+        <img src="../assets/images/firevow-cover.jpeg"
+             alt="FireVow: DarkFantasy 키 비주얼 — 어둠에 잠긴 석조 계단과 문"
+             width="1280" height="720" fetchpriority="high" decoding="async">
+      </figure>
+
+      <dl class="fact-strip">
+        <div>
+          <dt>Role</dt>
+          <dd>1인 단독 개발<br>기획 · 시스템 · 데이터 · 밸런스 · 시나리오 · UI 흐름</dd>
+        </div>
+        <div>
+          <dt>Period</dt>
+          <dd>2026.06 — 현재<br>정식 출시까지의 개발 완료</dd>
+        </div>
+        <div>
+          <dt>Team</dt>
+          <dd>1명<br>아트 · 사운드는 AI 활용 후 직접 디렉션</dd>
+        </div>
+        <div>
+          <dt>Engine</dt>
+          <dd>Unity 6.5<br>ScriptableObject 파이프라인</dd>
+        </div>
+        <div>
+          <dt>Release</dt>
+          <dd>Stove · Steam 데모 출품<br>정식 출시 대기</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CASE STUDY
+       ================================================================ -->
+  <div class="shell">
+    <details class="case-toc-mobile">
+      <summary>목차</summary>
+      <ol data-spy>
+        <li><a href="#overview">개요</a></li>
+        <li><a href="#loop">핵심 생존 루프</a></li>
+        <li><a href="#pillars">설계 기둥</a></li>
+        <li><a href="#data">데이터 구조</a></li>
+        <li><a href="#wounds">부위 · 상처</a></li>
+        <li><a href="#combat">조우와 텍스트 전투</a></li>
+        <li><a href="#persona">인격 스탯</a></li>
+        <li><a href="#endings">엔딩 설계</a></li>
+        <li><a href="#balance">밸런스와 난이도</a></li>
+        <li><a href="#world">세계와 세 주인공</a></li>
+        <li><a href="#production">아트 · 사운드 디렉션</a></li>
+      </ol>
+    </details>
+
+    <div class="case">
+      <nav class="case-toc" aria-label="문서 목차" data-spy>
+        <p class="case-toc__label">Contents</p>
+        <a href="#overview"><span>01</span>개요</a>
+        <a href="#loop"><span>02</span>핵심 생존 루프</a>
+        <a href="#pillars"><span>03</span>설계 기둥</a>
+        <a href="#data"><span>04</span>데이터 구조</a>
+        <a href="#wounds"><span>05</span>부위 · 상처</a>
+        <a href="#combat"><span>06</span>조우와 텍스트 전투</a>
+        <a href="#persona"><span>07</span>인격 스탯</a>
+        <a href="#endings"><span>08</span>엔딩 설계</a>
+        <a href="#balance"><span>09</span>밸런스와 난이도</a>
+        <a href="#world"><span>10</span>세계와 세 주인공</a>
+        <a href="#production"><span>11</span>아트 · 사운드</a>
+      </nav>
+
+      <article class="case-body">
+
+        <!-- 01 OVERVIEW -->
+        <section class="case-section" id="overview" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">01 · Overview</span>
+            <h2 class="case-section__title">단순 생존이 아니라, 생존의 방식이 남는 게임</h2>
+            <p class="case-section__lede">
+              목표는 살아남는 것 자체가 아닙니다. 반복된 선택이 인격 스탯으로 누적되고,
+              그 누적이 마지막에 엔딩 자격으로 되돌아오는 구조를 만드는 것이었습니다.
+            </p>
+          </header>
+
+          <div class="case-prose">
+            <p>
+              2026년 1월 2인 체제로 착수한 신작을 5월에 단독으로 인수해 기획 · 데이터
+              구조를 정리했고, 남은 기획 의도를 카드 기반 생존 게임의 방향으로 재구성해
+              <strong>FireVow: DarkFantasy</strong>로 발전시켰습니다.
+            </p>
+            <p>
+              기획 · 시스템 · 데이터 · 밸런스 · 시나리오 · UI 흐름은 직접 설계했고,
+              클라이언트 구현 · 아트워크 · 사운드는 AI를 활용하되 게임의 방향에 맞게
+              <strong>선별하고 디렉션</strong>했습니다. 담당하지 않은 영역은 이 문서에서도
+              그렇게 표기합니다.
+            </p>
+          </div>
+
+          <blockquote class="callout">
+            <strong>최종 질문은 마왕 토벌이 아닙니다.</strong> “빈 왕좌를 비워둘 수 있는가”를
+            끝에 두고, 거절의 자격을 끝까지 살아온 선택에 연결했습니다.
+          </blockquote>
+        </section>
+
+        <!-- 02 CORE LOOP -->
+        <section class="case-section" id="loop" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">02 · Core Loop</span>
+            <h2 class="case-section__title">핵심 생존 루프</h2>
+            <p class="case-section__lede">
+              안전한 행동을 고르는 게임이 아니라, 시간과 위험을 읽고 다음 결정을
+              감당하는 게임으로 설계했습니다.
+            </p>
+          </header>
+
+          <div class="split">
+            <div class="split__col">
+              <h3 class="split__label">시간</h3>
+              <p class="case-prose">모든 행동은 다음 위험까지 남은 시간을 줄입니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">자원</h3>
+              <p class="case-prose">획득보다 무게 · 부패 · 내구와 사용 순서가 중요합니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">대가</h3>
+              <p class="case-prose">안전한 선택도 인격과 서사의 비용을 남길 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div class="flow">
+            <div class="flow__step">
+              <h3 class="flow__title">지역 진입</h3>
+              <p class="flow__text">중심 거점에서 서쪽 피난처 또는 동쪽 오염 지대로</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">탐험</h3>
+              <p class="flow__text">드랍 규칙과 조우율로 자원 또는 위험 발생</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">행위 대상</h3>
+              <p class="flow__text">수원 · 폐허 · 광해 덩어리 · 동지 · 랜드마크 확보</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">레시피 처리</h3>
+              <p class="flow__text">도구 내구도 · 시간 · 부산물 · 실패 리스크 관리</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">생존권 확장</h3>
+              <p class="flow__text">불빛 · 음식 · 회복 · 장비로 다음 지역 진입</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 PILLARS -->
+        <section class="case-section" id="pillars" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">03 · Design Pillars</span>
+            <h2 class="case-section__title">세 개의 설계 기둥</h2>
+            <p class="case-section__lede">
+              시스템 · 밸런스 · 시나리오 · 인격이 각각 다른 답을 내지 않도록,
+              세 기둥을 먼저 고정하고 나머지를 그 아래에 배치했습니다.
+            </p>
+          </header>
+
+          <div class="pillars">
+            <div>
+              <span class="pillars__num">01</span>
+              <h3 class="pillars__title">데이터 기반 생존 루프</h3>
+              <p class="pillars__text">
+                카드 · 맵 · 드랍 · 레시피 · 전투 · 엔딩이 13개 데이터 테이블의 참조
+                구조로 이어지고, 기획 데이터가 그대로 실제 제작 단위가 됩니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">02</span>
+              <h3 class="pillars__title">선택의 대가</h3>
+              <p class="pillars__text">
+                같은 대륙에서도 나눔 · 외면 · 약탈 같은 판단이 인격 스탯과 이후 선택
+                자격으로 누적됩니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">03</span>
+              <h3 class="pillars__title">빈 왕좌의 서사</h3>
+              <p class="pillars__text">
+                마왕 토벌보다 “빈 왕좌를 비워둘 수 있는가”를 최종 질문으로 두고,
+                거절의 자격을 끝까지 살아온 선택에 연결합니다.
+              </p>
+            </div>
+          </div>
+
+          <dl class="deflist">
+            <div>
+              <dt>시스템</dt>
+              <dd>세계의 실물을 카드로 통일</dd>
+            </div>
+            <div>
+              <dt>밸런스</dt>
+              <dd>행동을 시간 · 생존 비용으로 환산</dd>
+            </div>
+            <div>
+              <dt>시나리오</dt>
+              <dd>성장 서사를 버리고 마모와 보존을 기록</dd>
+            </div>
+            <div>
+              <dt>인격</dt>
+              <dd>“어떻게 살았는가”를 엔딩 자격으로 전환</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- 04 DATA -->
+        <section class="case-section" id="data" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">04 · System 01 · Data</span>
+            <h2 class="case-section__title">카드가 세계의 실물을 대표한다</h2>
+            <p class="case-section__lede">
+              카드가 세계의 실물을 대표하고, 테이블이 그 카드의 행위 가능성과 결과를
+              결정합니다. 13개 테이블 → ScriptableObject → 런타임 관리자의 경계를
+              고정해, 기획 데이터가 실제 플레이까지 도달하는 경로를 추적할 수 있게
+              했습니다.
+            </p>
+          </header>
+
+          <div class="pipeline">
+            <div class="pipeline__stage">
+              <span class="pipeline__label">Authoring</span>
+              <h3 class="pipeline__name">Excel Table × 13</h3>
+              <p class="pipeline__desc">카드 · 맵 · 드랍 · 레시피 · 전투 · 엔딩 정의</p>
+            </div>
+            <div class="pipeline__stage">
+              <span class="pipeline__label">Import</span>
+              <h3 class="pipeline__name">ScriptableObject</h3>
+              <p class="pipeline__desc">저작 데이터를 런타임 자산으로 변환하고 참조 보존</p>
+            </div>
+            <div class="pipeline__stage">
+              <span class="pipeline__label">Runtime</span>
+              <h3 class="pipeline__name">Manager Layer</h3>
+              <p class="pipeline__desc">Card · Map · Craft · Combat · Condition · Vitals</p>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="split__col">
+              <h3 class="split__label">단일 정본</h3>
+              <p class="case-prose">표시 문구와 행동 규칙이 서로 다른 파일에서 어긋나지 않게 연결합니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">참조 검증</h3>
+              <p class="case-prose">누락 ID와 도달 불가 콘텐츠를 빌드 전에 검사합니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">플레이어 선택</h3>
+              <p class="case-prose">드래그 · 조합 · 탐험 · 텍스트 선택 전투가 같은 카드 정본을 사용합니다.</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="spec">
+              <caption>Card 테이블 · 13개 테이블 중 참조의 중심</caption>
+              <thead>
+                <tr><th scope="col">필드</th><th scope="col">역할</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>ID</code></th><td>고유 식별자와 타입 대역</td></tr>
+                <tr><th scope="row"><code>NAME</code></th><td>화면 표시명</td></tr>
+                <tr><th scope="row"><code>TYPE</code></th><td>지형 · 재료 · 음식 · 도구 · 장비 분류</td></tr>
+                <tr><th scope="row"><code>ACTIONID</code></th><td>클릭 · 상태 팝업의 단일 행동</td></tr>
+                <tr><th scope="row"><code>GROUP</code></th><td>레시피 입력 · 장비 슬롯 공용 분류</td></tr>
+                <tr><th scope="row"><code>DURABILITY</code></th><td>사용 횟수 · 착용 시간 · 부패 시간</td></tr>
+                <tr><th scope="row"><code>RESULT</code></th><td>상호작용 결과와 후속 카드 연결</td></tr>
+                <tr><th scope="row"><code>OPTIONID</code></th><td>획득 · 소지 · 장착 시 제공 옵션</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="callout">
+            표시 · 분류 · 행동 · 연결 역할을 한 정본에서 읽도록 두고, 세부 필드는
+            실제 제작 명세에서 별도로 관리합니다.
+          </p>
+        </section>
+
+        <!-- 05 WOUNDS -->
+        <section class="case-section" id="wounds" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">05 · System 02 · Body</span>
+            <h2 class="case-section__title">몸을 하나의 HP 막대로 두지 않았다</h2>
+            <p class="case-section__lede">
+              머리 · 상의 · 하의 · 신발 · 장갑의 다섯 부위로 나누고, 각 부위가 따로
+              다치고 곪고 썩게 했습니다. 치료 지연이 곧 다음 탐험의 제약이 됩니다.
+            </p>
+          </header>
+
+          <div class="pillars">
+            <div>
+              <span class="pillars__num">상처</span>
+              <h3 class="pillars__title">부위별 타이머</h3>
+              <p class="pillars__text">
+                피해를 받은 부위마다 상처가 독립적으로 남고, 치료가 늦을수록 다음
+                상태로 진행합니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">곪음</span>
+              <h3 class="pillars__title">치료 지연의 대가</h3>
+              <p class="pillars__text">
+                상처를 방치하면 감염과 주기 피해 위험이 커져, 탐험을 계속할지 돌아갈지
+                선택하게 합니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">썩음</span>
+              <h3 class="pillars__title">회복 불가능한 손실</h3>
+              <p class="pillars__text">
+                치명 단계에서는 최대 HP와 부위 기능이 훼손되어 남은 런의 운영을
+                바꿉니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="split split--pair">
+            <div class="split__col">
+              <h3 class="split__label">붕대는 장비가 아니다</h3>
+              <p class="case-prose">
+                붕대는 장착 슬롯이 아니라 <strong>Heal 전용 치료 행동</strong>으로
+                상처에 직접 적용됩니다. 장비 슬롯 경쟁에서 치료를 분리해, 회복을
+                “무엇을 벗을 것인가”의 문제로 만들지 않았습니다.
+              </p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">전역 상태를 부활시키지 않는다</h3>
+              <p class="case-prose">
+                상처는 캐릭터 전체의 단일 플래그가 아니라 <strong>부위마다 독립 수명</strong>을
+                갖습니다. 한 번의 회복이 모든 부위를 되돌리지 못하게 해 누적 손실을
+                유지했습니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 COMBAT -->
+        <section class="case-section" id="combat" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">06 · System 03 · Encounter</span>
+            <h2 class="case-section__title">전투는 별도 씬이 아니라 조우의 한 갈래</h2>
+            <p class="case-section__lede">
+              전투는 <code class="mono">TextCombat</code> 노드 그래프에서 갈라집니다.
+              대화 · 회피 · 공략 · 공격이 같은 조우의 다른 진입로입니다.
+            </p>
+          </header>
+
+          <div class="flow">
+            <div class="flow__step">
+              <h3 class="flow__title">NODE · 진입</h3>
+              <p class="flow__text">몬스터 · NPC · 환경 문맥</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">SHOW · 조건</h3>
+              <p class="flow__text">플래그 · 상태 · 자원으로 선택지 표시</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">COST · 비용</h3>
+              <p class="flow__text">카드 · 내구 · 시간을 원자적으로 예약</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">ROLL · 판정</h3>
+              <p class="flow__text">기본 확률과 조건 보정</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">RESULT · 결과</h3>
+              <p class="flow__text">피해 · 상태 · 플래그 · 후속 노드</p>
+            </div>
+          </div>
+
+          <dl class="deflist">
+            <div>
+              <dt>플레이어 타격</dt>
+              <dd>공격과 방어를 계산한 뒤 실제 피해만 반영</dd>
+            </div>
+            <div>
+              <dt>몬스터 타격</dt>
+              <dd>방어로 피해를 줄이되 최소 결과를 명시</dd>
+            </div>
+            <div>
+              <dt>Roll 명중</dt>
+              <dd>기본 확률, 장착, 조건, 공포 보정을 한 판정에 결합</dd>
+            </div>
+            <div>
+              <dt>지성 조우</dt>
+              <dd>대화와 결렬, 전투 진입이 같은 그래프에서 이어짐</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- 07 PERSONA -->
+        <section class="case-section" id="persona" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">07 · System 04 · Persona</span>
+            <h2 class="case-section__title">인격 스탯은 도덕 점수표가 아니다</h2>
+            <p class="case-section__lede">
+              반복해서 어떤 방식으로 살아남았는지의 기록입니다. 같은 대화에서도 무엇을
+              골랐는지가 이후 선택 자격을 가릅니다.
+            </p>
+          </header>
+
+          <div class="pillars">
+            <div>
+              <span class="pillars__num">인간성</span>
+              <h3 class="pillars__title">휴식과 잔혹함의 흔적</h3>
+              <p class="pillars__text">
+                분노, 공포, 공격에 잠식될수록 내려가고 휴식과 성찰, 자비로운 선택으로
+                회복됩니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">성향</span>
+              <h3 class="pillars__title">직면과 신중의 방향</h3>
+              <p class="pillars__text">
+                위험에 맞서는가, 물러서는가를 기록합니다. 자연 감소 없이 누적된 선택의
+                방향을 남깁니다.
+              </p>
+            </div>
+            <div>
+              <span class="pillars__num">양심</span>
+              <h3 class="pillars__title">나눔과 약탈의 경계</h3>
+              <p class="pillars__text">
+                누군가의 몫을 빼앗았는지, 나눴는지, 구조를 올리고 악을 식인으로
+                내렸는지를 기록합니다.
+              </p>
+            </div>
+          </div>
+
+          <blockquote class="callout">
+            인격 스탯은 <strong>보상용 능력치가 아니라 엔딩의 거절 자격을 판정하는 서사
+            상태</strong>입니다. 플레이 방식과 결말을 분리하지 않습니다.
+          </blockquote>
+        </section>
+
+        <!-- 08 ENDINGS -->
+        <section class="case-section" id="endings" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">08 · System 05 · Endings</span>
+            <h2 class="case-section__title">세 루트가 하나의 질문으로 모인다</h2>
+            <p class="case-section__lede">
+              왕 · 용사 · 성녀의 3개 서사 루트가 마왕 이후의 선택을 다르게 해석하지만,
+              최종 질문은 왕좌를 받아들일지 거절할지에 모입니다.
+            </p>
+          </header>
+
+          <div class="gallery gallery--wide" data-reveal-group="60">
+            <figure class="figure" data-reveal>
+              <div class="media" data-lightbox data-lightbox-caption="왕 루트 · 새로운 마왕 — 힘을 계승해 세계의 빈자리를 자신으로 채웁니다.">
+                <img src="../assets/images/firevow-ending-king.jpeg"
+                     alt="왕 루트 엔딩 화면 — 새로운 마왕"
+                     width="600" height="338" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>왕 · 새로운 마왕</strong>
+                힘을 계승해 세계의 빈자리를 자신으로 채웁니다.
+              </figcaption>
+            </figure>
+
+            <figure class="figure" data-reveal>
+              <div class="media" data-lightbox data-lightbox-caption="용사 루트 · 빈 왕좌 — 승리 뒤의 권력을 거절하고 왕좌를 비워둡니다.">
+                <img src="../assets/images/firevow-ending-hero.jpeg"
+                     alt="용사 루트 엔딩 화면 — 빈 왕좌"
+                     width="600" height="338" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>용사 · 빈 왕좌</strong>
+                승리 뒤의 권력을 거절하고 왕좌를 비워둡니다.
+              </figcaption>
+            </figure>
+
+            <figure class="figure" data-reveal>
+              <div class="media" data-lightbox data-lightbox-caption="성녀 루트 · 참된 빛 — 생존의 대가와 양심을 지켜 다른 질서를 선택합니다.">
+                <img src="../assets/images/firevow-ending-saint.jpeg"
+                     alt="성녀 루트 엔딩 화면 — 참된 빛"
+                     width="600" height="338" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>성녀 · 참된 빛</strong>
+                생존의 대가와 양심을 지켜 다른 질서를 선택합니다.
+              </figcaption>
+            </figure>
+          </div>
+
+          <dl class="deflist">
+            <div>
+              <dt>생존 실패</dt>
+              <dd>HP · 허기 · 갈증 · 인간성 · 부위 상태가 런의 종결 조건과 연결됩니다.</dd>
+            </div>
+            <div>
+              <dt>왕좌 수락</dt>
+              <dd>마왕 토벌 뒤 권력을 받아들이는 기본 선택입니다.</dd>
+            </div>
+            <div>
+              <dt>왕좌 거절</dt>
+              <dd>인격 스탯과 실제 선택 이력이 거절 자격을 판정합니다.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- 09 BALANCE -->
+        <section class="case-section" id="balance" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">09 · System 06 · Balance</span>
+            <h2 class="case-section__title">기준은 하나, 운영은 셋</h2>
+            <p class="case-section__lede">
+              시작 능력치, 무게, 자원 여유가 달라 같은 규칙 위에서 서로 다른 운영을
+              요구합니다.
+            </p>
+          </header>
+
+          <div class="table-wrap">
+            <table class="spec">
+              <caption>세 캐릭터의 시작 조건과 운영 해석</caption>
+              <thead>
+                <tr>
+                  <th scope="col">캐릭터</th>
+                  <th scope="col">HP / ATK / DEF</th>
+                  <th scope="col">무게</th>
+                  <th scope="col">운영 해석</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">마지막 왕 오스릭</th>
+                  <td class="numeral">88 / 3 / 2</td>
+                  <td class="numeral">26</td>
+                  <td>가장 단단한 시작. 시작 허기 약 9.5시간과 넓은 적재 여유로 초반 탐험을 준비합니다.</td>
+                </tr>
+                <tr>
+                  <th scope="row">깃발을 버린 용사 브란트</th>
+                  <td class="numeral">86 / 4 / 1</td>
+                  <td class="numeral">22</td>
+                  <td>공격력이 높고 시작 인간성 약 1.1일치. 전투 후 인간성 회복을 운영에 포함합니다.</td>
+                </tr>
+                <tr>
+                  <th scope="row">기도를 거둔 성녀 세라핀</th>
+                  <td class="numeral">66 / 2 / 0</td>
+                  <td class="numeral">16</td>
+                  <td>낮은 방어와 적재 여유 속에서 치유와 조우 선택의 효율이 중요합니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="split">
+            <div class="split__col">
+              <h3 class="split__label">체력 차이</h3>
+              <p class="case-prose">허용되는 실수의 양과 회복 우선순위를 바꿉니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">공격 · 방어</h3>
+              <p class="case-prose">전투를 빨리 끝낼지 피해를 줄일지 선택이 달라집니다.</p>
+            </div>
+            <div class="split__col">
+              <h3 class="split__label">무게</h3>
+              <p class="case-prose">탐험 거리와 귀환 시점, 제작 재료의 우선순위를 바꿉니다.</p>
+            </div>
+          </div>
+
+          <header class="case-section__head" style="margin-top: var(--space-6);">
+            <span class="eyebrow">System 07 · Difficulty</span>
+            <h3 class="h3">잠식 난이도 — 적 체력만 올리지 않는다</h3>
+            <p class="case-section__lede">
+              런 시작 전에 고르는 난도 사다리입니다. 출발 자원, 드랍, 상처, 사건 지속,
+              탐험 위험을 나눠 플레이어의 생존 계획 전체를 압박합니다.
+            </p>
+          </header>
+
+          <div class="flow">
+            <div class="flow__step">
+              <h4 class="flow__title">시작 자원 감소</h4>
+              <p class="flow__text">허기와 갈증의 초기 여유를 줄입니다.</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">보너스 드랍 감소</h4>
+              <p class="flow__text">우연한 회복보다 계획된 제작을 요구합니다.</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">상처 확률 증가</h4>
+              <p class="flow__text">전투와 탐험 실패의 장기 비용을 키웁니다.</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">주간 사건 연장</h4>
+              <p class="flow__text">세계 상태의 위험이 더 오래 지속됩니다.</p>
+            </div>
+            <div class="flow__step">
+              <h4 class="flow__title">탐험 난도 상승</h4>
+              <p class="flow__text">조우 결과와 자원 소모의 변동 폭을 넓힙니다.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 WORLD -->
+        <section class="case-section" id="world" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">10 · World &amp; Scenario</span>
+            <h2 class="case-section__title">변경과 그 너머</h2>
+            <p class="case-section__lede">
+              안전한 중심지에서 출발해 서부 황무지, 동부 오염 지대, 남부 전장과
+              마왕성으로 위험이 깊어지는 탐험 구조입니다.
+            </p>
+          </header>
+
+          <figure class="figure">
+            <div class="media" data-lightbox data-lightbox-caption="FireVow: DarkFantasy 월드맵 — 중심 거점에서 서부 황무지, 동부 오염 지대, 마왕성으로 이어지는 탐험 구조">
+              <img src="../assets/images/firevow-world-map.jpeg"
+                   alt="게임 내 월드맵 화면 — 중심 거점과 각 지역이 배치된 지도"
+                   width="1100" height="635" loading="lazy" decoding="async">
+            </div>
+            <figcaption class="figure__caption">
+              게임 내 월드맵. 지역 간 위험도 차이가 곧 진입 순서의 설계입니다.
+            </figcaption>
+          </figure>
+
+          <dl class="deflist">
+            <div>
+              <dt>중심 거점</dt>
+              <dd>제작과 회복, 다음 탐험의 준비가 이뤄지는 기준점</dd>
+            </div>
+            <div>
+              <dt>서부 황무지</dt>
+              <dd>기초 자원과 낮은 위험으로 생존 규칙을 학습</dd>
+            </div>
+            <div>
+              <dt>동부 오염</dt>
+              <dd>변이 · 잠식 · 희귀 자원이 함께 등장하는 고위험 구역</dd>
+            </div>
+            <div>
+              <dt>마왕성</dt>
+              <dd>15일의 준비와 인격 선택이 결말로 수렴하는 종착지</dd>
+            </div>
+          </dl>
+
+          <h3 class="h3" style="margin-top: var(--space-5);">세 주인공</h3>
+          <p class="case-prose">
+            왕 · 용사 · 성녀는 같은 생존 규칙을 공유하지만, 무엇을 잃었고 무엇을
+            지키려는지가 선택과 결말의 해석을 바꿉니다. 캐릭터의 차이는 시작 능력치에만
+            있지 않습니다.
+          </p>
+
+          <div class="gallery" data-reveal-group="60">
+            <figure class="figure" data-reveal>
+              <div class="media media--portrait" data-lightbox data-lightbox-caption="마지막 왕 오스릭 — 무너진 질서의 책임을 떠안은 생존자">
+                <img src="../assets/images/firevow-char-osric.jpeg"
+                     alt="마지막 왕 오스릭의 캐릭터 초상 카드"
+                     width="600" height="800" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>마지막 왕 오스릭</strong>
+                무너진 질서의 책임을 떠안은 생존자
+              </figcaption>
+            </figure>
+
+            <figure class="figure" data-reveal>
+              <div class="media media--portrait" data-lightbox data-lightbox-caption="깃발을 버린 용사 브란트 — 승리와 인간성 사이에서 흔들리는 전사">
+                <img src="../assets/images/firevow-char-brant.jpeg"
+                     alt="깃발을 버린 용사 브란트의 캐릭터 초상 카드"
+                     width="600" height="800" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>깃발을 버린 용사 브란트</strong>
+                승리와 인간성 사이에서 흔들리는 전사
+              </figcaption>
+            </figure>
+
+            <figure class="figure" data-reveal>
+              <div class="media media--portrait" data-lightbox data-lightbox-caption="기도를 거둔 성녀 세라핀 — 믿음 이후에도 양심을 지키려는 치유자">
+                <img src="../assets/images/firevow-char-seraphine.jpeg"
+                     alt="기도를 거둔 성녀 세라핀의 캐릭터 초상 카드"
+                     width="600" height="800" loading="lazy" decoding="async">
+              </div>
+              <figcaption class="figure__caption">
+                <strong>기도를 거둔 성녀 세라핀</strong>
+                믿음 이후에도 양심을 지키려는 치유자
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- 11 PRODUCTION -->
+        <section class="case-section" id="production" data-reveal>
+          <header class="case-section__head">
+            <span class="eyebrow">11 · Production</span>
+            <h2 class="case-section__title">아트 · 사운드 디렉션</h2>
+            <p class="case-section__lede">
+              직접 제작한 영역이 아닙니다. 외부 리소스를 게임의 톤에 맞게 선별하고,
+              서로 다른 출처가 하나의 세계처럼 읽히도록 방향을 통일하는 역할을
+              맡았습니다.
+            </p>
+          </header>
+
+          <div class="split split--pair">
+            <div class="split__col">
+              <h3 class="split__label">Art Direction · 어둠이 무게를 만든다</h3>
+              <ul class="facts">
+                <li>세미 리얼 2D 페인팅과 흑색 · 갈색 기반</li>
+                <li>눌린 명암과 낮은 금속 질감으로 소모된 세계 표현</li>
+                <li>정적인 초상으로 상태와 서사를 전달</li>
+                <li>카드는 짧은 시간 안에 기능이 읽히도록 실루엣 우선</li>
+              </ul>
+              <p class="meta">검증 기준 · 축소된 카드에서도 실루엣과 기능 역할이 구분되는가.</p>
+            </div>
+
+            <div class="split__col">
+              <h3 class="split__label">Sound Direction · 조용한 압박, 읽히는 신호</h3>
+              <ul class="facts">
+                <li>멜로디보다 공간감과 압박을 우선한 BGM</li>
+                <li>위험 · 조우 · 사망은 정보성이 강한 전용 효과음</li>
+                <li>영웅적 팡파르를 피하고 생존의 피로를 유지</li>
+                <li>상태 전환은 화면과 소리가 같은 순간에 알림</li>
+              </ul>
+              <p class="meta">검증 기준 · 화면을 보지 않아도 위험과 조우 상태가 구분되는가.</p>
+            </div>
+          </div>
+
+          <blockquote class="callout">
+            <strong>한계.</strong> 작은 팀에서도 일관된 인상을 만들 수 있다는 것이 장점이고,
+            외부 리소스의 원래 문맥과 품질 편차를 디렉션만으로 완전히 제거할 수는
+            없다는 것이 한계입니다.
+          </blockquote>
+
+          <p class="pullquote" style="margin-top: var(--space-6);">
+            살아남았는가가 아니라, 어떻게 살아남았는가.
+          </p>
+          <p class="callout pullquote--muted" style="font-size: var(--fs-small);">
+            “그 자리는 오래 비어 있었고, 오래 비어 있었다는 사실이 생존의 마지막 선택이
+            되었다.”
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       CASE FOOTER
+       ================================================================ -->
+  <div class="shell">
+    <div class="case-footer">
+      <div class="case-footer__row">
+        <div>
+          <p class="case-footer__label">Original Document</p>
+          <p class="case-footer__title">Fire Vow: Dark Fantasy 1인 개발 · 16p</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--secondary" href="../pdf/dark/fire-vow.pdf" data-pdf-variant data-pdf-label="Fire Vow" target="_blank" rel="noopener">PDF로 보기</a>
+          <a class="btn btn--secondary" href="https://store.steampowered.com/app/4928070/Fire_Vow_Dark_Fantasy" target="_blank" rel="noopener">Steam 스토어</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="case-footer__row">
+        <div>
+          <p class="case-footer__label">Next Project</p>
+          <p class="case-footer__title">Project-TS · Taimanin Squad</p>
+        </div>
+        <a class="arrow-link" href="project-ts.html">시스템 &amp; 전투 설계 보기</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__name">이남경</div>
+        <div class="footer__role">System &amp; Combat Designer</div>
+      </div>
+      <div class="footer__links">
+        <a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a>
+        <a href="tel:+821063897045">010-6389-7045</a>
+        <a href="../index.html">포트폴리오 홈</a>
+      </div>
+    </div>
+    <div class="footer__colophon">
+      <span>© <span data-year>2026</span> 이남경. All rights reserved.</span>
+      <span>Built with HTML · CSS · JavaScript · WebGL</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/theme.js" defer></script>
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/motion.js" defer></script>
+<script src="../assets/js/lightbox.js" defer></script>
+</body>
+</html>

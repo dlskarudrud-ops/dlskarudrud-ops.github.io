@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>포스트모템 — 이남경 · 세 프로젝트 회고</title>
+<meta name="description" content="이남경 포스트모템. 상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙의 여섯 항목으로 세 프로젝트를 회고한 기록.">
+<meta name="color-scheme" content="dark light">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="포스트모템 — 이남경">
+<meta property="og:description" content="툴로 막는다. 문서로 이해시킨다. 문제를 드러내 공유한다. 해결하지 못한 한계까지 함께 기록한 회고.">
+<meta property="og:image" content="../assets/images/ts-squad-manager.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+<link rel="stylesheet" href="../assets/css/print.css" media="print">
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        theme = saved;
+      } else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        theme = "light";
+      }
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">
+      이남경
+      <span class="nav__brand-role">System &amp; Combat Design</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#work">프로젝트</a>
+      <a class="nav__link" href="../resume.html">이력서</a>
+      <a class="nav__link" href="career.html">경력 기술서</a>
+      <a class="nav__link" href="../index.html#documents">문서</a>
+      <a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/>
+        </svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="10" cy="10" r="3.6"/>
+          <path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/>
+        </svg>
+      </button>
+
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#work">프로젝트</a>
+  <a href="../resume.html">이력서</a>
+  <a href="career.html">경력 기술서</a>
+  <a href="../index.html#documents">문서</a>
+  <a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+
+  <section class="page-hero">
+    <div class="shell shell--narrow">
+      <p class="page-hero__crumb print-hide">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="../index.html#documents">Documents</a>
+        <span>/</span>
+        포스트모템
+      </p>
+
+      <span class="eyebrow">Post-mortem</span>
+      <h1 class="page-hero__title">포스트모템</h1>
+      <p class="page-hero__sub">2022 — 2026 · 3 Cases · 6 Questions</p>
+      <p class="page-hero__lede">
+        상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙의 여섯 항목으로 프로젝트를
+        회고합니다. 문제는 감상이 아니라 <strong>관찰 가능한 현상</strong>으로, 대응은
+        실제 산출물과 프로세스로 기록했습니다.
+      </p>
+
+      <div class="btn-row print-hide" style="margin-top: var(--space-5);">
+        <a class="btn btn--primary" href="../pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
+      </div>
+
+      <dl class="fact-strip">
+        <div>
+          <dt>Case 01</dt>
+          <dd>글로벌 모바일 게임<br>2022.06 — 2022.12 · 라이브 서비스</dd>
+        </div>
+        <div>
+          <dt>Case 02</dt>
+          <dd>Taimanin Squad<br>2023.05 — 2025.12 · 시스템 · 전투 메인 기획</dd>
+        </div>
+        <div>
+          <dt>Case 03</dt>
+          <dd>소규모 신작 · 2인 개발<br>2026.01 — 2026.05 · 공동 개발 · 구조 인수</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <div class="shell shell--narrow">
+    <div class="doc">
+
+      <!-- PRINCIPLE -->
+      <section class="doc-block" id="principle">
+        <div class="doc-block__label">
+          <h2>Principle</h2>
+          <p>회고를 관통하는 원칙</p>
+        </div>
+
+        <div class="doc-block__body">
+          <p class="pullquote">
+            툴로 막는다. 문서로 이해시킨다. 문제를 드러내 공유한다.
+          </p>
+          <p class="case-prose">
+            검증할 수 없는 자동화는 신뢰할 수 없고, 사람이 이해하지 못하는 시스템은
+            반복 가능한 결과를 만들지 못합니다. 그래서 툴로 오류를 막고, 문서로
+            이해시키고, 문제는 조기에 드러내 공유하는 순서를 세 프로젝트에서 공통으로
+            적용했습니다.
+          </p>
+
+          <blockquote class="callout">
+            <strong>단일 해법이 모든 문제를 해결하지는 않습니다.</strong> 자동화는 반복
+            오류에 강하지만 예외를 놓칠 수 있고, 문서는 공통 이해를 만들지만 실제 준수와
+            책임 구조가 없으면 효과가 제한됩니다.
+          </blockquote>
+
+          <div class="flow">
+            <div class="flow__step">
+              <h3 class="flow__title">상황</h3>
+              <p class="flow__text">역할 · 맥락</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">목표</h3>
+              <p class="flow__text">완료 기준</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">문제</h3>
+              <p class="flow__text">관찰된 현상</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">대응</h3>
+              <p class="flow__text">산출물 · 절차</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">결과와 한계</h3>
+              <p class="flow__text">변화 · 잔여 위험</p>
+            </div>
+            <div class="flow__step">
+              <h3 class="flow__title">다음 원칙</h3>
+              <p class="flow__text">다음 규약</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CASE 01 -->
+      <section class="doc-block" id="case-01">
+        <div class="doc-block__label">
+          <h2>Case 01</h2>
+          <p>2022.06 — 2022.12<br>글로벌 모바일 게임 · 라이브 서비스<br>첫 게임업계</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">검증 수단 없는 자동화는 오류를 배포 이후로 미룬다</h3>
+
+          <div class="pm-case">
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>상황</b><span>역할 · 맥락</span></div>
+              <p class="pm-case__val">
+                글로벌 모바일 게임의 라이브 서비스에 참여해 한국 · 일본 · 유럽 대응을
+                맡았습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>목표</b><span>완료 기준</span></div>
+              <p class="pm-case__val">
+                라이브 데이터 대응과 다국어 · 웹이벤트 콘텐츠를 실수 없이 안정적으로
+                처리합니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>문제</b><span>관찰된 현상</span></div>
+              <p class="pm-case__val">
+                참조가 많은 데이터 테이블과 깨진 엑셀 함수가 잦은 휴먼 에러를
+                만들었습니다. 자동화는 있었지만 <strong>결과를 검증하는 수단이 없어</strong>,
+                한 곳의 오류가 배포 후에야 발견되어 유저 문의와 서버 파트의 긴급
+                대응으로 이어졌습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>대응</b><span>산출물 · 절차</span></div>
+              <p class="pm-case__val">
+                함수와 참조가 깨진 지점을 자동으로 찾는
+                <strong>데이터 정합성 검증 도구</strong>를 직접 제작했습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>결과와 한계</b><span>변화 · 잔여 위험</span></div>
+              <p class="pm-case__val">
+                같은 유형의 실수는 크게 줄었지만 복잡한 테이블 구조 자체는 남았습니다.
+                오류를 뒤에서 잡는 것보다 <strong>구조 설계 단계에서 단순성과 검증
+                가능성을 확보해야 한다</strong>는 한계를 확인했습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>다음 원칙</b><span>다음 규약</span></div>
+              <p class="pm-case__val">
+                새 프로젝트에서는 검증 도구를 먼저 만들고, 테이블은 간단하고 직관적인
+                참조 구조로 설계합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="split__col">
+              <h4 class="split__label">원칙 1</h4>
+              <p class="case-prose">구현보다 먼저 검증 경로를 만든다.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">원칙 2</h4>
+              <p class="case-prose">복잡한 참조는 데이터 구조부터 줄인다.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">원칙 3</h4>
+              <p class="case-prose">자동화의 성공과 결과의 정확성을 분리해 확인한다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CASE 02 -->
+      <section class="doc-block" id="case-02">
+        <div class="doc-block__label">
+          <h2>Case 02</h2>
+          <p>2023.05 — 2025.12<br>Taimanin Squad · 모바일 수집형 RPG · 약 40명+<br>시스템 / 전투 메인 기획</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">툴만으로는 사람의 실수를 막을 수 없다</h3>
+
+          <div class="pm-case">
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>상황</b><span>역할 · 맥락</span></div>
+              <p class="pm-case__val">
+                개발 총괄의 장기 부재와 별도 PM이 없는 환경에서 신입 비중이 높은 팀의
+                전투 · 시스템 설계와 데이터 적용을 맡았습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>목표</b><span>완료 기준</span></div>
+              <p class="pm-case__val">
+                전투와 시스템 설계를 이어가면서 규약이 부재한 환경의 리소스 · 데이터
+                무결성을 유지합니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>문제</b><span>관찰된 현상</span></div>
+              <p class="pm-case__val">
+                커밋 규약과 작업 파이프라인이 없어 완성된 리소스가 씬에서 재생되지
+                않았고, 케이스가 제각각이라 사람 눈 검수가 반복됐습니다. 외주 데이터를
+                직접 확인하는 시간이 제작 시간을 넘어섰고, 검수 요청이 반복되면서 지적과
+                재작업 요청이 기획 파트에 집중됐으며,
+                <strong>파트 간 책임 경계가 규약이 아닌 개인 관계로 처리</strong>됐습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>대응</b><span>산출물 · 절차</span></div>
+              <p class="pm-case__val">
+                데이터 무결성 검사, Unity 자동화, FBX · Magica 유틸리티를 만들었습니다.
+                파트별 제작 기준과 온보딩 · 외주 검수 기준을
+                <strong>가이드 문서 13종 이상</strong>으로 표준화하고, 인력 충원과 정기
+                검수 프로세스를 요청했습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>결과와 한계</b><span>변화 · 잔여 위험</span></div>
+              <p class="pm-case__val">
+                설계한 전투 시스템과 스킬 메커니즘이 출시 버전에 반영됐습니다. 툴만으로는
+                사람의 실수를 완전히 막을 수 없었습니다. 검수 부담을 개인이 흡수하는 대신
+                팀 이슈로 공개하고 정기 검수 프로세스를 요청한 뒤,
+                <strong>오류 대응이 개인 책임에서 프로세스 단위로 옮겨졌습니다.</strong>
+                다만 PM과 프로세스 부재는 개인이 완전히 해결할 수 없는 한계였습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>다음 원칙</b><span>다음 규약</span></div>
+              <p class="pm-case__val">
+                규약과 파이프라인을 먼저 세우고, 툴과 함께 사람이 이해할 가이드 문서를
+                만듭니다. 문제는 조기에 공유하며 파트 간 책임 경계를 명확히 둡니다.
+              </p>
+            </div>
+          </div>
+
+          <h4 class="h4">직접 만든 결과물</h4>
+          <dl class="deflist">
+            <div>
+              <dt>데이터 무결성</dt>
+              <dd>참조와 누락 자동 검사</dd>
+            </div>
+            <div>
+              <dt>Unity 자동화</dt>
+              <dd>반복 작업과 설정 검증</dd>
+            </div>
+            <div>
+              <dt>FBX 유틸리티</dt>
+              <dd>프리팹 교체와 규격 확인</dd>
+            </div>
+            <div>
+              <dt>Magica 동기화</dt>
+              <dd>설정 복제와 누락 방지</dd>
+            </div>
+            <div>
+              <dt>가이드 13종 이상</dt>
+              <dd>아트 · 외주 · 툴 · 온보딩 기준</dd>
+            </div>
+            <div>
+              <dt>SQUAD MANAGER</dt>
+              <dd>데이터 검사와 작업 지원</dd>
+            </div>
+          </dl>
+
+          <figure class="figure print-hide">
+            <div class="media" data-lightbox data-lightbox-caption="SQUAD MANAGER — 데이터 검사와 반복 작업을 지원하기 위해 직접 제작한 내부 도구">
+              <img src="../assets/images/ts-squad-manager.jpeg"
+                   alt="내부 도구 SQUAD MANAGER의 데이터 검사 화면"
+                   width="660" height="596" loading="lazy" decoding="async">
+            </div>
+            <figcaption class="figure__caption">
+              직접 제작한 내부 도구 SQUAD MANAGER.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <!-- CASE 03 -->
+      <section class="doc-block" id="case-03">
+        <div class="doc-block__label">
+          <h2>Case 03</h2>
+          <p>2026.01 — 2026.05<br>소규모 신작 · 2인 개발(가제)<br>공동 개발</p>
+        </div>
+
+        <div class="doc-block__body">
+          <h3 class="h3">역할과 결정 권한은 착수 시점에 합의해야 한다</h3>
+
+          <div class="pm-case">
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>상황</b><span>역할 · 맥락</span></div>
+              <p class="pm-case__val">가까운 동료와 2인 체제로 소규모 신작 개발을 시작했습니다.</p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>목표</b><span>완료 기준</span></div>
+              <p class="pm-case__val">
+                작은 팀의 짧은 의사결정 경로를 활용해 빠르게 합을 맞추고 신작을
+                완성합니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>문제</b><span>관찰된 현상</span></div>
+              <p class="pm-case__val">
+                역할과 결정 권한을 착수 시점에 합의하지 않은 상태로 시작했습니다. 그
+                결과 <strong>같은 사안이 여러 번 재논의됐고</strong>, 의사결정에 드는
+                시간이 제작 시간을 압박했습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>대응</b><span>산출물 · 절차</span></div>
+              <p class="pm-case__val">
+                합의 없이 계속하는 대신 각자의 목표에 맞게 프로젝트를 분리하기로
+                결정했습니다. 진행 중이던 기획 · 데이터 구조를 인수해 정리했고, 공동
+                개발자는 별도 프로젝트로 이어갔습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>결과와 한계</b><span>변화 · 잔여 위험</span></div>
+              <p class="pm-case__val">
+                인수한 프로젝트는 이후 1인 개발작 《FireVow: DarkFantasy》로
+                발전했습니다. 다만 <strong>관계와 업무의 경계를 초기에 명확하게 세우지
+                못한 점</strong>은 한계로 남았습니다.
+              </p>
+            </div>
+            <div class="pm-case__row">
+              <div class="pm-case__key"><b>다음 원칙</b><span>다음 규약</span></div>
+              <p class="pm-case__val">
+                친밀도와 업무 효율을 구분하고, 소통의 목적을 정확성과 책임 연결에 둡니다.
+                역할과 결정 권한은 착수 시점에 합의합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="split">
+            <div class="split__col">
+              <h4 class="split__label">합의된 분리</h4>
+              <p class="case-prose">각자의 목표에 맞게 프로젝트를 분리했습니다.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">구조 인수</h4>
+              <p class="case-prose">진행 중이던 기획 · 데이터 구조를 인수해 정리했습니다.</p>
+            </div>
+            <div class="split__col">
+              <h4 class="split__label">1인 개발로 전환</h4>
+              <p class="case-prose">인수한 구조를 《FireVow: DarkFantasy》로 발전시켰습니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="doc-block" id="contact">
+        <div class="doc-block__label">
+          <h2>Contact</h2>
+        </div>
+        <div class="doc-block__body">
+          <dl class="deflist">
+            <div>
+              <dt>Email</dt>
+              <dd><a class="link" href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a></dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd><a class="link" href="tel:+821063897045">010-6389-7045</a></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="shell shell--narrow">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__name">이남경</div>
+        <div class="footer__role">System &amp; Combat Designer</div>
+      </div>
+      <div class="footer__links">
+        <a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a>
+        <a href="tel:+821063897045">010-6389-7045</a>
+        <a href="../index.html">포트폴리오 홈</a>
+      </div>
+    </div>
+    <div class="footer__colophon">
+      <span>© <span data-year>2026</span> 이남경. All rights reserved.</span>
+      <span>Built with HTML · CSS · JavaScript · WebGL</span>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/theme.js" defer></script>
+<script src="../assets/js/main.js" defer></script>
+<script src="../assets/js/motion.js" defer></script>
+<script src="../assets/js/lightbox.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>이남경 · 시스템 / 전투 기획 포트폴리오</title>
+<meta name="description" content="시스템 · 전투 기획자 이남경. 수집형 RPG의 통합 전투 프레임워크와 데이터 파이프라인 설계, 카드 기반 생존 게임 FireVow: DarkFantasy 1인 개발.">
+<meta name="author" content="이남경">
+<meta name="color-scheme" content="dark light">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="이남경 · 시스템 / 전투 기획 포트폴리오">
+<meta property="og:description" content="통합 전투 효과 시스템, 41종 상태이상, 13개 데이터 테이블. 규칙을 한 번 설계하고 콘텐츠가 그 위에서 확장되도록 만듭니다.">
+<meta property="og:image" content="assets/images/firevow-cover.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/global.css">
+<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+
+<script>
+  /* Resolve the theme before first paint so the page never flashes. */
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        theme = saved;
+      } else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        theme = "light";
+      }
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="index.html">
+      이남경
+      <span class="nav__brand-role">System &amp; Combat Design</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 섹션" data-spy>
+      <a class="nav__link" href="#profile">프로필</a>
+      <a class="nav__link" href="#skills">역량</a>
+      <a class="nav__link" href="#experience">경력</a>
+      <a class="nav__link" href="#work">프로젝트</a>
+      <a class="nav__link" href="#documents">문서</a>
+      <a class="nav__link" href="#contact">연락</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/>
+        </svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="10" cy="10" r="3.6"/>
+          <path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/>
+        </svg>
+      </button>
+
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="#profile">프로필</a>
+  <a href="#skills">역량</a>
+  <a href="#experience">경력</a>
+  <a href="#work">프로젝트</a>
+  <a href="#documents">문서</a>
+  <a href="#contact">연락</a>
+</nav>
+
+<main id="main">
+
+  <!-- ================================================================
+       HERO
+       ================================================================ -->
+  <section class="hero">
+    <div class="hero__atmosphere" data-atmosphere aria-hidden="true">
+      <div class="hero__fallback"></div>
+    </div>
+
+    <div class="shell hero__inner">
+      <div class="hero__top">
+        <div class="hero__identity">
+          <span class="eyebrow">System &amp; Combat Designer</span>
+
+          <h1 class="hero__name">이남경</h1>
+
+          <div class="hero__role-row">
+            <p class="hero__name-role">시스템 · 전투 기획</p>
+
+            <button type="button" class="mode-switch" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+              <svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="10" cy="10" r="7"/>
+                <path d="M10 3v14" />
+                <path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor" stroke="none"/>
+              </svg>
+              <span data-theme-label>화이트 모드</span>
+            </button>
+          </div>
+
+          <p class="hero__summary">
+            라이브 서비스, 수집형 RPG, 카드 기반 생존 게임에서
+            <b>전투 규칙 · 데이터 구조 · 제작 흐름</b>을 설계했습니다.
+          </p>
+
+          <div class="btn-row">
+            <a class="btn btn--primary" href="#work">프로젝트 보기</a>
+            <a class="btn btn--secondary" href="resume.html">이력서</a>
+            <a class="btn btn--secondary" href="documents/career.html">경력 기술서</a>
+          </div>
+        </div>
+
+        <div class="hero__contact">
+          <div class="contact__list">
+            <a href="mailto:dlskarudrud@gmail.com">
+              <span class="contact__label">Email</span>
+              <span class="contact__value">dlskarudrud@gmail.com</span>
+            </a>
+            <a href="tel:+821063897045">
+              <span class="contact__label">Phone</span>
+              <span class="contact__value">010-6389-7045</span>
+            </a>
+            <a href="https://store.steampowered.com/app/4928070/Fire_Vow_Dark_Fantasy" target="_blank" rel="noopener">
+              <span class="contact__label">Steam</span>
+              <span class="contact__value">Fire Vow: Dark Fantasy</span>
+            </a>
+            <div>
+              <span class="contact__label">Status</span>
+              <span class="contact__value">FireVow 정식 출시 준비 · 시스템 / 전투 기획 포지션 검토 중</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <dl class="hero__rail">
+        <div>
+          <dt>Experience</dt>
+          <dd>2022.06 — 현재 · 게임 기획</dd>
+        </div>
+        <div>
+          <dt>Representative</dt>
+          <dd>Taimanin&nbsp;Squad · FireVow:&nbsp;DarkFantasy</dd>
+        </div>
+        <div>
+          <dt>Toolchain</dt>
+          <dd>Unity&nbsp;6.5 · Excel 데이터 파이프라인</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       01 PROFILE
+       ================================================================ -->
+  <section class="section" id="profile">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">01</span>
+        <span class="eyebrow">Profile</span>
+        <h2 class="section-head__title section-head__title--wide">
+          규칙을 한 번 설계하고, 콘텐츠가 그 위에서 확장되게 만듭니다.
+        </h2>
+      </div>
+
+      <div class="profile">
+        <div class="profile__body" data-reveal>
+          <p>
+            2022년 글로벌 모바일 게임의 라이브 서비스 기획으로 시작해, 약 40명 규모의
+            모바일 수집형 RPG <strong>Taimanin Squad</strong>에서 2.5년간 시스템 / 전투
+            메인 기획을 맡았습니다. 발동 시점 22종 · 대상 25종 · 조건 40종 이상 ·
+            기능 50종 이상을 조합하는 <strong>통합 전투 효과 시스템</strong>을 설계하고,
+            전체 데이터 테이블의 50% 이상을 작성했습니다.
+          </p>
+          <p>
+            현재는 카드 기반 다크 판타지 생존 게임
+            <strong>FireVow: DarkFantasy</strong>를 1인으로 개발합니다. 13개 데이터
+            테이블로 카드 · 맵 · 드랍 · 레시피 · 전투 · 엔딩을 같은 참조 구조 위에 두고,
+            한 · 영 · 중 · 일 · 독 5개 언어로 Stove · Steam 데모를 출품했습니다.
+          </p>
+          <p>
+            반복되는 휴먼 에러는 검증 도구로 막고, 파트 간 기준은 가이드 문서로 남기며,
+            개인이 흡수하던 검수 부담은 프로세스로 옮기는 방식으로 일합니다.
+          </p>
+
+          <div class="btn-row" style="margin-top: .5rem;">
+            <a class="arrow-link" href="documents/postmortem.html">포스트모템 읽기</a>
+          </div>
+        </div>
+
+        <div class="profile__aside" data-reveal="right">
+          <dl class="scope">
+            <div>
+              <dt class="numeral">2.5년</dt>
+              <dd>Taimanin Squad<br>시스템 / 전투 메인 기획</dd>
+            </div>
+            <div>
+              <dt class="numeral">300+</dt>
+              <dd>설계한 캐릭터 전투 데이터</dd>
+            </div>
+            <div>
+              <dt class="numeral">41종</dt>
+              <dd>턴제 상태이상<br>버프 17 · 디버프 24</dd>
+            </div>
+            <div>
+              <dt class="numeral">13개</dt>
+              <dd>FireVow 데이터 테이블</dd>
+            </div>
+          </dl>
+
+          <p class="meta">
+            수치는 모두 실제 담당 범위이며, 각 프로젝트 페이지와 원본 PDF에서
+            동일한 기준으로 확인할 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       02 CAPABILITIES
+       ================================================================ -->
+  <section class="section section--inset" id="skills">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">02</span>
+        <span class="eyebrow">Core Capabilities</span>
+        <h2 class="section-head__title">핵심 역량</h2>
+        <p class="section-head__note">
+          실제로 설계하고 문서로 남긴 범위만 적었습니다.
+          코드 관련 작업은 전부 AI를 활용한 바이브 코딩으로 제작했습니다.
+        </p>
+      </div>
+
+      <div class="skills" data-reveal-group="70">
+        <section class="skills__group" data-reveal>
+          <h3 class="skills__title">Game Design</h3>
+          <ul class="skills__list">
+            <li><b>전투 시스템 설계</b><span>발동 시점 · 대상 · 조건 · 기능의 조합 문법, 통합 효과 테이블</span></li>
+            <li><b>상태이상 설계</b><span>중첩 · 갱신 · 시전자 종속 · 표시와 해제의 수명주기 계약</span></li>
+            <li><b>캐릭터 · 보스 전투</b><span>스킬 구조, 체력 구간 패턴 전환, 파티 조합 대응</span></li>
+            <li><b>성장 · 콘텐츠 시스템</b><span>인연 · 고유 무기 · 속성 연구 · 로그라이트 · 타워 · 도전 모드</span></li>
+            <li><b>밸런스 · 난이도</b><span>능력치와 효과 기대값 조율, 난이도 압박 단계 설계</span></li>
+            <li><b>서바이벌 · 서사 설계</b><span>부위 상처, 인격 스탯, 엔딩 자격 분기</span></li>
+          </ul>
+        </section>
+
+        <section class="skills__group" data-reveal>
+          <h3 class="skills__title">Implementation</h3>
+          <ul class="skills__list">
+            <li><b>Unity</b><span>ScriptableObject 파이프라인, 리소스 네임 규칙, 설정 검증 자동화</span></li>
+            <li><b>데이터 파이프라인</b><span>Excel 테이블 → ScriptableObject → 런타임 관리자 경계 고정</span></li>
+            <li><b>내부 툴 제작</b><span>데이터 무결성 검사, FBX · Magica 유틸리티, 반복 작업 자동화</span></li>
+            <li><b>프로토타이핑</b><span>기획 데이터가 실제 플레이까지 도달하는 경로 검증</span></li>
+            <li><b>클라이언트 / 서버 경계</b><span>즉시성은 클라이언트, 가치와 경쟁 · 검증은 서버로 분리</span></li>
+          </ul>
+        </section>
+
+        <section class="skills__group" data-reveal>
+          <h3 class="skills__title">Production</h3>
+          <ul class="skills__list">
+            <li><b>시스템 명세 · 제작 가이드</b><span>파트별 제작 기준, 온보딩, 빌드 가이드 문서화</span></li>
+            <li><b>외주 관리</b><span>규격 · 검수 기준 · 책임 경계 문서화와 핸드오프</span></li>
+            <li><b>라이브 서비스 대응</b><span>이슈 대응, 배포 단위 정리, 웹이벤트 · BM 기획</span></li>
+            <li><b>다국어 · 글로벌</b><span>5개 언어 원빌드 대응, 지역별 서비스 조건 관리</span></li>
+            <li><b>협업</b><span>사업 · 운영팀 핸드오프, 퍼블리셔 일정 · 요건 조율</span></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       03 EXPERIENCE
+       ================================================================ -->
+  <section class="section" id="experience">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">03</span>
+        <span class="eyebrow">Experience</span>
+        <div class="section-head__row">
+          <h2 class="section-head__title">경력</h2>
+          <div class="btn-row">
+            <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline" data-reveal-group="60">
+
+        <article class="timeline__item" data-reveal>
+          <div class="timeline__period">
+            2026.06 — 현재
+            <span>Solo</span>
+          </div>
+          <div class="timeline__main">
+            <h3 class="timeline__title">FireVow: DarkFantasy</h3>
+            <p class="timeline__role">
+              <b>1인 단독 개발</b> · 카드 기반 다크 판타지 생존 게임 · Unity 6.5
+            </p>
+            <ul class="facts">
+              <li>13개 데이터 테이블로 <strong>카드 · 맵 · 드랍 · 레시피 · 전투 · 엔딩</strong>을 정의</li>
+              <li>부위별 상처 · 붕대, 노드 그래프 텍스트 전투, 인격 스탯 기반 엔딩 분기 설계</li>
+              <li>한 · 영 · 중 · 일 · 독 5개 언어로 Stove · Steam 데모 출품, 정식 출시 대기</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline__item" data-reveal>
+          <div class="timeline__period">
+            2026.01 — 2026.05
+            <span>Co-dev</span>
+          </div>
+          <div class="timeline__main">
+            <h3 class="timeline__title">Survival Game (가제)</h3>
+            <p class="timeline__role">
+              <b>공동 2인 개발 · 단독 인수</b> · 신작 기획 · 데이터 구조 정리
+            </p>
+            <ul class="facts">
+              <li>2인 체제로 착수한 신작의 기획 · 데이터 구조와 진행 상태를 단독으로 정리</li>
+              <li>단독 개발이 가능한 범위로 기획을 재배치하고 FireVow의 시스템 · 서사 방향으로 전환</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline__item" data-reveal>
+          <div class="timeline__period">
+            2023.05 — 2025.12
+            <span>Main</span>
+          </div>
+          <div class="timeline__main">
+            <h3 class="timeline__title">Taimanin Squad</h3>
+            <p class="timeline__role">
+              <b>시스템 / 전투 메인 기획</b> · 모바일 수집형 RPG · 팀 약 40명+ ·
+              Pre-OBT까지 데이터 적용 · 정식 출시 2026.03
+            </p>
+            <ul class="facts">
+              <li>발동 시점 22종 · 대상 25종 · 조건 40+종 · 기능 50+종의 <strong>통합 전투 효과 시스템</strong> 설계</li>
+              <li>41종 상태이상(버프 17 / 디버프 24)의 중첩 · 갱신 · 시전자 종속 규칙 정의</li>
+              <li>인연 · 고유 무기 · 속성 연구 · 로그라이트 · 타워 등 성장 · 콘텐츠 10개 이상 설계</li>
+              <li>전체 데이터 테이블의 50% 이상 작성, 제작 툴 · 외주 규격 · 빌드 가이드 문서 담당</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline__item" data-reveal>
+          <div class="timeline__period">
+            2022.06 — 2022.12
+            <span>Live</span>
+          </div>
+          <div class="timeline__main">
+            <h3 class="timeline__title">아이러브마트 · 용사 여관</h3>
+            <p class="timeline__role">
+              <b>라이브 서비스 기획</b> · 한국 · 일본 서비스 대응, 유럽 퍼블리셔 협업
+            </p>
+            <ul class="facts">
+              <li>한국 라이브 이슈 대응과 웹이벤트 · 추가 콘텐츠 · BM 기획</li>
+              <li>일본 라이브 서비스 대응과 한국 런칭 콘텐츠 이식</li>
+              <li>유럽 퍼블리셔와 일정 · 요건 · 콘텐츠 범위 조율</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       04 SELECTED WORK
+       ================================================================ -->
+  <section class="section section--inset" id="work">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">04</span>
+        <span class="eyebrow">Selected Work</span>
+        <h2 class="section-head__title">대표 프로젝트</h2>
+      </div>
+
+      <div class="work-minor" data-reveal-group="80">
+        <article class="card work-minor__item" data-reveal>
+          <span class="eyebrow eyebrow--muted">Career</span>
+          <div class="work-minor__head">
+            <h3 class="h3">경력 기술서</h3>
+            <div class="btn-row">
+              <a class="btn btn--secondary card-link" href="documents/career.html">웹으로 보기</a>
+              <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
+            </div>
+          </div>
+          <p>
+            아이러브마트 · 용사 여관의 라이브 서비스 대응부터 Taimanin Squad,
+            공동 개발 인수, FireVow까지 네 개 프로젝트의 담당 범위를 정리했습니다.
+          </p>
+        </article>
+
+        <article class="card work-minor__item" data-reveal>
+          <span class="eyebrow eyebrow--muted">Retrospective</span>
+          <div class="work-minor__head">
+            <h3 class="h3">포스트모템</h3>
+            <div class="btn-row">
+              <a class="btn btn--secondary card-link" href="documents/postmortem.html">웹으로 보기</a>
+              <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
+            </div>
+          </div>
+          <p>
+            상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙의 여섯 항목으로
+            세 프로젝트를 회고했습니다. 해결하지 못한 한계도 함께 기록했습니다.
+          </p>
+        </article>
+      </div>
+
+      <div class="work">
+
+        <!-- Fire Vow -->
+        <article class="card card--reactive work-card" data-reveal>
+          <div class="work-card__visual">
+            <img src="assets/images/firevow-cover.jpeg"
+                 alt="FireVow: DarkFantasy 타이틀 아트 — 어둠에 잠긴 석조 계단 위의 게임 로고"
+                 width="1280" height="720" loading="lazy" decoding="async">
+          </div>
+
+          <div class="work-card__body">
+            <div class="work-card__head">
+              <span class="eyebrow">Solo Development · 2026.06 — 현재</span>
+              <h3 class="work-card__title">FireVow: DarkFantasy</h3>
+              <p class="work-card__context">
+                저주받은 변경에서 카드로 탐험하고 제작하며 밤 · 공포 · 허기 · 상처를
+                버텨 마왕성에 닿는 15일의 생존 서사. 무엇을 얻었는가보다
+                어떻게 살아남았는가를 기록합니다.
+              </p>
+
+              <div class="work-card__role">
+                <div class="work-card__role-head">
+                  <span class="work-card__role-label">My Role</span>
+                  <div class="btn-row">
+                    <a class="btn btn--secondary card-link" href="projects/fire-vow.html">웹으로 보기</a>
+                    <a class="btn btn--quiet" href="pdf/dark/fire-vow.pdf" data-pdf-variant data-pdf-label="Fire Vow" target="_blank" rel="noopener">PDF로 보기</a>
+                  </div>
+                </div>
+                <span class="work-card__role-value">
+                  1인 단독 개발 — 기획 · 시스템 · 데이터 · 밸런스 · 시나리오 · UI 흐름 설계
+                  <br><span class="meta">클라이언트 구현, 아트워크, 사운드는 AI를 활용하고 방향을 직접 디렉션</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="work-card__foot">
+              <div class="tags">
+                <span class="tag">Unity 6.5</span>
+                <span class="tag">13 데이터 테이블</span>
+                <span class="tag">부위별 상처</span>
+                <span class="tag">노드 그래프 전투</span>
+                <span class="tag">5개 언어</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project-TS -->
+        <article class="card card--reactive work-card" data-reveal>
+          <div class="work-card__visual work-card__visual--dense">
+            <img src="assets/images/ts-squad-manager.jpeg"
+                 alt="Project-TS 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
+                 width="660" height="596" loading="lazy" decoding="async">
+          </div>
+
+          <div class="work-card__body">
+            <div class="work-card__head">
+              <span class="eyebrow">Mobile Collectible RPG · 2023.05 — 2025.12</span>
+              <h3 class="work-card__title">Project-TS · Taimanin Squad</h3>
+              <p class="work-card__context">
+                약 40명 규모 프로젝트의 전투 프레임워크와 성장 · 콘텐츠 시스템,
+                데이터 파이프라인 설계. 10개 이상의 시스템을 하나의 효과 문법 위에
+                올려 규칙 복제를 막았습니다.
+              </p>
+
+              <div class="work-card__role">
+                <div class="work-card__role-head">
+                  <span class="work-card__role-label">My Role</span>
+                  <div class="btn-row">
+                    <a class="btn btn--secondary card-link" href="projects/project-ts.html">웹으로 보기</a>
+                    <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener">PDF로 보기</a>
+                  </div>
+                </div>
+                <span class="work-card__role-value">
+                  시스템 / 전투 메인 기획 — 통합 전투 효과 시스템, 상태이상, 캐릭터 · 보스 전투 설계
+                  <br><span class="meta">전체 데이터 테이블의 50% 이상 작성 · Pre-OBT까지 데이터 적용 · 정식 출시 2026.03</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="work-card__foot">
+              <div class="tags">
+                <span class="tag">통합 전투 효과</span>
+                <span class="tag">41종 상태이상</span>
+                <span class="tag">캐릭터 300+</span>
+                <span class="tag">보스 20+</span>
+                <span class="tag">내부 툴</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       05 DOCUMENTS
+       ================================================================ -->
+  <section class="section" id="documents">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">05</span>
+        <span class="eyebrow">Documents</span>
+        <h2 class="section-head__title">문서</h2>
+        <p class="section-head__note">
+          웹 버전이 기본 열람 경로이고, PDF는 원본 근거로 함께 제공합니다.
+          PDF는 현재 테마에 맞춰 다크 / 화이트 버전이 연결됩니다.
+        </p>
+      </div>
+
+      <div class="docs" data-reveal-group="50">
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">이력서 <span class="tag">1p</span></h3>
+            <p class="docs__desc">경력 · 담당 범위 · 핵심 역량을 한 장으로 정리한 요약본.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="resume.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/resume.pdf" data-pdf-variant data-pdf-label="이력서" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">경력 기술서 <span class="tag">5p</span></h3>
+            <p class="docs__desc">네 개 프로젝트의 기간 · 역할 · 담당 범위와 대표 기여.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">Project-TS 시스템 &amp; 전투 설계 <span class="tag">12p</span></h3>
+            <p class="docs__desc">통합 전투 효과 시스템, 41종 상태이상, 성장 · 콘텐츠 10종, 데이터 파이프라인.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="projects/project-ts.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">Fire Vow: Dark Fantasy 1인 개발 <span class="tag">16p</span></h3>
+            <p class="docs__desc">데이터 기반 생존 루프, 부위 상처, 텍스트 전투, 인격 스탯과 엔딩 설계.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="projects/fire-vow.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/fire-vow.pdf" data-pdf-variant data-pdf-label="Fire Vow" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">포스트모템 <span class="tag">4p</span></h3>
+            <p class="docs__desc">세 프로젝트를 상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙으로 회고.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/postmortem.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       06 CONTACT
+       ================================================================ -->
+  <section class="section section--tight section--inset" id="contact">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">06</span>
+        <span class="eyebrow">Contact</span>
+        <h2 class="section-head__title">연락</h2>
+      </div>
+
+      <div class="contact">
+        <p class="contact__statement" data-reveal>
+          전투의 재미를 재사용 가능한 시스템으로 설계합니다.
+        </p>
+
+        <div class="contact__list" data-reveal="right">
+          <a href="mailto:dlskarudrud@gmail.com">
+            <span class="contact__label">Email</span>
+            <span class="contact__value">dlskarudrud@gmail.com</span>
+          </a>
+          <a href="tel:+821063897045">
+            <span class="contact__label">Phone</span>
+            <span class="contact__value">010-6389-7045</span>
+          </a>
+          <a href="https://store.steampowered.com/app/4928070/Fire_Vow_Dark_Fantasy" target="_blank" rel="noopener">
+            <span class="contact__label">Steam</span>
+            <span class="contact__value">Fire Vow: Dark Fantasy</span>
+          </a>
+          <div>
+            <span class="contact__label">Status</span>
+            <span class="contact__value">FireVow 정식 출시 준비 · 시스템 / 전투 기획 포지션 검토 중</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__name">이남경</div>
+        <div class="footer__role">System &amp; Combat Designer</div>
+      </div>
+      <div class="footer__links">
+        <a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a>
+        <a href="tel:+821063897045">010-6389-7045</a>
+        <a href="https://store.steampowered.com/app/4928070/Fire_Vow_Dark_Fantasy" target="_blank" rel="noopener">Steam</a>
+      </div>
+    </div>
+    <div class="footer__colophon">
+      <span>© <span data-year>2026</span> 이남경. All rights reserved.</span>
+      <span>Built with HTML · CSS · JavaScript · WebGL</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/theme.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/motion.js" defer></script>
+<script src="assets/js/webgl/scene.js" type="module"></script>
+</body>
+</html>
