@@ -12,16 +12,18 @@
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="이남경 · 시스템 / 전투 기획 포트폴리오">
 <meta property="og:description" content="통합 전투 효과 시스템, 41종 상태이상, 13개 데이터 테이블. 규칙을 한 번 설계하고 콘텐츠가 그 위에서 확장되도록 만듭니다.">
-<meta property="og:image" content="assets/images/firevow-cover.jpeg">
+<meta property="og:image" content="https://dlskarudrud-ops.github.io/assets/images/portfolio-og.png">
+<meta property="og:url" content="https://dlskarudrud-ops.github.io/">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://dlskarudrud-ops.github.io/">
 
 <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="assets/css/tokens.css?v=4">
-<link rel="stylesheet" href="assets/css/global.css?v=4">
-<link rel="stylesheet" href="assets/css/home.css?v=4">
-<link rel="stylesheet" href="assets/css/print.css?v=4" media="print">
+<link rel="stylesheet" href="assets/css/tokens.css?v=15">
+<link rel="stylesheet" href="assets/css/global.css?v=15">
+<link rel="stylesheet" href="assets/css/home.css?v=15">
+<link rel="stylesheet" href="assets/css/print.css?v=15" media="print">
 
 <script>
   /* Resolve the theme before first paint so the page never flashes. */
@@ -131,6 +133,17 @@
         </div>
 
         <div class="hero__contact">
+          <div class="system-loop" aria-hidden="true">
+            <div class="system-loop__head">
+              <span>System loop</span>
+              <span class="system-loop__state">Iterate</span>
+            </div>
+            <div class="system-loop__track">
+              <span>RULE</span>
+              <span>DATA</span>
+              <span>TEST</span>
+            </div>
+          </div>
           <div class="contact__list">
             <a href="mailto:dlskarudrud@gmail.com">
               <span class="contact__label">Email</span>
@@ -299,7 +312,7 @@
         <span class="eyebrow">Experience</span>
         <div class="section-head__row">
           <h2 class="section-head__title">경력</h2>
-          <div class="btn-row">
+          <div class="btn-row" role="group" aria-label="전체 경력 기술서">
             <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
             <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
           </div>
@@ -308,7 +321,7 @@
 
       <div class="timeline" data-reveal-group="60">
 
-        <article class="timeline__item" data-reveal>
+        <article class="timeline__item timeline__item--has-actions" data-reveal>
           <div class="timeline__period">
             2026.06 — 현재
             <span>Solo</span>
@@ -323,6 +336,10 @@
               <li>부위별 상처 · 붕대, 노드 그래프 텍스트 전투, 인격 스탯 기반 엔딩 분기 설계</li>
               <li>한 · 영 · 중 · 일 · 독 5개 언어로 Stove · Steam 데모 출품, 정식 출시 대기</li>
             </ul>
+          </div>
+          <div class="timeline__actions" role="group" aria-label="FireVow 자료">
+            <a class="btn btn--secondary" href="projects/fire-vow.html" aria-label="FireVow 웹으로 보기">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/fire-vow.pdf" data-pdf-variant data-pdf-label="Fire Vow" target="_blank" rel="noopener" aria-label="FireVow PDF로 보기, 새 창">PDF로 보기</a>
           </div>
         </article>
 
@@ -343,7 +360,7 @@
           </div>
         </article>
 
-        <article class="timeline__item" data-reveal>
+        <article class="timeline__item timeline__item--has-actions" data-reveal>
           <div class="timeline__period">
             2023.05 — 2025.12
             <span>Main</span>
@@ -360,6 +377,10 @@
               <li>인연 · 고유 무기 · 속성 연구 · 로그라이트 · 타워 등 성장 · 콘텐츠 10개 이상 설계</li>
               <li>전체 데이터 테이블의 50% 이상 작성, 제작 툴 · 외주 규격 · 빌드 가이드 문서 담당</li>
             </ul>
+          </div>
+          <div class="timeline__actions" role="group" aria-label="Taimanin Squad 자료">
+            <a class="btn btn--secondary" href="projects/project-ts.html" aria-label="Taimanin Squad 웹으로 보기">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener" aria-label="Taimanin Squad PDF로 보기, 새 창">PDF로 보기</a>
           </div>
         </article>
 
@@ -673,9 +694,10 @@
   </div>
 </footer>
 
-<script src="assets/js/theme.js?v=4" defer></script>
-<script src="assets/js/main.js?v=4" defer></script>
-<script src="assets/js/motion.js?v=4" defer></script>
-<script src="assets/js/webgl/scene.js?v=4" type="module"></script>
+<script src="assets/js/theme.js?v=15" defer></script>
+<script src="assets/js/main.js?v=15" defer></script>
+<script src="assets/js/motion.js?v=15" defer></script>
+<script src="assets/js/webgl/ambient-scene.js?v=15" type="module"></script>
+<script src="assets/js/webgl/scene.js?v=15" type="module"></script>
 </body>
 </html>

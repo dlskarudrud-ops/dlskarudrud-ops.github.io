@@ -8,13 +8,100 @@
 
 .hero {
   position: relative;
-  min-height: min(100svh, 920px);
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding-top: calc(var(--nav-h) + clamp(2rem, 6vh, 5rem));
   padding-bottom: clamp(2.5rem, 6vh, 5rem);
   overflow: hidden;
   isolation: isolate;
+  --hero-copy-shift: 0px;
+  --hero-panel-shift: 0px;
+  --hero-rail-shift: 0px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 48% at 72% 28%, var(--ambient-light), transparent 72%),
+    linear-gradient(180deg, color-mix(in srgb, var(--text-primary) 3%, transparent), transparent 42%);
+  opacity: 0.58;
+}
+
+/* Feathered reading veils keep type legible without reintroducing cards.
+   The final linear band also dissolves the hero into the next section. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg-primary) 68%, transparent) 0%,
+      transparent 18%
+    ),
+    radial-gradient(
+      ellipse 34% 46% at 17% 48%,
+      color-mix(in srgb, var(--bg-primary) 94%, transparent) 0 54%,
+      color-mix(in srgb, var(--bg-primary) 78%, transparent) 76%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 28% 44% at 82% 47%,
+      color-mix(in srgb, var(--bg-primary) 88%, transparent) 0 54%,
+      color-mix(in srgb, var(--bg-primary) 70%, transparent) 76%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 39% 16% at 34% 83%,
+      color-mix(in srgb, var(--bg-primary) 88%, transparent) 0 52%,
+      color-mix(in srgb, var(--bg-primary) 64%, transparent) 76%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom, transparent 80%, var(--bg-primary) 100%);
+}
+
+/* Daylight already gives the dark typography enough contrast. Keeping the
+   same opaque reading veil as dark mode would erase the blue glass entirely,
+   so light mode uses only a translucent paper bloom around the copy. */
+:root[data-theme="light"] .hero::after {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--bg-primary) 6%, transparent) 0%,
+      transparent 16%,
+      transparent 80%,
+      var(--bg-primary) 100%
+    ),
+    radial-gradient(
+      ellipse 34% 46% at 17% 48%,
+      color-mix(in srgb, var(--bg-primary) 32%, transparent) 0 52%,
+      color-mix(in srgb, var(--bg-primary) 12%, transparent) 76%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 28% 44% at 82% 47%,
+      color-mix(in srgb, var(--bg-primary) 8%, transparent) 0 52%,
+      color-mix(in srgb, var(--bg-primary) 2%, transparent) 76%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 39% 16% at 34% 83%,
+      color-mix(in srgb, var(--bg-primary) 18%, transparent) 0 50%,
+      color-mix(in srgb, var(--bg-primary) 6%, transparent) 76%,
+      transparent 100%
+    );
+}
+
+:root[data-theme="dark"] .hero {
+  --text-secondary: #ded9d0;
+  --text-muted: #b8b1a7;
 }
 
 /* WebGL / fallback atmosphere layer. Deliberately off-centre and cropped. */
@@ -24,27 +111,32 @@
   /* The box ends exactly where the hero does, so the hero's own overflow
      never cuts a visible edge. */
   top: 0;
-  right: -12%;
-  width: min(72vw, 1500px);
+  /* Anchor to the centred content shell, not the viewport edge. This keeps
+     the optical sheet inside the visible composition on ultrawide screens. */
+  right: -18%;
+  width: min(76vw, 1500px);
   height: 100%;
   pointer-events: none;
-  /* The radius is half the box and the centre is inside it, so the mask is
-     fully transparent before every edge — at any viewport width. A radius
-     larger than that is what produced a hard rectangular seam on wide
-     screens, where the capped box put its own left edge back on screen. */
-  -webkit-mask-image: radial-gradient(
-    50% 50% at 54% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.92) 26%,
-    rgba(0, 0, 0, 0.45) 58%,
-    transparent 100%
+  /* A horizontal feather reaches full transparency before both box edges.
+     That keeps the capped canvas from revealing a rectangular seam on wide
+     screens while preserving the centre of the optical sheet. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0 3%,
+    rgba(0, 0, 0, 0.16) 12%,
+    #000 34%,
+    #000 72%,
+    rgba(0, 0, 0, 0.42) 86%,
+    transparent 97% 100%
   );
-  mask-image: radial-gradient(
-    50% 50% at 54% 50%,
-    #000 0%,
-    rgba(0, 0, 0, 0.92) 26%,
-    rgba(0, 0, 0, 0.45) 58%,
-    transparent 100%
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0 3%,
+    rgba(0, 0, 0, 0.16) 12%,
+    #000 34%,
+    #000 72%,
+    rgba(0, 0, 0, 0.42) 86%,
+    transparent 97% 100%
   );
 }
 
@@ -54,11 +146,39 @@
   width: 100%;
   height: 100%;
   display: block;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0 2%,
+    #000 8% 76%,
+    rgba(0, 0, 0, 0.35) 88%,
+    transparent 96% 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0 2%,
+    #000 8% 76%,
+    rgba(0, 0, 0, 0.35) 88%,
+    transparent 96% 100%
+  );
   opacity: 0;
   transition: opacity 1100ms var(--ease-out);
 }
 
 .hero__atmosphere[data-ready="true"] .hero__canvas {
+  opacity: 0.68;
+}
+
+:root[data-theme="dark"] .hero__canvas {
+  mix-blend-mode: screen;
+  filter: saturate(1.14) contrast(1.04);
+}
+
+:root[data-theme="light"] .hero__canvas {
+  mix-blend-mode: multiply;
+  filter: saturate(1.78) contrast(1.28);
+}
+
+:root[data-theme="light"] .hero__atmosphere[data-ready="true"] .hero__canvas {
   opacity: 1;
 }
 
@@ -68,7 +188,22 @@
 .hero__fallback {
   position: absolute;
   inset: 0;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0 2%,
+    #000 8% 76%,
+    rgba(0, 0, 0, 0.35) 88%,
+    transparent 96% 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0 2%,
+    #000 8% 76%,
+    rgba(0, 0, 0, 0.35) 88%,
+    transparent 96% 100%
+  );
   transition: opacity 1100ms var(--ease-out);
+  background: radial-gradient(54% 48% at 62% 34%, rgba(176, 132, 66, 0.17), transparent 68%);
   background:
     radial-gradient(
       54% 48% at 62% 34%,
@@ -89,7 +224,25 @@
 }
 
 .hero__atmosphere[data-ready="true"] .hero__fallback {
-  opacity: 0.4;
+  opacity: 0.06;
+}
+
+:root[data-theme="light"] .hero__fallback {
+  background:
+    radial-gradient(54% 48% at 60% 30%, rgba(73, 137, 225, 0.26), transparent 68%),
+    radial-gradient(44% 58% at 84% 66%, rgba(37, 92, 178, 0.18), transparent 72%),
+    linear-gradient(205deg, rgba(32, 66, 116, 0.13), transparent 58%);
+  filter: blur(10px) saturate(1.14);
+}
+
+:root[data-theme="light"] .hero__atmosphere[data-ready="true"] .hero__fallback {
+  opacity: 0.1;
+}
+
+@media (min-width: 2400px) {
+  .hero__atmosphere {
+    right: max(-20rem, calc((100vw - var(--shell-max)) / 2 - 48rem));
+  }
 }
 
 .hero__inner {
@@ -113,6 +266,8 @@
   display: grid;
   gap: clamp(1.1rem, 0.6rem + 1.4vw, 1.75rem);
   max-width: 58ch;
+  transform: translate3d(0, var(--hero-copy-shift), 0);
+  will-change: transform;
 }
 
 .hero__name {
@@ -140,9 +295,139 @@
 }
 
 .hero__contact {
+  position: relative;
+  display: grid;
+  gap: 0;
+  align-self: start;
+  margin-top: clamp(0.5rem, 0.2rem + 1vw, 1.75rem);
+  transform: translate3d(0, var(--hero-panel-shift), 0);
+  will-change: transform;
+}
+
+.hero__contact::before {
+  content: none;
+}
+
+.hero__contact .contact__list {
+  position: relative;
+  border-top: 0;
+  padding-inline: 0;
+}
+
+.hero__contact .contact__list a,
+.hero__contact .contact__list div {
+  grid-template-columns: minmax(4.5rem, 6rem) minmax(0, 1fr);
+  padding-block: 0.82rem;
+}
+
+/* A small game-design motion graphic: rule -> data -> playtest. */
+.system-loop {
+  position: relative;
   display: grid;
   gap: var(--space-4);
-  padding-top: clamp(0.5rem, 0.2rem + 1vw, 1.75rem);
+  padding: 0 0 clamp(1rem, 0.7rem + 1vw, 1.35rem);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.system-loop__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.system-loop__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
+.system-loop__state::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px var(--accent-soft), 0 0 20px var(--ambient-light);
+}
+
+.system-loop__track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  overflow: hidden;
+}
+
+.system-loop__track::before,
+.system-loop__track::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 6px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.system-loop__track::before {
+  background: var(--border-strong);
+}
+
+.system-loop__track::after {
+  right: auto;
+  width: 34%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  filter: drop-shadow(0 0 5px var(--ambient-light));
+  transform: translateX(-140%);
+  animation: system-scan 5.6s var(--ease-inout) infinite;
+}
+
+.system-loop__track span {
+  position: relative;
+  padding-top: 1.1rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-eyebrow);
+  line-height: 1.3;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.system-loop__track span::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-active);
+  box-shadow: 0 0 0 3px var(--surface-glass);
+}
+
+@keyframes system-scan {
+  0%,
+  16% {
+    transform: translateX(-140%);
+    opacity: 0;
+  }
+  28% {
+    opacity: 1;
+  }
+  72%,
+  100% {
+    transform: translateX(310%);
+    opacity: 0;
+  }
 }
 
 @media (max-width: 900px) {
@@ -152,7 +437,7 @@
   }
 
   .hero__contact {
-    padding-top: 0;
+    margin-top: 0;
     max-width: 46ch;
   }
 }
@@ -177,10 +462,22 @@
   z-index: var(--z-content);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 0.4rem + 2vw, 3rem);
-  padding-top: var(--space-5);
+  gap: 0;
+  padding: clamp(0.9rem, 0.65rem + 0.8vw, 1.2rem) 0 0;
   border-top: 1px solid var(--border-subtle);
-  max-width: 900px;
+  max-width: 980px;
+  transform: translate3d(0, var(--hero-rail-shift), 0);
+  will-change: transform;
+}
+
+.hero__rail > div {
+  padding: 0 clamp(1rem, 0.7rem + 1.2vw, 1.8rem);
+  border-left: 1px solid var(--border-subtle);
+}
+
+.hero__rail > div:first-child {
+  padding-left: 0;
+  border-left: 0;
 }
 
 .hero__rail dt {
@@ -208,15 +505,81 @@
   .hero__rail {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+    padding: var(--space-4) 0 0;
+  }
+
+  .hero__rail > div {
+    padding: 0;
+    border-left: 0;
   }
 
   /* Large optical effects become much quieter on phones. */
   .hero__atmosphere {
     right: -26%;
     width: 150vw;
-    height: 78%;
+    height: 100%;
     opacity: 0.6;
   }
+
+  :root[data-theme="light"] .hero__atmosphere {
+    opacity: 0.82;
+  }
+}
+
+/* The hero ends on an opaque reading veil. Begin profile on the same tone and
+   release it gradually so the fixed ambient field never appears as a cut. */
+.hero + .section {
+  --hero-bridge: clamp(6rem, 12vh, 11rem);
+  background: linear-gradient(
+    to bottom,
+    var(--bg-primary) 0,
+    transparent var(--hero-bridge)
+  );
+}
+
+@media (max-height: 480px) {
+  .hero {
+    padding-top: calc(var(--nav-h) + var(--space-4));
+    padding-bottom: var(--space-6);
+  }
+}
+
+@media (max-height: 260px) {
+  .hero__atmosphere {
+    display: none !important;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.992);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__identity > *,
+  .hero__contact > *,
+  .hero__rail > div {
+    animation: hero-enter var(--dur-cinematic) var(--ease-spring) both;
+  }
+
+  .hero__identity > :nth-child(1) { animation-delay: 80ms; }
+  .hero__identity > :nth-child(2) { animation-delay: 150ms; }
+  .hero__identity > :nth-child(3) { animation-delay: 220ms; }
+  .hero__identity > :nth-child(4) { animation-delay: 290ms; }
+  .hero__identity > :nth-child(5) { animation-delay: 360ms; }
+  .hero__contact > :nth-child(1) { animation-delay: 250ms; }
+  .hero__contact > :nth-child(2) { animation-delay: 330ms; }
+  .hero__rail > :nth-child(1) { animation-delay: 420ms; }
+  .hero__rail > :nth-child(2) { animation-delay: 490ms; }
+  .hero__rail > :nth-child(3) { animation-delay: 560ms; }
 }
 
 /* --------------------------------------------------------------------------
@@ -509,6 +872,29 @@
   position: relative;
 }
 
+.timeline__item--has-actions {
+  grid-template-columns:
+    minmax(8.5rem, 11rem)
+    minmax(0, 1fr)
+    max-content;
+}
+
+.timeline__actions {
+  display: flex;
+  flex-direction: column;
+  align-self: start;
+  gap: var(--space-2);
+  min-width: 7.75rem;
+  padding-top: 0.1rem;
+}
+
+.timeline__actions .btn {
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.55rem 0.95rem;
+  white-space: nowrap;
+}
+
 .timeline__period {
   font-size: var(--fs-tag);
   font-weight: 500;
@@ -556,10 +942,30 @@
   margin-top: 0.2rem;
 }
 
+@media (max-width: 1000px) {
+  .timeline__item--has-actions {
+    grid-template-columns: minmax(8.5rem, 11rem) minmax(0, 1fr);
+    row-gap: var(--space-4);
+  }
+
+  .timeline__actions {
+    grid-column: 2;
+    width: max-content;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 700px) {
-  .timeline__item {
+  .timeline__item,
+  .timeline__item--has-actions {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-3);
+  }
+
+  .timeline__actions {
+    grid-column: 1;
+    width: min(100%, 12rem);
+    min-width: 0;
   }
 
   .timeline__period {

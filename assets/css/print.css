@@ -38,6 +38,11 @@
     line-height: 1.55;
   }
 
+  body {
+    display: block;
+    min-height: 0;
+  }
+
   /* Remove everything that only exists on screen */
   .nav,
   .mobile-menu,
@@ -94,6 +99,11 @@
   .case,
   .page-hero {
     padding-block: 0 !important;
+  }
+
+  .section--inset,
+  .footer {
+    background: #fff !important;
   }
 
   .doc {

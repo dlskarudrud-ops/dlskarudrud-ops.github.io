@@ -25,6 +25,9 @@ html {
 
 body {
   margin: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
@@ -42,6 +45,80 @@ body {
   overflow-wrap: break-word;
   transition: background-color var(--dur-slow) var(--ease-inout),
     color var(--dur-slow) var(--ease-inout);
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+/* CSS fallback for the fixed GLSL light field. It stays behind the entire
+   document, so a long page never returns to a completely flat background. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(68% 58% at 88% 16%, rgba(176, 132, 66, 0.12), transparent 74%),
+    radial-gradient(62% 64% at 8% 82%, rgba(176, 132, 66, 0.055), transparent 76%);
+  background:
+    radial-gradient(68% 58% at 88% 16%, var(--ambient-light), transparent 74%),
+    radial-gradient(62% 64% at 8% 82%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 76%);
+  opacity: 0.32;
+}
+
+body > main,
+body > .footer {
+  position: relative;
+  z-index: 1;
+}
+
+body > main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+body > .footer {
+  margin-top: auto;
+}
+
+.site-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1100ms var(--ease-out);
+}
+
+.site-atmosphere[data-ready="true"] {
+  opacity: 1;
+}
+
+.site-atmosphere__canvas {
+  width: 100%;
+  height: 100%;
+}
+
+:root[data-theme="dark"] .site-atmosphere__canvas {
+  opacity: 0.38;
+  mix-blend-mode: screen;
+  filter: saturate(1.12);
+}
+
+:root[data-theme="light"] body::before {
+  background:
+    radial-gradient(68% 58% at 88% 16%, rgba(64, 128, 220, 0.19), transparent 72%),
+    radial-gradient(62% 64% at 8% 82%, rgba(103, 157, 232, 0.13), transparent 76%),
+    radial-gradient(42% 46% at 58% 52%, rgba(181, 135, 65, 0.055), transparent 74%);
+  opacity: 0.55;
+}
+
+:root[data-theme="light"] .site-atmosphere__canvas {
+  opacity: 0.44;
+  mix-blend-mode: multiply;
+  filter: saturate(1.38) contrast(1.08);
 }
 
 h1,
@@ -126,7 +203,8 @@ hr {
   width: 100%;
   max-width: var(--shell-max);
   margin-inline: auto;
-  padding-inline: var(--shell-pad);
+  padding-left: max(var(--shell-pad), var(--safe-left));
+  padding-right: max(var(--shell-pad), var(--safe-right));
 }
 
 /* Document pages: wide enough for a four-up fact strip beside a comfortable
@@ -309,7 +387,29 @@ hr {
 }
 
 .section--inset {
-  background: var(--bg-secondary);
+  --section-fade: clamp(4rem, 7vw, 8rem);
+  --section-band: var(--bg-secondary);
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    var(--section-band) var(--section-fade),
+    var(--section-band) calc(100% - var(--section-fade)),
+    transparent 100%
+  );
+}
+
+:root[data-theme="light"] .section--inset {
+  --section-band: var(--bg-secondary);
+}
+
+@supports (background: color-mix(in srgb, black, transparent)) {
+  .section--inset {
+    --section-band: color-mix(in srgb, var(--bg-secondary) 78%, transparent);
+  }
+
+  :root[data-theme="light"] .section--inset {
+    --section-band: color-mix(in srgb, var(--bg-secondary) 72%, transparent);
+  }
 }
 
 .section--tight {
@@ -388,7 +488,7 @@ hr {
   align-items: center;
   gap: 0.55em;
   padding: 0.72rem 1.35rem;
-  border-radius: var(--r-sm);
+  border-radius: var(--r-pill);
   font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: -0.005em;
@@ -532,9 +632,10 @@ hr {
 .glass {
   background: var(--surface-glass);
   border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft), inset 0 1px 0 var(--border-highlight);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  backdrop-filter: blur(16px) saturate(150%);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 var(--border-highlight),
+    inset 0 -1px 0 color-mix(in srgb, var(--text-primary) 3%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  backdrop-filter: blur(20px) saturate(165%);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -554,14 +655,30 @@ hr {
   right: 0;
   z-index: var(--z-nav);
   height: var(--nav-h);
+  padding-top: var(--safe-top);
   display: flex;
   align-items: center;
   background: transparent;
   border-bottom: 1px solid transparent;
   transition: background-color var(--dur-base) var(--ease-out),
     border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
     -webkit-backdrop-filter var(--dur-base) var(--ease-out),
     backdrop-filter var(--dur-base) var(--ease-out);
+}
+
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  transform: scaleX(var(--page-progress, 0));
+  transform-origin: left;
+  opacity: 0.72;
+  pointer-events: none;
 }
 
 .nav[data-scrolled="true"] {
@@ -569,6 +686,8 @@ hr {
   border-bottom-color: var(--border-subtle);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
   backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: 0 10px 34px color-mix(in srgb, var(--bg-primary) 32%, transparent),
+    inset 0 1px 0 var(--border-highlight);
 }
 
 .nav__inner {
@@ -626,11 +745,11 @@ hr {
 }
 
 .nav__link:hover,
-.nav__link[aria-current="true"] {
+.nav__link[aria-current] {
   color: var(--text-primary);
 }
 
-.nav__link[aria-current="true"]::after,
+.nav__link[aria-current]::after,
 .nav__link:hover::after {
   transform: scaleX(1);
 }
@@ -770,7 +889,14 @@ hr {
   position: fixed;
   inset: var(--nav-h) 0 auto 0;
   z-index: var(--z-menu);
-  padding: var(--space-5) var(--shell-pad) var(--space-7);
+  max-height: calc(100dvh - var(--nav-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-top: var(--space-5);
+  padding-right: max(var(--shell-pad), var(--safe-right));
+  padding-bottom: calc(var(--space-7) + var(--safe-bottom));
+  padding-left: max(var(--shell-pad), var(--safe-left));
   background: var(--surface-glass);
   border-bottom: 1px solid var(--border-subtle);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
@@ -802,6 +928,13 @@ hr {
   border-bottom: 0;
 }
 
+.mobile-menu a[aria-current] {
+  color: var(--accent);
+  font-weight: 650;
+  box-shadow: inset 2px 0 0 var(--accent-line);
+  padding-left: var(--space-3);
+}
+
 /* Six labels at the current type size need real room; below this the header
    would crowd, so it switches to the drawer. */
 @media (max-width: 1080px) {
@@ -812,11 +945,67 @@ hr {
   .nav__burger {
     display: inline-flex;
   }
+
+  .theme-toggle,
+  .nav__burger {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* A wide touch device still needs finger-sized controls even when the desktop
+   navigation remains visible (large tablets and unfolded foldables). */
+@media (pointer: coarse) {
+  .theme-toggle,
+  .nav__burger {
+    width: 44px;
+    height: 44px;
+  }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav__inner {
+    gap: var(--space-3);
+  }
+
+  .nav__brand-role {
+    display: none;
+  }
 }
 
 @media (min-width: 1081px) {
   .mobile-menu {
     display: none;
+  }
+}
+
+/* Fold covers and landscape phones have enough width for content but almost
+   no vertical room. Keep the drawer compact and internally scrollable. */
+@media (max-height: 480px) {
+  :root {
+    --nav-bar-h: 58px;
+  }
+
+  .mobile-menu {
+    padding-top: var(--space-2);
+    padding-bottom: calc(var(--space-3) + var(--safe-bottom));
+    gap: 0;
+  }
+
+  .mobile-menu a {
+    padding-block: 0.55rem;
+  }
+}
+
+@media (max-height: 260px) {
+  .site-atmosphere {
+    display: none !important;
   }
 }
 
@@ -840,6 +1029,11 @@ hr {
   border-color: var(--border-strong);
   box-shadow: var(--shadow-lifted);
   transform: translateY(-2px);
+}
+
+.card:focus-within {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-lifted), inset 0 1px 0 var(--border-highlight);
 }
 
 /* Whole-card link. The primary action stretches an invisible hit area across
@@ -997,8 +1191,21 @@ hr {
 
 .footer {
   border-top: 1px solid var(--border-subtle);
-  padding-block: var(--space-7) var(--space-6);
-  background: var(--bg-primary);
+  padding-top: var(--space-7);
+  padding-bottom: calc(var(--space-6) + var(--safe-bottom));
+  --footer-band: var(--bg-primary);
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    var(--footer-band) clamp(3rem, 5vw, 6rem),
+    var(--footer-band) 100%
+  );
+}
+
+@supports (background: color-mix(in srgb, black, transparent)) {
+  .footer {
+    --footer-band: color-mix(in srgb, var(--bg-primary) 82%, transparent);
+  }
 }
 
 .footer__inner {
@@ -1050,33 +1257,44 @@ hr {
    13. Reveal on scroll
    -------------------------------------------------------------------------- */
 
-[data-reveal] {
+.motion-ready [data-reveal] {
   opacity: 0;
   transform: translateY(16px);
+  filter: blur(5px);
   transition: opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
+    transform var(--dur-slow) var(--ease-out),
+    filter var(--dur-slow) var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-[data-reveal].is-revealed {
+.motion-ready [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 
 /* Directional variants — used where the element sits to one side of the
    reading column and should arrive from that side. */
-[data-reveal="right"] {
+.motion-ready [data-reveal="right"] {
   transform: translateX(30px);
 }
 
-[data-reveal="left"] {
+.motion-ready [data-reveal="left"] {
   transform: translateX(-30px);
+}
+
+@media (max-width: 620px) {
+  .motion-ready [data-reveal="right"],
+  .motion-ready [data-reveal="left"] {
+    transform: translateY(12px);
+  }
 }
 
 /* If JS never runs, content must still be visible. */
 .no-js [data-reveal] {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -1089,7 +1307,10 @@ hr {
   z-index: var(--z-lightbox);
   display: grid;
   place-items: center;
-  padding: clamp(1rem, 4vw, 3rem);
+  padding-top: max(clamp(1rem, 4vw, 3rem), var(--safe-top));
+  padding-right: max(clamp(1rem, 4vw, 3rem), var(--safe-right));
+  padding-bottom: max(clamp(1rem, 4vw, 3rem), var(--safe-bottom));
+  padding-left: max(clamp(1rem, 4vw, 3rem), var(--safe-left));
   background: color-mix(in srgb, var(--bg-primary) 82%, transparent);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -1137,10 +1358,10 @@ hr {
 
 .lightbox__close {
   position: absolute;
-  top: clamp(0.75rem, 2vw, 1.5rem);
-  right: clamp(0.75rem, 2vw, 1.5rem);
-  width: 38px;
-  height: 38px;
+  top: max(clamp(0.75rem, 2vw, 1.5rem), var(--safe-top));
+  right: max(clamp(0.75rem, 2vw, 1.5rem), var(--safe-right));
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border-radius: var(--r-sm);
@@ -1160,7 +1381,7 @@ body.is-locked {
 }
 
 /* --------------------------------------------------------------------------
-   15. Reduced motion
+   15. Reduced motion and high-contrast fallbacks
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1188,5 +1409,38 @@ body.is-locked {
 
   .card--reactive::before {
     display: none;
+  }
+
+  .nav::after {
+    display: none;
+  }
+
+}
+
+@media (forced-colors: active) {
+  body::before,
+  .site-atmosphere,
+  .hero__canvas,
+  .page-hero__canvas {
+    display: none !important;
+  }
+
+  .glass,
+  .nav[data-scrolled="true"] {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-color: CanvasText;
+  }
+
+  .section--inset,
+  .footer {
+    background: Canvas !important;
+  }
+}
+
+@media print {
+  body::before,
+  .site-atmosphere {
+    display: none !important;
   }
 }

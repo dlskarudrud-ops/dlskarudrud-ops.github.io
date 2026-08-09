@@ -33,28 +33,62 @@
   var menu = document.querySelector("[data-menu]");
 
   if (burger && menu) {
-    var setMenu = function (open) {
+    var setMenu = function (open, restoreFocus) {
       burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
       menu.setAttribute("data-open", String(open));
       menu.setAttribute("aria-hidden", String(!open));
+      document.body.classList.toggle("menu-open", open);
+
+      if (open) {
+        window.setTimeout(function () {
+          if (burger.getAttribute("aria-expanded") !== "true") return;
+          var first = menu.querySelector("a[href]");
+          if (first) first.focus({ preventScroll: true });
+        }, 260);
+      } else if (restoreFocus) {
+        burger.focus();
+      }
     };
 
-    setMenu(false);
+    setMenu(false, false);
 
     burger.addEventListener("click", function () {
-      setMenu(burger.getAttribute("aria-expanded") !== "true");
+      setMenu(burger.getAttribute("aria-expanded") !== "true", false);
     });
 
     menu.addEventListener("click", function (event) {
-      if (event.target.closest("a")) setMenu(false);
+      if (event.target.closest("a")) setMenu(false, false);
     });
 
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") setMenu(false);
+      var open = burger.getAttribute("aria-expanded") === "true";
+      if (event.key === "Escape" && open) {
+        event.preventDefault();
+        setMenu(false, true);
+        return;
+      }
+
+      if (event.key !== "Tab" || !open) return;
+      var items = Array.prototype.slice.call(menu.querySelectorAll("a[href]"));
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     });
 
     window.addEventListener("resize", function () {
-      if (window.innerWidth > 1080) setMenu(false);
+      if (window.innerWidth > 1080) setMenu(false, false);
+    });
+
+    window.addEventListener("orientationchange", function () {
+      setMenu(false, false);
     });
   }
 
@@ -163,7 +197,10 @@
     var wanted = theme === "light" ? "light" : "dark";
     document.querySelectorAll("a[data-pdf-variant]").forEach(function (link) {
       var href = link.getAttribute("href") || "";
-      var next = href.replace(/\/pdf\/(dark|light)\//, "/pdf/" + wanted + "/");
+      var next = href.replace(
+        /(^|\/)pdf\/(dark|light)\//,
+        "$1pdf/" + wanted + "/"
+      );
       if (next !== href) link.setAttribute("href", next);
 
       var label = link.getAttribute("data-pdf-label");

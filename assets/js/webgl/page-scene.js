@@ -1,16 +1,18 @@
 /**
- * scene.js — homepage optical atmosphere lifecycle.
- *
- * WebGL is an enhancement, never a dependency. The CSS atmosphere remains
- * visible when three.js cannot load, data-saver is enabled, WebGL is missing,
- * or the graphics context is lost. Work pauses outside the hero and while the
- * tab is hidden. Reduced-motion renders one still frame instead of a GPU loop.
+ * page-scene.js — lightweight GLSL atmosphere for resumes, documents and
+ * case-study heroes. It reuses the homepage optical material at roughly half
+ * intensity and a lower geometry tier so long-form reading remains dominant.
  */
 
-import { PALETTES, createVolume, createField } from "./materials.js?v=15";
+import {
+  PALETTES,
+  STEEL,
+  createVolume,
+  createField,
+} from "./materials.js?v=15";
 
 const THREE_URL = "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js";
-const host = document.querySelector("[data-atmosphere]");
+const hero = document.querySelector(".page-hero");
 const motionQuery = window.matchMedia
   ? window.matchMedia("(prefers-reduced-motion: reduce)")
   : null;
@@ -20,24 +22,6 @@ const forcedColorsQuery = window.matchMedia
 const compactHeightQuery = window.matchMedia
   ? window.matchMedia("(max-height: 260px)")
   : null;
-
-/** Pick a conservative quality tier from viewport and coarse device signals. */
-function resolveTier() {
-  const connection = navigator.connection || navigator.mozConnection;
-  if (connection && connection.saveData) return null;
-
-  const width = window.innerWidth;
-  const cores = navigator.hardwareConcurrency || 8;
-  const memory = navigator.deviceMemory || 8;
-
-  if (width < 720 || cores <= 4 || memory <= 4) {
-    return { name: "low", segments: 44, dpr: 1, amplitude: 0.86, fps: 30 };
-  }
-  if (width < 1200 || cores <= 6) {
-    return { name: "medium", segments: 80, dpr: 1.35, amplitude: 1.02, fps: 45 };
-  }
-  return { name: "high", segments: 120, dpr: 1.6, amplitude: 1.12, fps: 60 };
-}
 
 function supportsWebGL2() {
   return Boolean(window.WebGL2RenderingContext);
@@ -53,10 +37,26 @@ function boundedPixelRatio(width, height, cap, maxPixels) {
   );
 }
 
+function resolveTier() {
+  const connection = navigator.connection || navigator.mozConnection;
+  if (connection && connection.saveData) return null;
+
+  const width = window.innerWidth;
+  const cores = navigator.hardwareConcurrency || 8;
+  const memory = navigator.deviceMemory || 8;
+  if (width < 720 || cores <= 4 || memory <= 4) {
+    return { segments: 32, dpr: 1, fps: 24 };
+  }
+  if (width < 1200 || cores <= 6) {
+    return { segments: 48, dpr: 1.2, fps: 30 };
+  }
+  return { segments: 64, dpr: 1.35, fps: 45 };
+}
+
 async function init() {
   const tier = resolveTier();
   if (
-    !host ||
+    !hero ||
     !tier ||
     (forcedColorsQuery && forcedColorsQuery.matches) ||
     (compactHeightQuery && compactHeightQuery.matches) ||
@@ -70,45 +70,65 @@ async function init() {
     return;
   }
 
+  const host = document.createElement("div");
+  host.className = "page-hero__atmosphere";
+  host.setAttribute("aria-hidden", "true");
+  hero.prepend(host);
+
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({
       alpha: true,
-      // The material is already analytically feathered. Keeping MSAA off makes
-      // the renderer's pixel budget deterministic on 5K/8K displays.
       antialias: false,
-      powerPreference: tier.name === "high" ? "high-performance" : "default",
+      powerPreference: "low-power",
       failIfMajorPerformanceCaveat: false,
     });
   } catch (_error) {
+    host.remove();
     return;
   }
 
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.02;
+  renderer.toneMappingExposure = 0.96;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.domElement.className = "hero__canvas";
+  renderer.domElement.className = "page-hero__canvas";
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-  camera.position.set(0, 0, 4.1);
-
+  const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 40);
   const volume = createVolume(THREE, tier.segments);
-  volume.material.uniforms.uAmplitude.value = tier.amplitude;
   const field = createField(THREE);
+
+  // Page heroes use a broader, more face-on veil than the homepage. A steep
+  // grazing angle turns low-frequency folds into razor-thin lines on short or
+  // narrow viewports, which reads as a torn canvas rather than soft glass.
+  volume.material.uniforms.uAmplitude.value = 0.54;
+  volume.material.uniforms.uScale.value = 0.21;
+  volume.scale.setScalar(0.9);
+  volume.position.set(0.94, -0.06, 0);
+  volume.rotation.set(-0.88, 0.22, -0.42);
+  field.position.set(0.8, 0.12, -3.5);
   scene.add(field, volume);
 
   let reduceMotion = Boolean(motionQuery && motionQuery.matches);
   let forcedColors = false;
-  let firstTheme = true;
+  let elapsed = 7.5;
+  let scrollProgress = 0;
+  let heroVisible = true;
+  let tabVisible = document.visibilityState !== "hidden";
+  let running = false;
   let disposed = false;
   let contextLost = false;
+  let frame = 0;
+  let staticFrame = 0;
+  let scrollFrame = 0;
+  let lastFrameTime = 0;
   let hasRendered = false;
   let rendererDpr = 0;
   let frameStep = 1000 / tier.fps;
+  const clock = new THREE.Clock(false);
 
   const current = {
     deep: new THREE.Color(),
@@ -120,8 +140,8 @@ async function init() {
     shade: new THREE.Color(),
     opacity: 0,
     fieldOpacity: 0,
-    fresnel: 3,
-    specular: 0.7,
+    fresnel: 2.7,
+    specular: 0.45,
     exposure: 1,
   };
 
@@ -135,12 +155,14 @@ async function init() {
     shade: new THREE.Color(),
     opacity: 0,
     fieldOpacity: 0,
-    fresnel: 3,
-    specular: 0.7,
+    fresnel: 2.7,
+    specular: 0.45,
     exposure: 1,
   };
 
-  function copyTarget(includeOpacity) {
+  const damp = (a, b, k) => a + (b - a) * k;
+
+  function copyTarget() {
     current.deep.copy(target.deep);
     current.light.copy(target.light);
     current.tint.copy(target.tint);
@@ -148,57 +170,36 @@ async function init() {
     current.prismB.copy(target.prismB);
     current.glow.copy(target.glow);
     current.shade.copy(target.shade);
+    current.opacity = target.opacity;
+    current.fieldOpacity = target.fieldOpacity;
     current.fresnel = target.fresnel;
     current.specular = target.specular;
     current.exposure = target.exposure;
-    if (includeOpacity) {
-      current.opacity = target.opacity;
-      current.fieldOpacity = target.fieldOpacity;
-    }
   }
 
-  function readTheme() {
-    const name =
-      document.documentElement.getAttribute("data-theme") === "light"
-        ? "light"
-        : "dark";
+  function readTheme(firstPaint) {
+    const root = document.documentElement;
+    const name = root.getAttribute("data-theme") === "light" ? "light" : "dark";
     const palette = PALETTES[name];
+    const accent = root.getAttribute("data-accent") === "steel" ? STEEL[name] : null;
 
     target.deep.setRGB(...palette.volume.deep);
     target.light.setRGB(...palette.volume.light);
-    target.tint.setRGB(...palette.volume.tint);
-    target.prismA.setRGB(...palette.volume.prismA);
-    target.prismB.setRGB(...palette.volume.prismB);
-    target.glow.setRGB(...palette.field.glow);
+    target.tint.setRGB(...(accent ? accent.tint : palette.volume.tint));
+    target.prismA.setRGB(...(accent ? accent.prismA : palette.volume.prismA));
+    target.prismB.setRGB(...(accent ? accent.prismB : palette.volume.prismB));
+    target.glow.setRGB(...(accent ? accent.glow : palette.field.glow));
     target.shade.setRGB(...palette.field.shade);
-    target.opacity = palette.volume.opacity;
-    target.fieldOpacity = palette.field.opacity;
-    target.fresnel = palette.volume.fresnel;
-    target.specular = palette.volume.specular;
-    target.exposure = name === "light" ? 0.9 : 1.02;
+    target.opacity = palette.volume.opacity * (name === "light" ? 0.78 : 0.68);
+    target.fieldOpacity = palette.field.opacity * (name === "light" ? 0.54 : 0.3);
+    // A lower power spreads the dark-mode rim over the face-on page veil.
+    // The homepage keeps the narrow cinematic edge; document pages need one
+    // continuous glass body rather than isolated contour lines.
+    target.fresnel = name === "light" ? palette.volume.fresnel : 1.85;
+    target.specular = palette.volume.specular * 0.78;
+    target.exposure = name === "light" ? 0.86 : 0.96;
 
-    if (firstTheme || reduceMotion) {
-      copyTarget(true);
-      firstTheme = false;
-    }
-  }
-
-  readTheme();
-
-  const pointer = { x: 0, y: 0, tx: 0, ty: 0 };
-  const finePointer = Boolean(
-    window.matchMedia &&
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches
-  );
-
-  function onPointerMove(event) {
-    if (reduceMotion) return;
-    pointer.tx = (event.clientX / window.innerWidth - 0.5) * 2;
-    pointer.ty = (event.clientY / window.innerHeight - 0.5) * 2;
-  }
-
-  if (finePointer) {
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    if (firstPaint || reduceMotion) copyTarget();
   }
 
   function resize() {
@@ -206,13 +207,13 @@ async function init() {
     const rect = host.getBoundingClientRect();
     const width = Math.max(1, Math.round(rect.width));
     const height = Math.max(1, Math.round(rect.height));
-    const nextDpr = boundedPixelRatio(width, height, tier.dpr, 2400000);
+    const nextDpr = boundedPixelRatio(width, height, tier.dpr, 2000000);
     if (Math.abs(nextDpr - rendererDpr) > 0.01) {
       rendererDpr = nextDpr;
       renderer.setPixelRatio(rendererDpr);
     }
     const responsiveFps = window.innerWidth < 720
-      ? Math.min(tier.fps, 30)
+      ? Math.min(tier.fps, 24)
       : tier.fps;
     frameStep = 1000 / responsiveFps;
     renderer.setSize(width, height, false);
@@ -220,33 +221,11 @@ async function init() {
     camera.updateProjectionMatrix();
   }
 
-  resize();
-  let resizeObserver = null;
-  if ("ResizeObserver" in window) {
-    resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(host);
-  } else {
-    window.addEventListener("resize", resize);
-  }
-
-  let heroVisible = true;
-  let tabVisible = document.visibilityState !== "hidden";
-  let running = false;
-  let frame = 0;
-  let staticFrame = 0;
-  let lastFrameTime = 0;
-  let elapsed = 0;
-  let scrollProgress = 0;
-  let scrollFrame = 0;
-  const clock = new THREE.Clock(false);
-  const hero = host.closest(".hero") || host;
-
-  const damp = (a, b, k) => a + (b - a) * k;
-
   function draw(delta) {
     if (disposed || contextLost || forcedColors) return;
+    const k = reduceMotion ? 1 : Math.min(1, Math.max(delta, 1 / 120) * 3.4);
+    const recede = 1 - scrollProgress * 0.72;
 
-    const k = reduceMotion ? 1 : Math.min(1, Math.max(delta, 1 / 120) * 3.2);
     current.deep.lerp(target.deep, k);
     current.light.lerp(target.light, k);
     current.tint.lerp(target.tint, k);
@@ -254,18 +233,12 @@ async function init() {
     current.prismB.lerp(target.prismB, k);
     current.glow.lerp(target.glow, k);
     current.shade.lerp(target.shade, k);
+    current.opacity = damp(current.opacity, target.opacity * recede, k);
+    current.fieldOpacity = damp(current.fieldOpacity, target.fieldOpacity * recede, k);
     current.fresnel = damp(current.fresnel, target.fresnel, k);
     current.specular = damp(current.specular, target.specular, k);
     current.exposure = damp(current.exposure, target.exposure, k);
     renderer.toneMappingExposure = current.exposure;
-
-    const recede = 1 - scrollProgress * 0.85;
-    current.opacity = damp(current.opacity, target.opacity * recede, k);
-    current.fieldOpacity = damp(
-      current.fieldOpacity,
-      target.fieldOpacity * recede,
-      k
-    );
 
     const vu = volume.material.uniforms;
     vu.uTime.value = elapsed;
@@ -284,16 +257,12 @@ async function init() {
     fu.uShade.value.copy(current.shade);
     fu.uOpacity.value = current.fieldOpacity;
 
-    pointer.x = damp(pointer.x, pointer.tx, reduceMotion ? 1 : 0.035);
-    pointer.y = damp(pointer.y, pointer.ty, reduceMotion ? 1 : 0.035);
-
-    camera.position.x = Math.sin(elapsed * 0.048) * 0.16 + pointer.x * 0.075;
-    camera.position.y = Math.cos(elapsed * 0.037) * 0.11 - pointer.y * 0.055;
-    camera.position.z = 3.6 + scrollProgress * 0.55;
-    camera.lookAt(0.3, 0.05, 0);
-
-    volume.rotation.z = -0.42 + Math.sin(elapsed * 0.026) * 0.03;
-    volume.rotation.x = -0.98 + Math.cos(elapsed * 0.021) * 0.024;
+    camera.position.x = 0.06 + Math.sin(elapsed * 0.035) * 0.08;
+    camera.position.y = -0.02 + Math.cos(elapsed * 0.028) * 0.06;
+    camera.position.z = 4.0 + scrollProgress * 0.44;
+    camera.lookAt(0.62, 0.02, 0);
+    volume.rotation.z = -0.42 + Math.sin(elapsed * 0.018) * 0.014;
+    volume.rotation.x = -0.88 + Math.cos(elapsed * 0.016) * 0.012;
 
     renderer.render(scene, camera);
     if (!hasRendered) {
@@ -325,7 +294,6 @@ async function init() {
   function sync() {
     const shouldRun =
       heroVisible && tabVisible && !forcedColors && !contextLost && !disposed;
-
     if (reduceMotion) {
       if (running) {
         running = false;
@@ -335,7 +303,6 @@ async function init() {
       if (shouldRun) renderStatic();
       return;
     }
-
     if (shouldRun && !running) {
       running = true;
       lastFrameTime = 0;
@@ -346,25 +313,6 @@ async function init() {
       cancelAnimationFrame(frame);
       clock.stop();
     }
-  }
-
-  let visibilityObserver = null;
-  if ("IntersectionObserver" in window) {
-    visibilityObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          heroVisible = entry.isIntersecting;
-          sync();
-        });
-      },
-      { threshold: 0 }
-    );
-    visibilityObserver.observe(hero);
-  }
-
-  function onVisibilityChange() {
-    tabVisible = document.visibilityState !== "hidden";
-    sync();
   }
 
   function updateScroll() {
@@ -380,13 +328,13 @@ async function init() {
   }
 
   function onThemeChange() {
-    readTheme();
-    if (reduceMotion && heroVisible) renderStatic();
+    readTheme(false);
+    if (reduceMotion) renderStatic();
   }
 
   function onMotionChange(event) {
     reduceMotion = event.matches;
-    if (reduceMotion) copyTarget(true);
+    if (reduceMotion) copyTarget();
     sync();
   }
 
@@ -402,6 +350,11 @@ async function init() {
     sync();
   }
 
+  function onVisibilityChange() {
+    tabVisible = document.visibilityState !== "hidden";
+    sync();
+  }
+
   function onContextLost(event) {
     event.preventDefault();
     contextLost = true;
@@ -414,6 +367,31 @@ async function init() {
     contextLost = false;
     resize();
     sync();
+  }
+
+  readTheme(true);
+  resize();
+
+  let resizeObserver = null;
+  if ("ResizeObserver" in window) {
+    resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(host);
+  } else {
+    window.addEventListener("resize", resize);
+  }
+
+  let visibilityObserver = null;
+  if ("IntersectionObserver" in window) {
+    visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          heroVisible = entry.isIntersecting;
+          sync();
+        });
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(hero);
   }
 
   document.addEventListener("visibilitychange", onVisibilityChange);
@@ -446,7 +424,6 @@ async function init() {
     stop();
     if (resizeObserver) resizeObserver.disconnect();
     if (visibilityObserver) visibilityObserver.disconnect();
-    if (finePointer) window.removeEventListener("pointermove", onPointerMove);
     window.removeEventListener("resize", resize);
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("themechange", onThemeChange);
