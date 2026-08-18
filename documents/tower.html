@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="../assets/css/global.css?v=15">
-<link rel="stylesheet" href="../assets/css/project.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=16">
 <link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
 <script>
   (function () {
@@ -39,9 +39,9 @@
   <div class="shell nav__inner">
     <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
     <nav class="nav__links" aria-label="주요 섹션">
-      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#skills">역량</a>
-      <a class="nav__link" href="../index.html#experience">경력</a><a class="nav__link" href="../index.html#work">프로젝트</a>
-      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+      <a class="nav__link" href="../index.html#skills">역량</a><a class="nav__link" href="../index.html#experience">경력</a>
+      <a class="nav__link" href="../index.html#work">프로젝트</a><a class="nav__link" href="../index.html#documents">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
     </nav>
     <div class="nav__actions">
       <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
@@ -53,14 +53,14 @@
   </div>
 </header>
 <nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
-  <a href="../index.html#profile">프로필</a><a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a>
-  <a href="../index.html#work">프로젝트</a><a href="../index.html#documents" aria-current="location">문서</a><a href="../index.html#contact">연락</a>
+  <a href="../index.html#profile">프로필</a><a href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+  <a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a><a href="../index.html#work">프로젝트</a><a href="../index.html#documents">문서</a><a href="../index.html#contact">연락</a>
 </nav>
 
 <main id="main">
   <section class="page-hero">
     <div class="shell shell--narrow">
-      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#documents">문서</a><span aria-hidden="true">/</span><span aria-current="page">타워</span></nav>
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#practical">실무 포트폴리오</a><span aria-hidden="true">/</span><span aria-current="page">타워</span></nav>
       <h1 class="page-hero__title">타워</h1>
       <p class="page-hero__lede">입장 재화를 사용해 층을 순서대로 공략하고, 최초·반복 보상, 층별 미션, 월간 순위와 초기화를 함께 처리하는 콘텐츠다.</p>
       <div class="btn-row print-hide" style="margin-top: var(--space-5);"><a class="btn btn--primary" href="../pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a></div>
@@ -90,10 +90,9 @@
           <div class="table-wrap"><table class="spec"><caption>대표 항목</caption><thead><tr><th scope="col">항목</th><th scope="col">컬럼명</th><th scope="col">형식</th><th scope="col">용도</th></tr></thead><tbody>
             <tr><th scope="row">층 참조값</th><td><code>stage_ref_id</code></td><td>integer</td><td>미션 효과가 적용되는 층 지정.</td></tr>
             <tr><th scope="row">진행 연결값</th><td><code>next_stage_id</code></td><td>integer</td><td>선행 층과 다음 층의 관계 확인.</td></tr>
-            <tr><th scope="row">편성 제한 목록</th><td><code>formation_rules</code></td><td>object[]</td><td>속성과 희귀도 제한을 복수 적용.</td></tr>
+            <tr><th scope="row">편성 제한 목록</th><td><code>formation_rules</code></td><td>integer</td><td>속성과 희귀도 제한값을 <code>/</code> 구분자로 복수 입력.</td></tr>
             <tr><th scope="row">보상 참조값</th><td><code>first_clear_reward_id</code><br><code>repeat_reward_id</code></td><td>integer</td><td>최초 보상과 반복 보상을 구분.</td></tr>
             <tr><th scope="row">달성 단계별 효과</th><td><code>mission_effect_id</code><br><code>mission_effect_value</code></td><td>integer · float</td><td>달성 단계에 대응하는 효과 한 건과 적용값 지정.</td></tr>
-            <tr><th scope="row">이용자 식별값</th><td><code>player_uuid</code></td><td>UUID</td><td>순위 기록과 클리어 편성의 소유자 식별.</td></tr>
           </tbody></table></div>
         </div>
       </section>
@@ -125,7 +124,7 @@
             <tr><th scope="row">2</th><td>클리어 턴 수</td><td>더 적은 턴.</td></tr>
             <tr><th scope="row">3</th><td>기록 시각</td><td>먼저 생성된 기록.</td></tr>
           </tbody></table></div>
-          <div class="case-prose"><p>순위에는 UUID, 소속 태그, 최고 도달 층, 해당 층의 턴 수, 클리어 편성을 표시한다. 노출 인원은 운영 설정값으로 관리한다.</p></div>
+          <div class="case-prose"><p>순위 이용자명은 UUID로 익명 표시한다. 소속 태그, 최고 도달 층, 해당 층의 턴 수, 클리어 편성을 함께 표시한다. 노출 인원은 운영 설정값으로 관리한다.</p></div>
         </div>
       </section>
 
@@ -145,7 +144,7 @@
       </section>
 
       <section class="doc-block" id="checks">
-        <div class="doc-block__label"><h2>06 · 이상 결과</h2><p>검증 조건과 추가 확인 사항.</p></div>
+        <div class="doc-block__label"><h2>06 · 테스트 케이스(QA)</h2><p>검증 조건과 추가 확인 사항.</p></div>
         <div class="doc-block__body">
           <h3 class="h3">진행 연결과 전투 결과 확인</h3>
           <div class="table-wrap"><table class="spec"><caption>결과 검사</caption><thead><tr><th scope="col">항목</th><th scope="col">처리</th><th scope="col">추가 확인</th></tr></thead><tbody>
@@ -159,7 +158,7 @@
     </div>
   </div>
 
-  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">PDF</p><p class="case-footer__title">타워</p></div><a class="btn btn--primary" href="../pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a></div><hr><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">타워 UI</p></div><a class="arrow-link" href="tower-ui.html">문서 열기</a></div></div></div>
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">타워 UI</p></div><a class="arrow-link" href="tower-ui.html">문서 열기</a></div></div></div>
 </main>
 <footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
 <script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>

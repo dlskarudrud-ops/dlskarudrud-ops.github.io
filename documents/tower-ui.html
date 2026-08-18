@@ -19,8 +19,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="../assets/css/global.css?v=15">
-<link rel="stylesheet" href="../assets/css/project.css?v=15">
-<link rel="stylesheet" href="../assets/css/wiki.css?v=7">
+<link rel="stylesheet" href="../assets/css/project.css?v=16">
+<link rel="stylesheet" href="../assets/css/wiki.css?v=11">
 <link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
 
 <script>
@@ -53,10 +53,11 @@
 
     <nav class="nav__links" aria-label="주요 섹션">
       <a class="nav__link" href="../index.html#profile">프로필</a>
+      <a class="nav__link" href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
       <a class="nav__link" href="../index.html#skills">역량</a>
       <a class="nav__link" href="../index.html#experience">경력</a>
       <a class="nav__link" href="../index.html#work">프로젝트</a>
-      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a>
+      <a class="nav__link" href="../index.html#documents">문서</a>
       <a class="nav__link" href="../index.html#contact">연락</a>
     </nav>
 
@@ -72,10 +73,11 @@
 
 <nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
   <a href="../index.html#profile">프로필</a>
+  <a href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
   <a href="../index.html#skills">역량</a>
   <a href="../index.html#experience">경력</a>
   <a href="../index.html#work">프로젝트</a>
-  <a href="../index.html#documents" aria-current="location">문서</a>
+  <a href="../index.html#documents">문서</a>
   <a href="../index.html#contact">연락</a>
 </nav>
 
@@ -85,7 +87,7 @@
       <nav class="page-hero__crumb print-hide" aria-label="현재 위치">
         <a href="../index.html">홈</a>
         <span aria-hidden="true">/</span>
-        <a href="../index.html#documents">문서</a>
+        <a href="../index.html#practical">실무 포트폴리오</a>
         <span aria-hidden="true">/</span>
         <span aria-current="page">타워 UI</span>
       </nav>
@@ -146,30 +148,19 @@
                 <span class="ui-header-mark" aria-hidden="true">◆</span>
                 <span class="ui-header-mark" aria-hidden="true">i</span>
               </div>
-              <div class="ui-frame__status"><span>ENTRY ×N</span><span>RESOURCE —</span></div>
             </div>
             <div class="ui-overview">
               <div class="ui-floor-rail" aria-label="층 선택 상태">
                 <span class="ui-rail-arrow" aria-hidden="true">↑</span>
-                <span class="ui-floor"><b>5층</b><small>READY</small></span>
-                <span class="ui-floor"><b>4층</b><small>READY</small></span>
-                <span class="ui-floor is-current"><b>3층</b><small>NOW</small></span>
-                <span class="ui-floor is-clear"><b>2층</b><small>CLEAR</small></span>
-                <span class="ui-floor is-clear"><b>1층</b><small>CLEAR</small></span>
+                <span class="ui-floor"><b>17층</b><small>READY</small></span>
+                <span class="ui-floor"><b>16층</b><small>READY</small></span>
+                <span class="ui-floor is-current"><b>15층</b><small>NOW</small></span>
+                <span class="ui-floor is-clear"><b>14층</b><small>CLEAR</small></span>
+                <span class="ui-floor is-clear"><b>13층</b><small>CLEAR</small></span>
                 <span class="ui-rail-arrow" aria-hidden="true">↓</span>
               </div>
               <div class="ui-tower-main">
-                <div class="ui-key-art" role="img" aria-label="오리지널 캐릭터 키 아트"></div>
-                <div class="ui-cityscape" aria-hidden="true">
-                  <span style="--building-height: 42%"></span>
-                  <span style="--building-height: 68%"></span>
-                  <span style="--building-height: 36%"></span>
-                  <span style="--building-height: 82%"></span>
-                  <span style="--building-height: 55%"></span>
-                  <span style="--building-height: 72%"></span>
-                  <span style="--building-height: 48%"></span>
-                  <span style="--building-height: 64%"></span>
-                </div>
+                <div class="ui-cityscape" aria-hidden="true"></div>
                 <div class="ui-screen-tools" aria-label="보상 및 정보 진입">
                   <div class="ui-profile-action">
                     <span class="squad-portrait squad-portrait--2" role="img" aria-label="오리지널 캐릭터 초상"></span>
@@ -180,24 +171,24 @@
                 </div>
                 <div class="ui-season-summary">
                   <span class="ui-kicker">시즌 획득 한도</span>
-                  <h4>REWARD_STATUS</h4>
+                  <h4>기간 내 최대 획득 수량</h4>
                   <div class="ui-meter" aria-label="시즌 획득 상태 예시"><span></span></div>
                   <dl class="ui-state-list">
-                    <div><dt>현재 층</dt><dd>3층</dd></div>
-                    <div><dt>반복 보상</dt><dd>REWARD_SET</dd></div>
+                    <div><dt>현재 층</dt><dd>15층</dd></div>
+                    <div><dt>반복 보상</dt><dd>REWARD_A × N</dd></div>
                   </dl>
                 </div>
                 <div class="ui-effect-track" aria-label="타워 강화 효과 단계">
                   <strong>타워 강화 효과</strong>
                   <div class="ui-effect-nodes">
-                    <span class="ui-effect-node is-active">★<b>1층</b></span>
-                    <span class="ui-effect-node">☆<b>2층</b></span>
-                    <span class="ui-effect-node">☆<b>3층</b></span>
-                    <span class="ui-effect-node">☆<b>4층</b></span>
+                    <span class="ui-effect-node is-active"><strong>1단계</strong><b>10층</b></span>
+                    <span class="ui-effect-node"><strong>2단계</strong><b>20층</b></span>
+                    <span class="ui-effect-node"><strong>3단계</strong><b>30층</b></span>
+                    <span class="ui-effect-node"><strong>4단계</strong><b>40층</b></span>
                   </div>
                 </div>
                 <div class="ui-main-actions">
-                  <span class="ui-reset">SEASON_REMAINING</span>
+                  <span class="ui-reset">초기화까지 남은 시간</span>
                   <div class="ui-action-row">
                     <span class="ui-action">반복 전투</span>
                     <span class="ui-action is-primary">다음 층 도전</span>
@@ -221,47 +212,55 @@
           <div class="ui-screen-stack">
             <div class="ui-canvas-scroll" id="effect-popup-screen">
               <div class="ui-popup-canvas" aria-label="1980×1080 기준 타워 강화 효과 팝업 목업">
-                <div class="ui-popup-scene" aria-hidden="true">
-                  <div class="ui-popup-scene__bar"><strong>타워</strong><span>ENTRY ×N · RESOURCE —</span></div>
-                  <div class="ui-popup-scene__rail"><span></span><span></span><span class="is-current"></span><span></span><span></span></div>
+                <div class="ui-popup-scene ui-popup-scene--reward" aria-hidden="true">
+                  <div class="ui-popup-scene__bar"><strong>타워</strong><span>TOWER / SEASON</span></div>
+                  <div class="ui-popup-scene__rail"><span><b>17층</b><em>READY</em></span><span><b>16층</b><em>READY</em></span><span class="is-current"><b>15층</b><em>NOW</em></span><span><b>14층</b><em>CLEAR</em></span><span><b>13층</b><em>CLEAR</em></span></div>
                   <div class="ui-popup-scene__body"><span></span><span></span><span></span><span></span></div>
                 </div>
                 <div class="ui-popup-scrim" aria-hidden="true"></div>
                 <div class="ui-panel ui-panel--dialog ui-panel--effect" aria-label="타워 강화 효과 팝업 예시">
-                  <div class="ui-panel__head"><span>타워 강화 효과</span><span>CLOSE</span></div>
+                  <div class="ui-panel__head"><span>타워 강화 효과</span><span>닫기 ×</span></div>
                   <div class="ui-effect-summary">
-                    <span class="ui-effect-symbol" aria-hidden="true">★</span>
+                    <strong class="ui-effect-badge">강화 효과</strong>
                     <div><strong>EFFECT_NAME</strong><p>EFFECT_DESCRIPTION</p></div>
                   </div>
                   <div class="ui-effect-table">
                     <div class="ui-effect-row ui-effect-row--head"><span>단계</span><b>효과</b><span>획득 조건</span><em>상태</em></div>
-                    <div class="ui-effect-row is-active"><span>★</span><b>EFFECT_VALUE_A</b><span>1층</span><em>ACTIVE</em></div>
-                    <div class="ui-effect-row"><span>★★</span><b>EFFECT_VALUE_B</b><span>2층</span><em>NOT_ACQUIRED</em></div>
-                    <div class="ui-effect-row"><span>★★★</span><b>EFFECT_VALUE_C</b><span>3층</span><em>NOT_ACQUIRED</em></div>
+                    <div class="ui-effect-row is-active"><strong>1단계</strong><b>EFFECT_VALUE_A</b><span>10층</span><em>적용 중</em></div>
+                    <div class="ui-effect-row"><strong>2단계</strong><b>EFFECT_VALUE_B</b><span>20층</span><em>미획득</em></div>
+                    <div class="ui-effect-row"><strong>3단계</strong><b>EFFECT_VALUE_C</b><span>30층</span><em>미획득</em></div>
+                    <div class="ui-effect-row"><strong>4단계</strong><b>EFFECT_VALUE_D</b><span>40층</span><em>미획득</em></div>
                   </div>
-                  <div class="ui-popup-footer"><span>3층 클리어 시 획득 가능</span><span class="ui-action">재도전</span></div>
+                  <div class="ui-popup-footer"><span>20층 클리어 시 다음 효과 획득</span><span class="ui-action">재도전</span></div>
                 </div>
               </div>
             </div>
 
             <div class="ui-canvas-scroll" id="rank-reward-screen">
               <div class="ui-popup-canvas" aria-label="1980×1080 기준 랭킹 보상 팝업 목업">
-                <div class="ui-popup-scene" aria-hidden="true">
-                  <div class="ui-popup-scene__bar"><strong>타워</strong><span>ENTRY ×N · RESOURCE —</span></div>
-                  <div class="ui-popup-scene__rail"><span></span><span></span><span class="is-current"></span><span></span><span></span></div>
+                <div class="ui-popup-scene ui-popup-scene--reward" aria-hidden="true">
+                  <div class="ui-popup-scene__bar"><strong>타워</strong><span>TOWER / SEASON</span></div>
+                  <div class="ui-popup-scene__rail">
+                    <span><b>17층</b><em>READY</em></span>
+                    <span><b>16층</b><em>READY</em></span>
+                    <span class="is-current"><b>15층</b><em>NOW</em></span>
+                    <span><b>14층</b><em>CLEAR</em></span>
+                    <span><b>13층</b><em>CLEAR</em></span>
+                  </div>
                   <div class="ui-popup-scene__body"><span></span><span></span><span></span><span></span></div>
                 </div>
                 <div class="ui-popup-scrim" aria-hidden="true"></div>
                 <div class="ui-panel ui-panel--dialog ui-panel--reward" aria-label="랭킹 보상 팝업 예시">
-                  <div class="ui-panel__head"><span>랭킹 보상</span><span>CLOSE</span></div>
-                  <div class="ui-reward-list">
-                    <div class="ui-reward-row"><strong>RANK_TOP</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
-                    <div class="ui-reward-row"><strong>RANK_HIGH</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
-                    <div class="ui-reward-row"><strong>RANK_MID</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
-                    <div class="ui-reward-row"><strong>RANK_BASE</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
-                    <div class="ui-reward-row"><strong>RANK_ALL</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
+                  <div class="ui-panel__head"><span>랭킹 보상</span><span>닫기 ×</span></div>
+                  <div class="ui-reward-list" tabindex="0" aria-label="랭킹 보상 목록">
+                    <div class="ui-reward-row"><strong>Rank_1</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
+                    <div class="ui-reward-row"><strong>Rank_2</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
+                    <div class="ui-reward-row"><strong>Rank_3</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
+                    <div class="ui-reward-row"><strong>Rank_4</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
+                    <div class="ui-reward-row"><strong>Rank_All</strong><span>REWARD_A × N</span><span>REWARD_B × N</span></div>
                   </div>
-                  <div class="ui-popup-note">행마다 순위 구간과 보상 묶음을 함께 표시합니다.</div>
+                  <span class="ui-scroll-cue" aria-hidden="true"><i></i></span>
+                  <div class="ui-popup-note">순위 구간별 보상 묶음</div>
                 </div>
               </div>
             </div>

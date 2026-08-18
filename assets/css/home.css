@@ -823,8 +823,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   gap: clamp(1rem, 0.5rem + 1.4vw, 1.5rem);
-  /* Sits above the featured cards; matches the .work grid's own gap. */
-  margin-bottom: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+  margin-top: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
 }
 
 .work-minor__item {
@@ -1092,6 +1091,34 @@
 .docs__actions .btn {
   padding: 0.5rem 0.9rem;
   font-size: var(--fs-micro);
+}
+
+.docs__group-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: clamp(2rem, 1.5rem + 1vw, 3rem) 0 var(--space-2);
+  color: var(--text-primary);
+  font-size: var(--fs-heading);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.docs__group-title::before,
+.docs__group-title::after {
+  content: "";
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.docs__group-title::before {
+  width: clamp(2rem, 4vw, 3.5rem);
+  height: 2px;
+  background: var(--accent);
+}
+
+.docs__group-title::after {
+  flex: 1;
 }
 
 @media (max-width: 620px) {

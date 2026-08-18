@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="../assets/css/global.css?v=15">
-<link rel="stylesheet" href="../assets/css/project.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=16">
 <link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
 <script>
   (function () {
@@ -39,9 +39,9 @@
   <div class="shell nav__inner">
     <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
     <nav class="nav__links" aria-label="주요 섹션">
-      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#skills">역량</a>
-      <a class="nav__link" href="../index.html#experience">경력</a><a class="nav__link" href="../index.html#work">프로젝트</a>
-      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+      <a class="nav__link" href="../index.html#skills">역량</a><a class="nav__link" href="../index.html#experience">경력</a>
+      <a class="nav__link" href="../index.html#work">프로젝트</a><a class="nav__link" href="../index.html#documents">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
     </nav>
     <div class="nav__actions">
       <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
@@ -53,14 +53,14 @@
   </div>
 </header>
 <nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
-  <a href="../index.html#profile">프로필</a><a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a>
-  <a href="../index.html#work">프로젝트</a><a href="../index.html#documents" aria-current="location">문서</a><a href="../index.html#contact">연락</a>
+  <a href="../index.html#profile">프로필</a><a href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+  <a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a><a href="../index.html#work">프로젝트</a><a href="../index.html#documents">문서</a><a href="../index.html#contact">연락</a>
 </nav>
 
 <main id="main">
   <section class="page-hero">
     <div class="shell shell--narrow">
-      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#documents">문서</a><span aria-hidden="true">/</span><span aria-current="page">배틀 옵션</span></nav>
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#practical">실무 포트폴리오</a><span aria-hidden="true">/</span><span aria-current="page">배틀 옵션</span></nav>
       <h1 class="page-hero__title">배틀 옵션</h1>
       <p class="page-hero__lede">스킬·장비·패시브에서 사용하는 효과를 같은 레코드 형식으로 기록하고, 전투 처리 시점에 따라 호출하는 방식이다.</p>
       <div class="btn-row print-hide" style="margin-top: var(--space-5);"><a class="btn btn--primary" href="../pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a></div>
@@ -130,9 +130,9 @@
       </section>
 
       <section class="doc-block" id="checks">
-        <div class="doc-block__label"><h2>05 · 확인할 항목</h2><p>위키만으로 구현 여부를 판단할 수 없는 부분.</p></div>
+        <div class="doc-block__label"><h2>05 · 확인할 항목</h2><p>입력값과 실행 결과를 함께 확인하는 항목.</p></div>
         <div class="doc-block__body">
-          <h3 class="h3">데이터 작성과 런타임 대조가 필요한 지점</h3>
+          <h3 class="h3">테스트 케이스(QA)</h3>
           <ul class="facts">
             <li>실행 기능마다 기능 인수의 의미와 자료형이 달라 입력 검사가 필요하다.</li>
             <li>문자열 안에 추가 값을 넣는 형식은 빈 값, 구분자, 잘못된 열거값 처리가 필요하다.</li>
@@ -146,7 +146,7 @@
     </div>
   </div>
 
-  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">PDF</p><p class="case-footer__title">배틀 옵션</p></div><a class="btn btn--primary" href="../pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a></div><hr><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">전술 연구</p></div><a class="arrow-link" href="tactics-research.html">문서 열기</a></div></div></div>
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">캐릭터 연출</p></div><a class="arrow-link" href="combat-presentation.html">문서 열기</a></div></div></div>
 </main>
 <footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
 <script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>

@@ -18,6 +18,7 @@ web/
 │   ├── career.html             경력 기술서
 │   ├── postmortem.html         포스트모템
 │   ├── battle-option.html      배틀 옵션
+│   ├── combat-presentation.html 캐릭터 연출
 │   ├── tactics-research.html   전술 연구
 │   ├── tower.html              타워
 │   └── tower-ui.html           타워 UI
@@ -29,6 +30,7 @@ web/
 │   │   ├── home.css            홈 전용 레이아웃
 │   │   ├── project.css         상세 · 문서 페이지 레이아웃
 │   │   ├── wiki.css            실무 포트폴리오 · 타워 UI 보조 스타일
+│   │   ├── combat-presentation.css 캐릭터 연출 16:9 레이아웃
 │   │   └── print.css           인쇄 전용 스타일
 │   │
 │   ├── js/
@@ -38,12 +40,14 @@ web/
 │   │   ├── lightbox.js         이미지 확대 보기
 │   │   └── webgl/              전역 광원 · 홈/상세 히어로 (ambient · page · scene · materials · shaders)
 │   │
-│   ├── images/                 원본 PDF에서 추출한 실제 스크린샷 · 아트
+│   ├── images/                 문서용 스크린샷 · 아트
 │   └── icons/                  파비콘
 │
-└── pdf/
-    ├── dark/                   다크 모드 PDF
-    └── light/                  화이트 모드 PDF
+├── pdf/
+│   ├── dark/                   다크 모드 PDF
+│   └── light/                  화이트 모드 PDF
+│
+└── pptx/                       캐릭터 연출 편집본
 ```
 
 ## 문서 연결 방식
@@ -58,6 +62,7 @@ web/
 | Fire Vow | `projects/fire-vow.html` | `pdf/{테마}/fire-vow.pdf` |
 | 포스트모템 | `documents/postmortem.html` | `pdf/{테마}/postmortem.pdf` |
 | 배틀 옵션 | `documents/battle-option.html` | `pdf/{테마}/battle-option.pdf` |
+| 캐릭터 연출 | `documents/combat-presentation.html` | `pdf/{테마}/combat-presentation.pdf` · `pptx/combat-presentation.pptx` |
 | 전술 연구 | `documents/tactics-research.html` | `pdf/{테마}/tactics-research.pdf` |
 | 타워 | `documents/tower.html` | `pdf/{테마}/tower.pdf` |
 | 타워 UI | `documents/tower-ui.html` | `pdf/{테마}/tower-ui.pdf` |
@@ -65,7 +70,7 @@ web/
 `data-pdf-variant`가 붙은 링크는 현재 테마에 맞춰 `pdf/dark/` ↔ `pdf/light/`
 경로를 바꿉니다. JavaScript가 없으면 다크 버전이 그대로 열립니다.
 
-위 네 문서의 PDF도 기존 포트폴리오와 같은 16:9 형식으로 다크·화이트 두 판을 제공합니다.
+위 다섯 문서의 PDF도 기존 포트폴리오와 같은 16:9 형식으로 다크·화이트 두 판을 제공합니다.
 
 ## 디자인 규칙
 

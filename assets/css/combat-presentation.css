@@ -1,0 +1,349 @@
+.combat-presentation-page::before {
+  background: none;
+}
+
+.combat-presentation-page .nav {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.combat-slide-scroll {
+  overflow-x: auto;
+  padding: 0.25rem 0 1rem;
+}
+
+.combat-slide-stack {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.combat-slide {
+  --cp-bg: #10111a;
+  --cp-panel: #171927;
+  --cp-panel-strong: #20233a;
+  --cp-line: #4d5274;
+  --cp-ink: #f6f2ff;
+  --cp-muted: #c3bfd4;
+  --cp-accent: #b9a5ff;
+  --cp-accent-ink: #171223;
+  --cp-fs-title: 2.25cqi;
+  --cp-fs-heading: 1.55cqi;
+  --cp-fs-sub: 1.15cqi;
+  --cp-fs-body: 0.93cqi;
+  --cp-fs-tag: 0.8cqi;
+  display: grid;
+  grid-template-columns: 30% minmax(0, 1fr);
+  grid-template-rows: 58% minmax(0, 1fr);
+  gap: 1.25%;
+  width: 100%;
+  min-width: 72rem;
+  aspect-ratio: 16 / 9;
+  padding: 1.65%;
+  border: 1px solid var(--cp-line);
+  background: var(--cp-bg);
+  color: var(--cp-ink);
+  container-type: inline-size;
+  position: relative;
+  font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", sans-serif;
+  font-variation-settings: "wght" 500;
+}
+
+:root[data-theme="light"] .combat-slide {
+  --cp-bg: #f3f1fa;
+  --cp-panel: #fdfcff;
+  --cp-panel-strong: #e7e2f2;
+  --cp-line: #aaa2c2;
+  --cp-ink: #252135;
+  --cp-muted: #635d75;
+  --cp-accent: #645099;
+  --cp-accent-ink: #fff;
+}
+
+.combat-spec,
+.combat-scenes,
+.combat-sequence {
+  min-width: 0;
+}
+
+.combat-spec {
+  grid-row: 1 / -1;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 1.4cqi;
+  padding: 2.2cqi 1.8cqi;
+  border: 1px solid var(--cp-line);
+  background: var(--cp-panel);
+  box-shadow: inset 0.24cqi 0 0 var(--cp-accent);
+}
+
+.combat-spec__kicker {
+  margin: 0 0 0.35cqi;
+  color: var(--cp-accent);
+  font-size: var(--cp-fs-tag);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.combat-spec h2 {
+  margin: 0;
+  font-size: var(--cp-fs-title);
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  font-weight: 850;
+}
+
+.combat-spec__sub {
+  margin-top: 0.55cqi;
+  color: var(--cp-muted);
+  font-size: var(--cp-fs-sub);
+  font-weight: 600;
+}
+
+.combat-character,
+.combat-scene__image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: var(--cp-panel-strong);
+}
+
+.combat-character {
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 1.9 / 1;
+  border: 1px solid var(--cp-line);
+  background-image: url("../images/combat-presentation-v2/phantom-1.png");
+  background-size: contain;
+}
+
+.combat-slide--skill .combat-scene:nth-child(1) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/phantom-2.png");
+}
+
+.combat-slide--skill .combat-scene:nth-child(2) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/phantom-3.png");
+}
+
+.combat-slide--skill .combat-scene:nth-child(3) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/phantom-4.png");
+}
+
+.combat-slide--states .combat-character {
+  background-image: url("../images/combat-presentation-v2/state-1.png?v=3");
+  background-size: contain;
+}
+
+.combat-slide--states .combat-scene:nth-child(1) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/state-2.png?v=3");
+}
+
+.combat-slide--states .combat-scene:nth-child(2) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/state-3.png?v=3");
+}
+
+.combat-slide--states .combat-scene:nth-child(3) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/state-4.png?v=3");
+}
+
+.combat-slide--status-effects .combat-character {
+  background-image: url("../images/combat-presentation-v2/status-1.png?v=2");
+  background-size: contain;
+}
+
+.combat-slide--status-effects .combat-scene:nth-child(1) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/status-2.png?v=2");
+}
+
+.combat-slide--status-effects .combat-scene:nth-child(2) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/status-3.png?v=2");
+}
+
+.combat-slide--status-effects .combat-scene:nth-child(3) .combat-scene__image {
+  background-image: url("../images/combat-presentation-v2/status-4.png?v=2");
+}
+
+.combat-spec__list {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--cp-line);
+}
+
+.combat-spec__list > div {
+  display: grid;
+  grid-template-columns: 42% minmax(0, 1fr);
+  gap: 0.7cqi;
+  padding: 0.7cqi 0;
+  border-bottom: 1px solid var(--cp-line);
+}
+
+.combat-spec__list dt,
+.combat-spec__list dd {
+  margin: 0;
+  font-size: var(--cp-fs-body);
+  line-height: 1.35;
+}
+
+.combat-spec__list dt {
+  color: var(--cp-muted);
+}
+
+.combat-spec__list dd {
+  color: var(--cp-ink);
+  font-weight: 700;
+}
+
+.combat-spec__list .is-long dd {
+  font-size: var(--cp-fs-tag);
+  line-height: 1.42;
+}
+
+.combat-scenes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25cqi;
+}
+
+.combat-scene {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid var(--cp-line);
+  background: var(--cp-panel);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cp-accent) 12%, transparent);
+}
+
+.combat-scene__image {
+  min-height: 0;
+}
+
+.combat-scene__caption {
+  min-height: 6.3cqi;
+  padding: 1.05cqi 1.15cqi;
+  border-top: 1px solid var(--cp-line);
+  background: var(--cp-panel-strong);
+}
+
+.combat-scene__caption strong {
+  display: block;
+  color: var(--cp-accent);
+  font-size: var(--cp-fs-sub);
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.combat-scene__caption span {
+  display: block;
+  margin-top: 0.45cqi;
+  color: var(--cp-muted);
+  font-size: var(--cp-fs-body);
+  line-height: 1.45;
+}
+
+.combat-slide--states .combat-scene__caption,
+.combat-slide--status-effects .combat-scene__caption {
+  min-height: 7.7cqi;
+}
+
+.combat-slide--states .combat-scene__caption span,
+.combat-slide--status-effects .combat-scene__caption span {
+  margin-top: 0.65cqi;
+  line-height: 1.55;
+}
+
+.combat-sequence {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 1.1cqi;
+  padding: 1.8cqi 2cqi;
+  border: 1px solid var(--cp-line);
+  background: var(--cp-panel);
+}
+
+.combat-sequence__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.combat-sequence__head h3 {
+  margin: 0;
+  font-size: var(--cp-fs-heading);
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.combat-sequence__head span {
+  color: var(--cp-muted);
+  font-size: var(--cp-fs-tag);
+  letter-spacing: 0.06em;
+}
+
+.combat-sequence ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1cqi;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: sequence;
+}
+
+.combat-sequence li {
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-width: 0;
+  padding: 1.2cqi 1.25cqi 1.2cqi 3.45cqi;
+  border-left: 0.28cqi solid var(--cp-accent);
+  background: var(--cp-panel-strong);
+  color: var(--cp-ink);
+  font-size: var(--cp-fs-body);
+  font-weight: 650;
+  line-height: 1.5;
+  counter-increment: sequence;
+}
+
+.combat-sequence li strong {
+  display: block;
+  margin-bottom: 0.45cqi;
+  color: var(--cp-accent);
+  font-weight: 800;
+}
+
+.combat-sequence li code {
+  font-family: inherit;
+  font-size: var(--cp-fs-body);
+  overflow-wrap: anywhere;
+}
+
+.combat-sequence li::before {
+  content: counter(sequence, decimal-leading-zero);
+  position: absolute;
+  left: 1.1cqi;
+  top: 50%;
+  color: var(--cp-accent);
+  font-size: var(--cp-fs-sub);
+  font-weight: 750;
+  transform: translateY(-50%);
+}
+
+.combat-page-actions {
+  margin-bottom: var(--space-8);
+}
+
+@media (max-width: 760px) {
+  .combat-slide-scroll {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+}
+
+@media print {
+  .combat-slide {
+    min-width: 0;
+  }
+}

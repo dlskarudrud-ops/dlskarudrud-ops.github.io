@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="assets/css/global.css?v=15">
-<link rel="stylesheet" href="assets/css/home.css?v=15">
+<link rel="stylesheet" href="assets/css/home.css?v=17">
 <link rel="stylesheet" href="assets/css/print.css?v=15" media="print">
 
 <script>
@@ -54,9 +54,9 @@
     </a>
     <nav class="nav__links" aria-label="주요 섹션" data-spy>
       <a class="nav__link" href="#profile">프로필</a>
+      <a class="nav__link" href="#practical">실무 포트폴리오</a>
       <a class="nav__link" href="#skills">역량</a>
       <a class="nav__link" href="#experience">경력</a>
-      <a class="nav__link" href="#practical">실무 포트폴리오</a>
       <a class="nav__link" href="#work">프로젝트</a>
       <a class="nav__link" href="#documents">문서</a>
       <a class="nav__link" href="#contact">연락</a>
@@ -73,9 +73,9 @@
 
 <nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
   <a href="#profile">프로필</a>
+  <a href="#practical">실무 포트폴리오</a>
   <a href="#skills">역량</a>
   <a href="#experience">경력</a>
-  <a href="#practical">실무 포트폴리오</a>
   <a href="#work">프로젝트</a>
   <a href="#documents">문서</a>
   <a href="#contact">연락</a>
@@ -200,9 +200,6 @@
             개인이 흡수하던 검수 부담은 프로세스로 옮기는 방식으로 일합니다.
           </p>
 
-          <div class="btn-row" style="margin-top: .5rem;">
-            <a class="arrow-link" href="documents/postmortem.html">포스트모템 읽기</a>
-          </div>
         </div>
 
         <div class="profile__aside" data-reveal="right">
@@ -234,10 +231,79 @@
     </div>
   </section>
 
-  <section class="section section--inset" id="skills">
+  <section class="section section--inset" id="practical">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
         <span class="section-index">02</span>
+        <span class="eyebrow">Practical Portfolio</span>
+        <h2 class="section-head__title">실무 포트폴리오</h2>
+        <p class="section-head__note">실무에서 작성한 전투 데이터, 연출과 콘텐츠 규칙을 문서별로 정리했습니다.</p>
+      </div>
+
+      <div class="docs" data-reveal-group="50">
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">배틀 옵션 <span class="tag">전투 데이터</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">발동 단계, 대상, 조건과 실행 기능을 조합하는 전투 효과 데이터 명세.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/battle-option.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">캐릭터 연출 <span class="tag">전투 데이터</span> <span class="tag">연출</span></h3>
+            <p class="docs__desc">이기어검 제자리 공격과 전투·상태이상 모션의 제작 요구사항.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/combat-presentation.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/combat-presentation.pdf" data-pdf-variant data-pdf-label="캐릭터 연출" target="_blank" rel="noopener">PDF로 보기</a>
+            <a class="btn btn--quiet" href="pptx/combat-presentation.pptx" download>PPTX</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">전술 연구 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">일일 피해 측정, 결과 등급, 보상 상한과 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tactics-research.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">층 진행, 미션 효과, 반복 보상, 월간 순위와 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 UI <span class="tag">UI</span></h3>
+            <p class="docs__desc">층 진행, 강화 효과와 랭킹 보상 화면 정의.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower-ui.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower-ui.pdf" data-pdf-variant data-pdf-label="타워 UI" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">03</span>
         <span class="eyebrow">Core Capabilities</span>
         <h2 class="section-head__title">핵심 역량</h2>
         <p class="section-head__note">
@@ -262,7 +328,6 @@
         <section class="skills__group" data-reveal>
           <h3 class="skills__title">Implementation</h3>
           <ul class="skills__list">
-            <li><b>Unity</b><span>ScriptableObject 파이프라인, 리소스 네임 규칙, 설정 검증 자동화</span></li>
             <li><b>데이터 파이프라인</b><span>Excel 테이블 → ScriptableObject → 런타임 관리자 경계 고정</span></li>
             <li><b>내부 툴 제작</b><span>데이터 무결성 검사, FBX · Magica 유틸리티, 반복 작업 자동화</span></li>
             <li><b>프로토타이핑</b><span>기획 데이터가 실제 플레이까지 도달하는 경로 검증</span></li>
@@ -284,15 +349,14 @@
     </div>
   </section>
 
-  <section class="section" id="experience">
+  <section class="section section--inset" id="experience">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
-        <span class="section-index">03</span>
+        <span class="section-index">04</span>
         <span class="eyebrow">Experience</span>
         <div class="section-head__row">
           <h2 class="section-head__title">경력</h2>
           <div class="btn-row" role="group" aria-label="전체 경력 기술서">
-            <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
             <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
           </div>
         </div>
@@ -385,63 +449,6 @@
     </div>
   </section>
 
-  <section class="section section--inset" id="practical">
-    <div class="shell">
-      <div class="section-head section-head--indexed" data-reveal>
-        <span class="section-index">04</span>
-        <span class="eyebrow">Practical Portfolio</span>
-        <h2 class="section-head__title">실무 포트폴리오</h2>
-        <p class="section-head__note">실무에서 작성한 전투 데이터와 콘텐츠 규칙을 문서별로 정리했습니다.</p>
-      </div>
-
-      <div class="docs" data-reveal-group="50">
-        <div class="docs__row" data-reveal>
-          <div class="docs__info">
-            <h3 class="docs__title">배틀 옵션 <span class="tag">전투 데이터</span> <span class="tag">시스템</span></h3>
-            <p class="docs__desc">발동 단계, 대상, 조건과 실행 기능을 조합하는 전투 효과 데이터 명세.</p>
-          </div>
-          <div class="docs__actions">
-            <a class="btn btn--secondary" href="documents/battle-option.html">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a>
-          </div>
-        </div>
-
-        <div class="docs__row" data-reveal>
-          <div class="docs__info">
-            <h3 class="docs__title">전술 연구 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
-            <p class="docs__desc">일일 피해 측정, 결과 등급, 보상 상한과 초기화 규칙.</p>
-          </div>
-          <div class="docs__actions">
-            <a class="btn btn--secondary" href="documents/tactics-research.html">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a>
-          </div>
-        </div>
-
-        <div class="docs__row" data-reveal>
-          <div class="docs__info">
-            <h3 class="docs__title">타워 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
-            <p class="docs__desc">층 진행, 미션 효과, 반복 보상, 월간 순위와 초기화 규칙.</p>
-          </div>
-          <div class="docs__actions">
-            <a class="btn btn--secondary" href="documents/tower.html">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a>
-          </div>
-        </div>
-
-        <div class="docs__row" data-reveal>
-          <div class="docs__info">
-            <h3 class="docs__title">타워 UI <span class="tag">UI</span></h3>
-            <p class="docs__desc">층 진행, 강화 효과와 랭킹 보상 화면 정의.</p>
-          </div>
-          <div class="docs__actions">
-            <a class="btn btn--secondary" href="documents/tower-ui.html">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/tower-ui.pdf" data-pdf-variant data-pdf-label="타워 UI" target="_blank" rel="noopener">PDF로 보기</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="work">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
@@ -450,43 +457,52 @@
         <h2 class="section-head__title">대표 프로젝트</h2>
       </div>
 
-      <div class="work-minor" data-reveal-group="80">
-        <article class="card work-minor__item" data-reveal>
-          <a class="card-overlay" href="documents/career.html" tabindex="-1" aria-hidden="true"></a>
-
-          <span class="eyebrow eyebrow--muted">Career</span>
-          <div class="work-minor__head">
-            <h3 class="h3">경력 기술서</h3>
-            <div class="btn-row">
-              <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
-              <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
-            </div>
-          </div>
-          <p>
-            아이러브마트 · 용사 여관의 라이브 서비스 대응부터 Taimanin Squad,
-            공동 개발 인수, FireVow까지 네 개 프로젝트의 담당 범위를 정리했습니다.
-          </p>
-        </article>
-
-        <article class="card work-minor__item" data-reveal>
-          <a class="card-overlay" href="documents/postmortem.html" tabindex="-1" aria-hidden="true"></a>
-
-          <span class="eyebrow eyebrow--muted">Retrospective</span>
-          <div class="work-minor__head">
-            <h3 class="h3">포스트모템</h3>
-            <div class="btn-row">
-              <a class="btn btn--secondary" href="documents/postmortem.html">웹으로 보기</a>
-              <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
-            </div>
-          </div>
-          <p>
-            상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙의 여섯 항목으로
-            세 프로젝트를 회고했습니다. 해결하지 못한 한계도 함께 기록했습니다.
-          </p>
-        </article>
-      </div>
-
       <div class="work">
+
+        <article class="card card--reactive work-card" data-reveal>
+          <a class="card-overlay" href="projects/project-taimanin-squad.html" tabindex="-1" aria-hidden="true"></a>
+
+          <div class="work-card__visual work-card__visual--dense">
+            <img src="assets/images/ts-squad-manager.jpeg"
+                 alt="Project_Taimanin Squad 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
+                 width="660" height="596" loading="lazy" decoding="async">
+          </div>
+
+          <div class="work-card__body">
+            <div class="work-card__head">
+              <span class="eyebrow">Mobile Collectible RPG · 2023.05 — 2025.12</span>
+              <h3 class="work-card__title">Project_Taimanin Squad</h3>
+              <p class="work-card__context">
+                약 40명 규모 프로젝트에서 전투 효과, 성장 · 콘텐츠 시스템과
+                데이터 제작 흐름을 설계했습니다.
+              </p>
+
+              <div class="work-card__role">
+                <div class="work-card__role-head">
+                  <span class="work-card__role-label">My Role</span>
+                  <div class="btn-row">
+                    <a class="btn btn--secondary" href="projects/project-taimanin-squad.html">웹으로 보기</a>
+                    <a class="btn btn--quiet" href="pdf/dark/project-taimanin-squad.pdf" data-pdf-variant data-pdf-label="Project_Taimanin Squad" target="_blank" rel="noopener">PDF로 보기</a>
+                  </div>
+                </div>
+                <span class="work-card__role-value">
+                  시스템 / 전투 메인 기획 — 통합 전투 효과 시스템, 상태이상, 캐릭터 · 보스 전투 설계
+                  <br><span class="meta">전체 데이터 테이블의 50% 이상 작성 · Pre-OBT까지 데이터 적용 · 정식 출시 2026.03</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="work-card__foot">
+              <div class="tags">
+                <span class="tag">통합 전투 효과</span>
+                <span class="tag">41종 상태이상</span>
+                <span class="tag">캐릭터 300+</span>
+                <span class="tag">보스 20+</span>
+                <span class="tag">내부 툴</span>
+              </div>
+            </div>
+          </div>
+        </article>
 
         <article class="card card--reactive work-card" data-reveal>
           <a class="card-overlay" href="projects/fire-vow.html" tabindex="-1" aria-hidden="true"></a>
@@ -533,50 +549,24 @@
             </div>
           </div>
         </article>
+      </div>
 
-        <article class="card card--reactive work-card" data-reveal>
-          <a class="card-overlay" href="projects/project-taimanin-squad.html" tabindex="-1" aria-hidden="true"></a>
+      <div class="work-minor" data-reveal-group="80">
+        <article class="card work-minor__item" data-reveal>
+          <a class="card-overlay" href="documents/postmortem.html" tabindex="-1" aria-hidden="true"></a>
 
-          <div class="work-card__visual work-card__visual--dense">
-            <img src="assets/images/ts-squad-manager.jpeg"
-                 alt="Project_Taimanin Squad 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
-                 width="660" height="596" loading="lazy" decoding="async">
-          </div>
-
-          <div class="work-card__body">
-            <div class="work-card__head">
-              <span class="eyebrow">Mobile Collectible RPG · 2023.05 — 2025.12</span>
-              <h3 class="work-card__title">Project_Taimanin Squad</h3>
-              <p class="work-card__context">
-                약 40명 규모 프로젝트에서 전투 효과, 성장 · 콘텐츠 시스템과
-                데이터 제작 흐름을 설계했습니다.
-              </p>
-
-              <div class="work-card__role">
-                <div class="work-card__role-head">
-                  <span class="work-card__role-label">My Role</span>
-                  <div class="btn-row">
-                    <a class="btn btn--secondary" href="projects/project-taimanin-squad.html">웹으로 보기</a>
-                    <a class="btn btn--quiet" href="pdf/dark/project-taimanin-squad.pdf" data-pdf-variant data-pdf-label="Project_Taimanin Squad" target="_blank" rel="noopener">PDF로 보기</a>
-                  </div>
-                </div>
-                <span class="work-card__role-value">
-                  시스템 / 전투 메인 기획 — 통합 전투 효과 시스템, 상태이상, 캐릭터 · 보스 전투 설계
-                  <br><span class="meta">전체 데이터 테이블의 50% 이상 작성 · Pre-OBT까지 데이터 적용 · 정식 출시 2026.03</span>
-                </span>
-              </div>
-            </div>
-
-            <div class="work-card__foot">
-              <div class="tags">
-                <span class="tag">통합 전투 효과</span>
-                <span class="tag">41종 상태이상</span>
-                <span class="tag">캐릭터 300+</span>
-                <span class="tag">보스 20+</span>
-                <span class="tag">내부 툴</span>
-              </div>
+          <span class="eyebrow eyebrow--muted">Retrospective</span>
+          <div class="work-minor__head">
+            <h3 class="h3">포스트모템</h3>
+            <div class="btn-row">
+              <a class="btn btn--secondary" href="documents/postmortem.html">웹으로 보기</a>
+              <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
             </div>
           </div>
+          <p>
+            상황 · 목표 · 문제 · 대응 · 결과와 한계 · 다음 원칙의 여섯 항목으로
+            세 프로젝트를 회고했습니다. 해결하지 못한 한계도 함께 기록했습니다.
+          </p>
         </article>
       </div>
     </div>
@@ -613,7 +603,7 @@
             <p class="docs__desc">네 개 프로젝트의 기간 · 역할 · 담당 범위와 대표 기여.</p>
           </div>
           <div class="docs__actions">
-            <a class="btn btn--secondary" href="documents/career.html">웹으로 보기</a>
+            <a class="btn btn--secondary" href="#experience">경력 보기</a>
             <a class="btn btn--quiet" href="pdf/dark/career.pdf" data-pdf-variant data-pdf-label="경력 기술서" target="_blank" rel="noopener">PDF로 보기</a>
           </div>
         </div>
@@ -651,6 +641,8 @@
           </div>
         </div>
 
+        <h3 class="docs__group-title" data-reveal>실무 포트폴리오</h3>
+
         <div class="docs__row" data-reveal>
           <div class="docs__info">
             <h3 class="docs__title">배틀 옵션 <span class="tag">전투 데이터</span> <span class="tag">시스템</span></h3>
@@ -659,6 +651,18 @@
           <div class="docs__actions">
             <a class="btn btn--secondary" href="documents/battle-option.html">웹으로 보기</a>
             <a class="btn btn--quiet" href="pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">캐릭터 연출 <span class="tag">전투 데이터</span> <span class="tag">연출</span></h3>
+            <p class="docs__desc">이기어검 제자리 공격과 전투·상태이상 모션의 제작 요구사항.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/combat-presentation.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/combat-presentation.pdf" data-pdf-variant data-pdf-label="캐릭터 연출" target="_blank" rel="noopener">PDF로 보기</a>
+            <a class="btn btn--quiet" href="pptx/combat-presentation.pptx" download>PPTX</a>
           </div>
         </div>
 

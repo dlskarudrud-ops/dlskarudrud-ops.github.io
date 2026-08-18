@@ -749,10 +749,14 @@ table.spec tbody th {
   white-space: nowrap;
 }
 
-table.spec tbody th code {
-  font-family: var(--font-mono);
-  font-size: var(--fs-body);
+table.spec tbody th code,
+table.spec tbody td:nth-child(2) > code {
+  font-family: var(--font-sans);
+  font-size: inherit;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   color: var(--accent);
+  overflow-wrap: anywhere;
 }
 
 table.spec td {

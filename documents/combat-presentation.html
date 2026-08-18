@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark" data-accent="steel">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>캐릭터 연출 — 이남경</title>
+<meta name="description" content="이기어검 제자리 공격, 전투 상태와 상태이상 모션을 세 장에 정리한 캐릭터 연출 기획서.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="캐릭터 연출">
+<meta property="og:description" content="이기어검 제자리 공격, 전투 상태와 상태이상 모션을 정리한 세 장 기획서.">
+<meta property="og:image" content="../assets/images/portfolio-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css?v=15">
+<link rel="stylesheet" href="../assets/css/global.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=16">
+<link rel="stylesheet" href="../assets/css/combat-presentation.css?v=7">
+<link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") theme = saved;
+      else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "light";
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+<body class="combat-presentation-page">
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+      <a class="nav__link" href="../index.html#skills">역량</a><a class="nav__link" href="../index.html#experience">경력</a>
+      <a class="nav__link" href="../index.html#work">프로젝트</a><a class="nav__link" href="../index.html#documents">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/></svg>
+      </button>
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#profile">프로필</a><a href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+  <a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a><a href="../index.html#work">프로젝트</a><a href="../index.html#documents">문서</a><a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="shell">
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#practical">실무 포트폴리오</a><span aria-hidden="true">/</span><span aria-current="page">캐릭터 연출</span></nav>
+      <h1 class="page-hero__title">캐릭터 연출</h1>
+      <p class="page-hero__lede">이기어검 제자리 공격, 대기·자신의 턴·사망과 스턴·혼란·수면 상태의 제작 요구사항을 세 장에 정리했다.</p>
+      <div class="btn-row print-hide" style="margin-top: var(--space-5);">
+        <a class="btn btn--primary" href="../pdf/dark/combat-presentation.pdf" data-pdf-variant data-pdf-label="캐릭터 연출" target="_blank" rel="noopener">PDF로 보기</a>
+        <a class="btn btn--secondary" href="../pptx/combat-presentation.pptx" download>PPTX 다운로드</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="shell combat-page-actions">
+    <div class="combat-slide-scroll">
+      <div class="combat-slide-stack">
+      <article class="combat-slide combat-slide--skill" aria-label="이기어검 스킬 캐릭터 연출 기획서 1쪽">
+        <section class="combat-spec" aria-labelledby="combat-spec-title">
+          <header>
+            <p class="combat-spec__kicker">Character Presentation</p>
+            <h2 id="combat-spec-title">캐릭터 연출</h2>
+            <p class="combat-spec__sub">이기어검 · 환영검 방출</p>
+          </header>
+          <div class="combat-character" role="img" aria-label="오리지널 수집형 RPG 캐릭터"></div>
+          <dl class="combat-spec__list">
+            <div><dt>동작 유형</dt><dd>제자리 공격</dd></div>
+            <div><dt>픽토그래피</dt><dd>이동 없음 · 원격 검 제어</dd></div>
+            <div><dt>컷씬</dt><dd>사용 안 함</dd></div>
+            <div class="is-long"><dt>추가 프랍 모델링</dt><dd>기존 무기 모델링을 그대로 매시만 활용해서 이펙트로 사용</dd></div>
+            <div><dt>애니메이션</dt><dd>공격 준비 · 제자리 공격 · 대기 복귀</dd></div>
+            <div class="is-long"><dt>이펙트</dt><dd>영체·연기 효과와 함께 환영검을 방출한다. 검이 대상에게 꽂힌 뒤 1초 후 디졸브되어 사라진다.</dd></div>
+          </dl>
+        </section>
+
+        <section class="combat-scenes" aria-label="장면별 연출">
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="제자리에서 환영검을 생성하는 자세"></div>
+            <div class="combat-scene__caption"><strong>01 · 생성</strong><span>제자리를 유지하고 손을 들어 영체·연기와 함께 환영검을 생성한다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="손짓으로 환영검을 방출하는 제자리 공격"></div>
+            <div class="combat-scene__caption"><strong>02 · 방출</strong><span>한 손을 대상 방향으로 내밀어 이기어검으로 환영검을 방출한다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="대상에 꽂힌 환영검의 디졸브"></div>
+            <div class="combat-scene__caption"><strong>03 · 적중·종료</strong><span>환영검이 대상에 꽂히고, 적중 1초 뒤 디졸브되어 사라진다.</span></div>
+          </article>
+        </section>
+
+        <section class="combat-sequence" aria-labelledby="combat-sequence-title">
+          <header class="combat-sequence__head"><h3 id="combat-sequence-title">텍스트 시퀀스</h3><span>생성 → 방출 → 적중·디졸브</span></header>
+          <ol>
+            <li><strong><code>Character_skill_ready.anim</code></strong>발과 골반을 고정하고 상체 중심을 낮춘다. 손을 들어 올리는 동작의 정점에 영체·연기 효과와 환영검을 생성한다.</li>
+            <li><strong><code>Character_skill_attack.anim</code></strong>시선, 팔꿈치, 손끝 순으로 대상 방향을 연다. 손이 완전히 뻗는 프레임에 환영검을 출발시키며 캐릭터의 위치는 유지한다.</li>
+            <li><strong><code>Character_skill_return.anim</code></strong>환영검 적중 후 손목과 팔을 회수하고 상체를 중립으로 돌린다. 환영검은 적중 1초 뒤 디졸브하고 대기 모션으로 블렌드한다.</li>
+          </ol>
+        </section>
+      </article>
+
+      <article class="combat-slide combat-slide--states" aria-label="전투 상태 연출 기획서 2쪽">
+        <section class="combat-spec" aria-labelledby="combat-state-title">
+          <header>
+            <p class="combat-spec__kicker">Combat State Presentation</p>
+            <h2 id="combat-state-title">전투 상태 연출</h2>
+            <p class="combat-spec__sub">대기 · 자신의 턴 · 사망</p>
+          </header>
+          <div class="combat-character" role="img" aria-label="환영검을 사용하는 오리지널 수집형 RPG 캐릭터"></div>
+          <dl class="combat-spec__list">
+            <div><dt>대기 모션</dt><dd>상체 호흡 루프 · 머리카락과 소매 후행</dd></div>
+            <div><dt>자신의 턴</dt><dd>시선 전환 · 손짓 · 환영검 생성 · 포즈 고정</dd></div>
+            <div><dt>사망 연출</dt><dd>상체 붕괴 · 무릎 접지 · 후행 동작 정리</dd></div>
+            <div><dt>컷씬</dt><dd>사용 안 함</dd></div>
+            <div><dt>추가 프랍 모델링</dt><dd>기존 무기 모델링의 매시 활용</dd></div>
+            <div class="is-long"><dt>이펙트 종료</dt><dd>사망 자세 고정 후 환영검과 연기 효과 디졸브</dd></div>
+          </dl>
+        </section>
+
+        <section class="combat-scenes" aria-label="전투 상태별 연출">
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="대기 모션"></div>
+            <div class="combat-scene__caption"><strong>01 · 대기 모션</strong><span>골반과 발을 고정하고 상체 호흡과 후행 흔들림을 루프로 재생한다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="자신의 턴 시작 연출"></div>
+            <div class="combat-scene__caption"><strong>02 · 자신의 턴</strong><span>시선과 상체를 전환한 뒤 손을 들어 환영검 생성 포즈를 잡는다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="사망 연출"></div>
+            <div class="combat-scene__caption"><strong>03 · 사망</strong><span>상체 붕괴 후 무릎이 닿고, 후행 동작이 끝난 자세를 고정한다.</span></div>
+          </article>
+        </section>
+
+        <section class="combat-sequence" aria-labelledby="combat-state-sequence-title">
+          <header class="combat-sequence__head"><h3 id="combat-state-sequence-title">상태별 시퀀스</h3><span>대기 → 자신의 턴 → 사망</span></header>
+          <ol>
+            <li><strong><code>Character_idle.anim</code></strong>무게 중심은 골반에 두고 흉곽을 낮게 들고 내린다. 머리카락과 소매는 상체보다 늦게 따라오게 한다.</li>
+            <li><strong><code>Character_Battle_idle.anim</code></strong>시선, 어깨, 손 순서로 대상 방향을 잡는다. 손이 정점에 도달하면 환영검과 연기 효과를 생성하고, 짧은 오버슈트 뒤 공격 대기 포즈로 정착한다.</li>
+            <li><strong><code>Character_die_idle.anim</code></strong>피격 방향으로 상체가 무너진 뒤 무릎이 바닥에 닿는다. 손과 머리카락의 후행 동작이 끝난 프레임을 유지하고, 그 뒤 환영검과 연기 효과를 디졸브한다.</li>
+          </ol>
+        </section>
+      </article>
+
+      <article class="combat-slide combat-slide--status-effects" aria-label="상태이상 연출 기획서 3쪽">
+        <section class="combat-spec" aria-labelledby="combat-status-title">
+          <header>
+            <p class="combat-spec__kicker">Character Status Presentation</p>
+            <h2 id="combat-status-title">상태이상 연출</h2>
+            <p class="combat-spec__sub">스턴 · 혼란 · 수면</p>
+          </header>
+          <div class="combat-character" role="img" aria-label="스턴·혼란·수면 모션을 사용하는 오리지널 수집형 RPG 캐릭터"></div>
+          <dl class="combat-spec__list">
+            <div><dt>스턴</dt><dd>행동 불가 유지 · 상체 경직 · 작은 중심 흔들림</dd></div>
+            <div><dt>혼란</dt><dd>시선과 몸 방향 불일치 · 좌우 왕복</dd></div>
+            <div><dt>수면</dt><dd>고개 하강 · 어깨 이완 · 저속 호흡</dd></div>
+            <div><dt>루트 모션</dt><dd>사용 안 함 · 발 기준점 유지</dd></div>
+            <div><dt>상태 표식</dt><dd>스턴 궤도 · 혼란 ? · 수면 Zzz</dd></div>
+            <div class="is-long"><dt>전환</dt><dd>상태 진입·유지·해제를 기본 대기 모션과 블렌드</dd></div>
+          </dl>
+        </section>
+
+        <section class="combat-scenes" aria-label="상태이상별 모션">
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="스턴 상태 모션"></div>
+            <div class="combat-scene__caption"><strong>01 · 스턴</strong><span>발을 고정하고 팔 힘을 뺀 채 머리 위 궤도 표식과 작은 중심 흔들림을 유지한다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="혼란 상태 모션"></div>
+            <div class="combat-scene__caption"><strong>02 · 혼란</strong><span>시선과 몸 방향을 엇갈리게 두고 ? 표식과 좌우 전환을 반복한다.</span></div>
+          </article>
+          <article class="combat-scene">
+            <div class="combat-scene__image" role="img" aria-label="수면 상태 모션"></div>
+            <div class="combat-scene__caption"><strong>03 · 수면</strong><span>눈을 감고 고개와 어깨를 내린 자세에서 Zzz 표식과 낮은 호흡을 반복한다.</span></div>
+          </article>
+        </section>
+
+        <section class="combat-sequence" aria-labelledby="combat-status-sequence-title">
+          <header class="combat-sequence__head"><h3 id="combat-status-sequence-title">상태별 시퀀스</h3><span>진입 → 유지 → 해제</span></header>
+          <ol>
+            <li><strong><code>Character_stun_idle.anim</code></strong>진입 시 상체와 팔을 짧게 경직한다. 발을 고정한 채 머리와 흉곽을 작은 범위로 흔들고, 해제 시 중심을 세워 대기 모션으로 블렌드한다.</li>
+            <li><strong><code>Character_confusion_idle.anim</code></strong>진입 시 시선을 한쪽으로 먼저 돌리고 몸은 반대 방향으로 늦게 전환한다. 좌우 엇갈림을 반복하고, 해제 시 정면 대기 모션으로 블렌드한다.</li>
+            <li><strong><code>Character_sleep_idle.anim</code></strong>진입 시 눈을 감고 고개·어깨·팔 순으로 힘을 뺀다. 낮은 흉곽 호흡을 유지하며, 해제 시 고개와 상체를 세워 대기 모션으로 블렌드한다.</li>
+          </ol>
+        </section>
+      </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">전술 연구</p></div><a class="arrow-link" href="tactics-research.html">문서 열기</a></div></div></div>
+</main>
+<footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
+<script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>
+</body>
+</html>

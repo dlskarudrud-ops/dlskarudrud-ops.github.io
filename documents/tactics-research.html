@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="../assets/css/global.css?v=15">
-<link rel="stylesheet" href="../assets/css/project.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=16">
 <link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
 <script>
   (function () {
@@ -39,9 +39,9 @@
   <div class="shell nav__inner">
     <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
     <nav class="nav__links" aria-label="주요 섹션">
-      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#skills">역량</a>
-      <a class="nav__link" href="../index.html#experience">경력</a><a class="nav__link" href="../index.html#work">프로젝트</a>
-      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+      <a class="nav__link" href="../index.html#skills">역량</a><a class="nav__link" href="../index.html#experience">경력</a>
+      <a class="nav__link" href="../index.html#work">프로젝트</a><a class="nav__link" href="../index.html#documents">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
     </nav>
     <div class="nav__actions">
       <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
@@ -53,14 +53,14 @@
   </div>
 </header>
 <nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
-  <a href="../index.html#profile">프로필</a><a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a>
-  <a href="../index.html#work">프로젝트</a><a href="../index.html#documents" aria-current="location">문서</a><a href="../index.html#contact">연락</a>
+  <a href="../index.html#profile">프로필</a><a href="../index.html#practical" aria-current="location">실무 포트폴리오</a>
+  <a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a><a href="../index.html#work">프로젝트</a><a href="../index.html#documents">문서</a><a href="../index.html#contact">연락</a>
 </nav>
 
 <main id="main">
   <section class="page-hero">
     <div class="shell shell--narrow">
-      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#documents">문서</a><span aria-hidden="true">/</span><span aria-current="page">전술 연구</span></nav>
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#practical">실무 포트폴리오</a><span aria-hidden="true">/</span><span aria-current="page">전술 연구</span></nav>
       <h1 class="page-hero__title">전술 연구</h1>
       <p class="page-hero__lede">체력이 없는 보스를 상대로 제한된 턴 동안 누적 피해량을 측정하고, 결과 등급에 따라 회차 보상과 일일 획득 상한을 계산하는 콘텐츠다.</p>
       <div class="btn-row print-hide" style="margin-top: var(--space-5);"><a class="btn btn--primary" href="../pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a></div>
@@ -105,21 +105,21 @@
             <tr><th scope="row">일일 획득 상한</th><td>해당 일자의 최고 기록 등급.</td></tr>
             <tr><th scope="row">이번 지급 배수</th><td>이번 도전에서 획득한 등급.</td></tr>
           </tbody></table></div>
-          <div class="case-prose"><p>남은 지급 가능 횟수는 일일 상한에서 누적 지급 횟수를 뺀 값이다. 실제 지급 횟수는 이번 지급 배수와 남은 지급 가능 횟수 중 작은 값을 사용한다. 상한을 넘은 횟수는 이월하지 않는다.</p></div>
-          <div class="table-wrap"><table class="spec"><caption>정산 예시</caption><thead><tr><th scope="col">누적 지급</th><th scope="col">일일 상한</th><th scope="col">이번 배수</th><th scope="col">실제 지급</th><th scope="col">제외</th></tr></thead><tbody>
-            <tr><td>8회</td><td>10회</td><td>4회</td><td>2회</td><td>2회</td></tr>
+          <div class="case-prose"><p>남은 지급 가능 횟수는 일일 상한에서 누적 지급 횟수를 뺀 값이다. 실제 지급 횟수는 이번 지급 배수와 남은 지급 가능 횟수 중 작은 값을 사용한다. 지급 배수는 반복 플레이를 줄이기 위한 편의 기능이며, 상한을 넘은 횟수는 이월하지 않는다.</p></div>
+          <div class="table-wrap"><table class="spec"><caption>정산 예시</caption><thead><tr><th scope="col">도전</th><th scope="col">지급 배수</th><th scope="col">진입 전 누적</th><th scope="col">실제 지급</th><th scope="col">지급 후 누적</th></tr></thead><tbody>
+            <tr><th scope="row">1회차</th><td>5배수</td><td>0회</td><td>5회</td><td>5회</td></tr>
+            <tr><th scope="row">2회차</th><td>5배수</td><td>5회</td><td>5회</td><td>10회</td></tr>
+            <tr><th scope="row">추가 재진입</th><td>5배수</td><td>10회</td><td>0회</td><td>10회</td></tr>
           </tbody></table></div>
         </div>
       </section>
 
       <section class="doc-block" id="daily-reset">
-        <div class="doc-block__label"><h2>04 · 일일 초기화</h2><p>스테이지와 보상 상태를 같은 시점에 교체.</p></div>
+        <div class="doc-block__label"><h2>04 · 일일 초기화</h2><p>서버 업데이트 시점에 일일 상태를 초기화.</p></div>
         <div class="doc-block__body">
-          <h3 class="h3">선정 규칙과 전투 귀속 시점</h3>
+          <h3 class="h3">서버 기준 Daily 초기화</h3>
           <div class="table-wrap"><table class="spec"><caption>초기화 처리</caption><thead><tr><th scope="col">시점</th><th scope="col">처리</th></tr></thead><tbody>
-            <tr><th scope="row">초기화 이전</th><td>기존 일일 스테이지와 기존 보상 상태를 사용한다.</td></tr>
-            <tr><th scope="row">일일 초기화</th><td>모든 이용자에게 같은 스테이지를 배정하고 보상 상태를 초기화한다.</td></tr>
-            <tr><th scope="row">다음 스테이지 선정</th><td>직전 일자와 같은 스테이지는 연속 배정하지 않는다.</td></tr>
+            <tr><th scope="row">Daily 초기화</th><td>서버 기준 Daily 초기화 업데이트 시점에 일일 상태와 보상 누적값을 초기화한다.</td></tr>
             <tr><th scope="row">초기화 직전 진입</th><td>종료 시각이 아니라 전투 시작 시점의 일일 상태로 정산한다.</td></tr>
           </tbody></table></div>
         </div>
@@ -130,30 +130,30 @@
         <div class="doc-block__body">
           <h3 class="h3">결과 산출과 지급 처리</h3>
           <div class="split split--pair">
-            <div class="split__col"><h4 class="split__label">클라이언트</h4><ul class="facts"><li>보스 턴, 아군 전멸, 중도 이탈에 따른 전투 종료.</li><li>보스에게 가한 누적 피해량 계산.</li><li>피해량에 대응하는 결과 등급 산출과 전송.</li></ul></div>
-            <div class="split__col"><h4 class="split__label">서버</h4><ul class="facts"><li>일일 스테이지 선정과 이전 스테이지 제외.</li><li>최고 기록과 누적 지급 상태 갱신.</li><li>남은 상한을 반영한 보상 지급.</li></ul></div>
+            <div class="split__col"><h4 class="split__label">클라이언트</h4><ul class="facts"><li>전투 종료까지 누적 대미지를 선계산한다.</li><li>적의 실드 버프가 흡수한 피해는 누적 피해량에 포함하지 않는다.</li><li>독·출혈 등 디버프 피해는 누적 피해량에 포함한다.</li><li>선계산한 대미지와 결과를 패킷으로 전송한다.</li></ul></div>
+            <div class="split__col"><h4 class="split__label">서버</h4><ul class="facts"><li>클라이언트의 대미지 결과 패킷을 받아 이용자 정보를 갱신한다.</li><li>최고 기록과 누적 지급 상태를 갱신한다.</li><li>남은 상한을 반영해 보상을 지급한다.</li></ul></div>
           </div>
-          <blockquote class="callout">피해량·등급 재계산 또는 전투 기록 대조 방식은 별도 확인이 필요하다.</blockquote>
+          <blockquote class="callout">처리 순서: 클라이언트 대미지 선계산 → 결과 패킷 전송 → 서버 이용자 정보 갱신.</blockquote>
         </div>
       </section>
 
       <section class="doc-block" id="checks">
-        <div class="doc-block__label"><h2>06 · 확인할 항목</h2><p>구현과 운영 규칙을 추가로 확인할 부분.</p></div>
+        <div class="doc-block__label"><h2>06 · 테스트 케이스(QA)</h2><p>결과 패킷과 지급 상태의 검증 항목.</p></div>
         <div class="doc-block__body">
-          <h3 class="h3">초기화와 중복 정산의 예외</h3>
-          <ul class="facts">
-            <li>같은 완료 요청이 재전송될 때 중복 지급을 차단하는지 확인.</li>
-            <li>최고 기록 갱신으로 상한이 증가할 때 기존 누적 지급량을 정확히 차감하는지 확인.</li>
-            <li>후보 스테이지가 하나뿐일 때 연속 배정 금지를 어떻게 처리하는지 확인.</li>
-            <li>앱 종료, 통신 단절, 재접속 시 전투 완료와 재개 정책 확인.</li>
-            <li>일일 초기화 직전 시작한 전투의 날짜 상태와 설정 버전 보존 방식 확인.</li>
-          </ul>
+          <h3 class="h3">테스트 케이스(QA)</h3>
+          <div class="table-wrap"><table class="spec"><caption>결과 검증</caption><thead><tr><th scope="col">검사</th><th scope="col">판정</th></tr></thead><tbody>
+            <tr><th scope="row"><code>deck_id</code>가 비어 있는가</th><td>캐릭터를 편성하지 않은 상태에서는 클리어할 수 없으므로 유효하지 않은 결과로 처리.</td></tr>
+            <tr><th scope="row"><code>turn_count</code>가 0인가</th><td>0턴 클리어는 존재할 수 없으므로 유효하지 않은 결과로 처리.</td></tr>
+            <tr><th scope="row">같은 완료 요청이 재전송되는가</th><td>이미 반영한 요청은 중복 지급하지 않음.</td></tr>
+            <tr><th scope="row">최고 기록으로 상한이 증가했는가</th><td>기존 누적 지급량을 차감한 남은 횟수만 지급.</td></tr>
+            <tr><th scope="row">Daily 초기화 직전에 진입했는가</th><td>전투 시작 시점의 일일 상태로 정산.</td></tr>
+          </tbody></table></div>
         </div>
       </section>
     </div>
   </div>
 
-  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">PDF</p><p class="case-footer__title">전술 연구</p></div><a class="btn btn--primary" href="../pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a></div><hr><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">타워</p></div><a class="arrow-link" href="tower.html">문서 열기</a></div></div></div>
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">타워</p></div><a class="arrow-link" href="tower.html">문서 열기</a></div></div></div>
 </main>
 <footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
 <script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>
