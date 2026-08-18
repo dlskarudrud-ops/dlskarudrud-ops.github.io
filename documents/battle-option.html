@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark" data-accent="steel">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>배틀 옵션 — 이남경</title>
+<meta name="description" content="스킬과 장비 효과 데이터의 항목, 입력 예시, 발동 순서와 조합 제한을 정리한 문서.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="배틀 옵션">
+<meta property="og:description" content="전투 효과 데이터의 대표 항목과 처리 규칙.">
+<meta property="og:image" content="../assets/images/portfolio-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css?v=15">
+<link rel="stylesheet" href="../assets/css/global.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=15">
+<link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") theme = saved;
+      else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "light";
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#skills">역량</a>
+      <a class="nav__link" href="../index.html#experience">경력</a><a class="nav__link" href="../index.html#work">프로젝트</a>
+      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/></svg>
+      </button>
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#profile">프로필</a><a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a>
+  <a href="../index.html#work">프로젝트</a><a href="../index.html#documents" aria-current="location">문서</a><a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="shell shell--narrow">
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#documents">문서</a><span aria-hidden="true">/</span><span aria-current="page">배틀 옵션</span></nav>
+      <h1 class="page-hero__title">배틀 옵션</h1>
+      <p class="page-hero__lede">스킬·장비·패시브에서 사용하는 효과를 같은 레코드 형식으로 기록하고, 전투 처리 시점에 따라 호출하는 방식이다.</p>
+      <div class="btn-row print-hide" style="margin-top: var(--space-5);"><a class="btn btn--primary" href="../pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a></div>
+    </div>
+  </section>
+
+  <div class="shell shell--narrow">
+    <div class="doc">
+      <section class="doc-block" id="fields">
+        <div class="doc-block__label"><h2>01 · 데이터 항목</h2><p>효과 한 건을 작성할 때 사용하는 대표 항목.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">대표 항목과 입력 목적</h3>
+          <div class="table-wrap"><table class="spec"><caption>대표 항목</caption><thead><tr><th scope="col">항목</th><th scope="col">컬럼명</th><th scope="col">형식</th><th scope="col">용도</th></tr></thead><tbody>
+            <tr><th scope="row">발동 단계</th><td><code>trigger_timing</code></td><td>enum</td><td>전투 시작, 턴 시작, 행동 전후, 피격, 사망 등 효과를 확인할 시점.</td></tr>
+            <tr><th scope="row">실행 기능</th><td><code>effect_type</code></td><td>enum</td><td>공격, 회복, 상태 부여, 수치 보정, 게이지 변경 등 적용할 결과.</td></tr>
+            <tr><th scope="row">대상 규칙</th><td><code>target_type</code></td><td>enum</td><td>자신, 아군, 적, 직전 적중 대상 등 후보를 고르는 기준.</td></tr>
+            <tr><th scope="row">시전자 조건</th><td><code>caster_condition</code></td><td>enum</td><td>효과를 가진 유닛의 체력, 상태, 사용 스킬, 공격 결과 조건.</td></tr>
+            <tr><th scope="row">대상 조건</th><td><code>target_condition</code></td><td>enum</td><td>선택 대상의 체력, 상태, 속성, 역할 조건.</td></tr>
+            <tr><th scope="row">재사용 제한</th><td><code>cooldown_check</code></td><td>boolean</td><td>스킬 재사용 대기시간과 함께 검사할지 개별 효과마다 지정.</td></tr>
+            <tr><th scope="row">발동 판정</th><td><code>trigger_rate</code></td><td>float</td><td>확정, 고정 확률, 명중·회피 수치를 반영한 확률을 구분.</td></tr>
+            <tr><th scope="row">기능 인수</th><td><code>effect_params</code></td><td>number[]</td><td>지속 턴, 적용 횟수, 계수처럼 실행 기능마다 필요한 값.</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="doc-block" id="examples">
+        <div class="doc-block__label"><h2>02 · 입력 예시</h2><p>서로 다른 기능을 같은 항목으로 기록.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">서로 다른 효과를 같은 형식으로 기록</h3>
+          <div class="table-wrap"><table class="spec"><caption>입력 예시</caption><thead><tr><th scope="col">발동 단계</th><th scope="col">실행 기능</th><th scope="col">대상</th><th scope="col">조건</th><th scope="col">재사용 제한</th><th scope="col">기능 인수</th></tr></thead><tbody>
+            <tr><td>턴 시작 처리 후</td><td>체력 회복</td><td>체력이 가장 낮은 아군</td><td>대상 체력 N% 이하</td><td>적용</td><td>대상 최대 체력 기준 회복 계수</td></tr>
+            <tr><td>공격 계산 중</td><td>피해량 보정</td><td>직전 피격 대상</td><td>특정 상태 보유</td><td>예외</td><td>상태 중첩당 보정 계수</td></tr>
+            <tr><td>피격 처리 후</td><td>지속 회복 부여</td><td>자신</td><td>피격 후 체력 N% 이하</td><td>적용</td><td>지속 턴과 회복 계수</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="doc-block" id="order">
+        <div class="doc-block__label"><h2>03 · 호출 순서</h2><p>기본 전투 처리가 끝난 뒤 해당 시점의 효과를 확인.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">전투 상태와 효과 호출의 관계</h3>
+          <ol class="flow">
+            <li class="flow__step"><b class="flow__title">기본 처리</b><span class="flow__text">턴 시작 피해, 행동 결과 등 먼저 처리할 전투 상태를 반영.</span></li>
+            <li class="flow__step"><b class="flow__title">발동 주체</b><span class="flow__text">공격자, 피격자, 턴 소유자 중 해당 시점의 주체를 판정.</span></li>
+            <li class="flow__step"><b class="flow__title">조건 확인</b><span class="flow__text">시전자 조건과 대상 조건을 확인.</span></li>
+            <li class="flow__step"><b class="flow__title">대상 선택</b><span class="flow__text">단일 대상과 대상 목록을 시점에 맞춰 구분.</span></li>
+            <li class="flow__step"><b class="flow__title">발동 판정</b><span class="flow__text">설정된 확률 방식을 적용.</span></li>
+            <li class="flow__step"><b class="flow__title">기능 실행</b><span class="flow__text">계산 전용 또는 연출 포함 처리로 결과 반영.</span></li>
+          </ol>
+          <blockquote class="callout"><strong>처리 기준:</strong> 각 전투 상태의 기본 처리가 끝난 뒤 효과를 호출한다. 조건·대상·확률의 내부 호출 순서는 코드 확인이 필요하다.</blockquote>
+        </div>
+      </section>
+
+      <section class="doc-block" id="constraints">
+        <div class="doc-block__label"><h2>04 · 조합 제한</h2><p>발동 단계와 기능을 임의로 결합할 수 없는 사례.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">대표 제한과 오입력 위험</h3>
+          <div class="table-wrap"><table class="spec"><caption>조합 조건</caption><thead><tr><th scope="col">구분</th><th scope="col">작성 규칙</th><th scope="col">확인할 오류</th></tr></thead><tbody>
+            <tr><th scope="row">계산 전용 효과</th><td>별도 연출 없이 계산에만 사용하며 자신을 대상으로 설정.</td><td>연출 중복, 적용 대상 오해.</td></tr>
+            <tr><th scope="row">직전 적용 대상</th><td>행동·공격 단계는 단일 대상, 그 밖의 단계는 대상 목록을 구분.</td><td>다중 공격에서 잘못된 대상 참조.</td></tr>
+            <tr><th scope="row">협동 공격</th><td>지정된 발동 단계에서만 실행.</td><td>재귀 호출, 행동 순서 충돌.</td></tr>
+            <tr><th scope="row">후속 스킬</th><td>행동 종료 뒤 별도 단계에서 실행.</td><td>턴 소유권과 전투 종료 판정 충돌.</td></tr>
+            <tr><th scope="row">지속 피해 면역</th><td>상시 적용 단계에서 사용.</td><td>일시 효과로 잘못 등록.</td></tr>
+            <tr><th scope="row">효과 복사</th><td>시전자 정보가 필요한 상태는 복사·이동 대상에서 제외.</td><td>보호·도발 관계의 주체 손실.</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="doc-block" id="checks">
+        <div class="doc-block__label"><h2>05 · 확인할 항목</h2><p>위키만으로 구현 여부를 판단할 수 없는 부분.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">데이터 작성과 런타임 대조가 필요한 지점</h3>
+          <ul class="facts">
+            <li>실행 기능마다 기능 인수의 의미와 자료형이 달라 입력 검사가 필요하다.</li>
+            <li>문자열 안에 추가 값을 넣는 형식은 빈 값, 구분자, 잘못된 열거값 처리가 필요하다.</li>
+            <li>턴 종료 단계는 정의에 남아 있으나 본문 규칙에서는 사용하지 않는 것으로 적혀 있다.</li>
+            <li>명칭 변경 기록과 현재 본문 사이에 차이가 있어 실제 열거값과 대조가 필요하다.</li>
+            <li>협동 공격, 추가 행동, 후속 스킬에는 중복 발동과 재귀 호출 제한이 필요하다.</li>
+          </ul>
+          <blockquote class="callout">자동 검사 도구와 런타임 내부 호출 순서는 구현 자료 확인이 필요하다.</blockquote>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">PDF</p><p class="case-footer__title">배틀 옵션</p></div><a class="btn btn--primary" href="../pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a></div><hr><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">전술 연구</p></div><a class="arrow-link" href="tactics-research.html">문서 열기</a></div></div></div>
+</main>
+<footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
+<script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>
+</body>
+</html>

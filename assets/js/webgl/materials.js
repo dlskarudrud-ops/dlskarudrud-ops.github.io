@@ -56,7 +56,7 @@ export const PALETTES = {
   },
 };
 
-/** Accent variant used on the Project-TS pages, if the hero is ever reused. */
+/** Accent variant used on the Project_Taimanin Squad pages, if the hero is ever reused. */
 export const STEEL = {
   light: {
     tint: [0.28, 0.45, 0.62],

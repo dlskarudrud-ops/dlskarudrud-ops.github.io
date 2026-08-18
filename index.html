@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>이남경 · 시스템 / 전투 기획 포트폴리오</title>
-<meta name="description" content="시스템 · 전투 기획자 이남경. 수집형 RPG의 통합 전투 프레임워크와 데이터 파이프라인 설계, 카드 기반 생존 게임 FireVow: DarkFantasy 1인 개발.">
+<meta name="description" content="시스템 · 전투 기획자 이남경. 수집형 RPG의 전투 규칙과 데이터 제작, 카드 기반 생존 게임 FireVow: DarkFantasy 1인 개발.">
 <meta name="author" content="이남경">
 <meta name="color-scheme" content="dark light">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="이남경 · 시스템 / 전투 기획 포트폴리오">
-<meta property="og:description" content="통합 전투 효과 시스템, 41종 상태이상, 13개 데이터 테이블. 규칙을 한 번 설계하고 콘텐츠가 그 위에서 확장되도록 만듭니다.">
+<meta property="og:description" content="수집형 RPG의 전투 규칙·데이터 제작과 카드 기반 생존 게임 1인 개발 경력.">
 <meta property="og:image" content="https://dlskarudrud-ops.github.io/assets/images/portfolio-og.png">
 <meta property="og:url" content="https://dlskarudrud-ops.github.io/">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,7 +26,6 @@
 <link rel="stylesheet" href="assets/css/print.css?v=15" media="print">
 
 <script>
-  /* Resolve the theme before first paint so the page never flashes. */
   (function () {
     var root = document.documentElement;
     var theme = "dark";
@@ -53,30 +52,21 @@
       이남경
       <span class="nav__brand-role">System &amp; Combat Design</span>
     </a>
-
     <nav class="nav__links" aria-label="주요 섹션" data-spy>
       <a class="nav__link" href="#profile">프로필</a>
       <a class="nav__link" href="#skills">역량</a>
       <a class="nav__link" href="#experience">경력</a>
+      <a class="nav__link" href="#practical">실무 포트폴리오</a>
       <a class="nav__link" href="#work">프로젝트</a>
       <a class="nav__link" href="#documents">문서</a>
       <a class="nav__link" href="#contact">연락</a>
     </nav>
-
     <div class="nav__actions">
       <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
-        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/>
-        </svg>
-        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
-          <circle cx="10" cy="10" r="3.6"/>
-          <path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/>
-        </svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"></path></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="3.6"></circle><path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"></path></svg>
       </button>
-
-      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
-        <span></span>
-      </button>
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기"><span></span></button>
     </div>
   </div>
 </header>
@@ -85,6 +75,7 @@
   <a href="#profile">프로필</a>
   <a href="#skills">역량</a>
   <a href="#experience">경력</a>
+  <a href="#practical">실무 포트폴리오</a>
   <a href="#work">프로젝트</a>
   <a href="#documents">문서</a>
   <a href="#contact">연락</a>
@@ -92,9 +83,6 @@
 
 <main id="main">
 
-  <!-- ================================================================
-       HERO
-       ================================================================ -->
   <section class="hero">
     <div class="hero__atmosphere" data-atmosphere aria-hidden="true">
       <div class="hero__fallback"></div>
@@ -112,9 +100,9 @@
 
             <button type="button" class="mode-switch" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
               <svg viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <circle cx="10" cy="10" r="7"/>
-                <path d="M10 3v14" />
-                <path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor" stroke="none"/>
+                <circle cx="10" cy="10" r="7"></circle>
+                <path d="M10 3v14"></path>
+                <path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor" stroke="none"></path>
               </svg>
               <span data-theme-label>화이트 모드</span>
             </button>
@@ -182,16 +170,13 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       01 PROFILE
-       ================================================================ -->
   <section class="section" id="profile">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
         <span class="section-index">01</span>
         <span class="eyebrow">Profile</span>
         <h2 class="section-head__title section-head__title--wide">
-          규칙을 한 번 설계하고, 콘텐츠가 그 위에서 확장되게 만듭니다.
+          전투 규칙과 콘텐츠 데이터를 설계합니다.
         </h2>
       </div>
 
@@ -200,8 +185,8 @@
           <p>
             2022년 글로벌 모바일 게임의 라이브 서비스 기획으로 시작해, 약 40명 규모의
             모바일 수집형 RPG <strong>Taimanin Squad</strong>에서 2.5년간 시스템 / 전투
-            메인 기획을 맡았습니다. 발동 시점 22종 · 대상 25종 · 조건 40종 이상 ·
-            기능 50종 이상을 조합하는 <strong>통합 전투 효과 시스템</strong>을 설계하고,
+            메인 기획을 맡았습니다. 발동 단계 · 대상 규칙 · 조건 · 실행 기능을 분리한
+            <strong>전투 효과 데이터 규칙</strong>을 설계하고,
             전체 데이터 테이블의 50% 이상을 작성했습니다.
           </p>
           <p>
@@ -249,9 +234,6 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       02 CAPABILITIES
-       ================================================================ -->
   <section class="section section--inset" id="skills">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
@@ -302,9 +284,6 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       03 EXPERIENCE
-       ================================================================ -->
   <section class="section" id="experience">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
@@ -372,15 +351,15 @@
               Pre-OBT까지 데이터 적용 · 정식 출시 2026.03
             </p>
             <ul class="facts">
-              <li>발동 시점 22종 · 대상 25종 · 조건 40+종 · 기능 50+종의 <strong>통합 전투 효과 시스템</strong> 설계</li>
+              <li>발동 단계 · 대상 · 조건 · 실행 기능을 조합하는 <strong>전투 효과 데이터 규칙</strong> 설계</li>
               <li>41종 상태이상(버프 17 / 디버프 24)의 중첩 · 갱신 · 시전자 종속 규칙 정의</li>
               <li>인연 · 고유 무기 · 속성 연구 · 로그라이트 · 타워 등 성장 · 콘텐츠 10개 이상 설계</li>
               <li>전체 데이터 테이블의 50% 이상 작성, 제작 툴 · 외주 규격 · 빌드 가이드 문서 담당</li>
             </ul>
           </div>
           <div class="timeline__actions" role="group" aria-label="Taimanin Squad 자료">
-            <a class="btn btn--secondary" href="projects/project-ts.html" aria-label="Taimanin Squad 웹으로 보기">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener" aria-label="Taimanin Squad PDF로 보기, 새 창">PDF로 보기</a>
+            <a class="btn btn--secondary" href="projects/project-taimanin-squad.html" aria-label="Project_Taimanin Squad 웹으로 보기">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/project-taimanin-squad.pdf" data-pdf-variant data-pdf-label="Project_Taimanin Squad" target="_blank" rel="noopener" aria-label="Project_Taimanin Squad PDF로 보기, 새 창">PDF로 보기</a>
           </div>
         </article>
 
@@ -406,21 +385,73 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       04 SELECTED WORK
-       ================================================================ -->
-  <section class="section section--inset" id="work">
+  <section class="section section--inset" id="practical">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
         <span class="section-index">04</span>
+        <span class="eyebrow">Practical Portfolio</span>
+        <h2 class="section-head__title">실무 포트폴리오</h2>
+        <p class="section-head__note">실무에서 작성한 전투 데이터와 콘텐츠 규칙을 문서별로 정리했습니다.</p>
+      </div>
+
+      <div class="docs" data-reveal-group="50">
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">배틀 옵션 <span class="tag">전투 데이터</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">발동 단계, 대상, 조건과 실행 기능을 조합하는 전투 효과 데이터 명세.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/battle-option.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">전술 연구 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">일일 피해 측정, 결과 등급, 보상 상한과 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tactics-research.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">층 진행, 미션 효과, 반복 보상, 월간 순위와 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 UI <span class="tag">UI</span></h3>
+            <p class="docs__desc">층 진행, 강화 효과와 랭킹 보상 화면 정의.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower-ui.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower-ui.pdf" data-pdf-variant data-pdf-label="타워 UI" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="shell">
+      <div class="section-head section-head--indexed" data-reveal>
+        <span class="section-index">05</span>
         <span class="eyebrow">Selected Work</span>
         <h2 class="section-head__title">대표 프로젝트</h2>
       </div>
 
       <div class="work-minor" data-reveal-group="80">
         <article class="card work-minor__item" data-reveal>
-          <!-- Whole-card link: one hidden anchor covering the card. The visible
-               "웹으로 보기" button below is the accessible, focusable link. -->
           <a class="card-overlay" href="documents/career.html" tabindex="-1" aria-hidden="true"></a>
 
           <span class="eyebrow eyebrow--muted">Career</span>
@@ -438,8 +469,6 @@
         </article>
 
         <article class="card work-minor__item" data-reveal>
-          <!-- Whole-card link: one hidden anchor covering the card. The visible
-               "웹으로 보기" button below is the accessible, focusable link. -->
           <a class="card-overlay" href="documents/postmortem.html" tabindex="-1" aria-hidden="true"></a>
 
           <span class="eyebrow eyebrow--muted">Retrospective</span>
@@ -459,10 +488,7 @@
 
       <div class="work">
 
-        <!-- Fire Vow -->
         <article class="card card--reactive work-card" data-reveal>
-          <!-- Whole-card link: one hidden anchor covering the card. The visible
-               "웹으로 보기" button below is the accessible, focusable link. -->
           <a class="card-overlay" href="projects/fire-vow.html" tabindex="-1" aria-hidden="true"></a>
 
           <div class="work-card__visual">
@@ -508,34 +534,30 @@
           </div>
         </article>
 
-        <!-- Project-TS -->
         <article class="card card--reactive work-card" data-reveal>
-          <!-- Whole-card link: one hidden anchor covering the card. The visible
-               "웹으로 보기" button below is the accessible, focusable link. -->
-          <a class="card-overlay" href="projects/project-ts.html" tabindex="-1" aria-hidden="true"></a>
+          <a class="card-overlay" href="projects/project-taimanin-squad.html" tabindex="-1" aria-hidden="true"></a>
 
           <div class="work-card__visual work-card__visual--dense">
             <img src="assets/images/ts-squad-manager.jpeg"
-                 alt="Project-TS 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
+                 alt="Project_Taimanin Squad 내부 검증 도구 SQUAD MANAGER의 데이터 검사 화면"
                  width="660" height="596" loading="lazy" decoding="async">
           </div>
 
           <div class="work-card__body">
             <div class="work-card__head">
               <span class="eyebrow">Mobile Collectible RPG · 2023.05 — 2025.12</span>
-              <h3 class="work-card__title">Project-TS · Taimanin Squad</h3>
+              <h3 class="work-card__title">Project_Taimanin Squad</h3>
               <p class="work-card__context">
-                약 40명 규모 프로젝트의 전투 프레임워크와 성장 · 콘텐츠 시스템,
-                데이터 파이프라인 설계. 10개 이상의 시스템을 하나의 효과 문법 위에
-                올려 규칙 복제를 막았습니다.
+                약 40명 규모 프로젝트에서 전투 효과, 성장 · 콘텐츠 시스템과
+                데이터 제작 흐름을 설계했습니다.
               </p>
 
               <div class="work-card__role">
                 <div class="work-card__role-head">
                   <span class="work-card__role-label">My Role</span>
                   <div class="btn-row">
-                    <a class="btn btn--secondary" href="projects/project-ts.html">웹으로 보기</a>
-                    <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener">PDF로 보기</a>
+                    <a class="btn btn--secondary" href="projects/project-taimanin-squad.html">웹으로 보기</a>
+                    <a class="btn btn--quiet" href="pdf/dark/project-taimanin-squad.pdf" data-pdf-variant data-pdf-label="Project_Taimanin Squad" target="_blank" rel="noopener">PDF로 보기</a>
                   </div>
                 </div>
                 <span class="work-card__role-value">
@@ -560,13 +582,10 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       05 DOCUMENTS
-       ================================================================ -->
-  <section class="section" id="documents">
+  <section class="section section--inset" id="documents">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
-        <span class="section-index">05</span>
+        <span class="section-index">06</span>
         <span class="eyebrow">Documents</span>
         <h2 class="section-head__title">문서</h2>
         <p class="section-head__note">
@@ -601,12 +620,12 @@
 
         <div class="docs__row" data-reveal>
           <div class="docs__info">
-            <h3 class="docs__title">Project-TS 시스템 &amp; 전투 설계 <span class="tag">12p</span></h3>
+            <h3 class="docs__title">Project_Taimanin Squad 시스템 &amp; 전투 설계 <span class="tag">12p</span></h3>
             <p class="docs__desc">통합 전투 효과 시스템, 41종 상태이상, 성장 · 콘텐츠 10종, 데이터 파이프라인.</p>
           </div>
           <div class="docs__actions">
-            <a class="btn btn--secondary" href="projects/project-ts.html">웹으로 보기</a>
-            <a class="btn btn--quiet" href="pdf/dark/project-ts.pdf" data-pdf-variant data-pdf-label="Project-TS" target="_blank" rel="noopener">PDF로 보기</a>
+            <a class="btn btn--secondary" href="projects/project-taimanin-squad.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/project-taimanin-squad.pdf" data-pdf-variant data-pdf-label="Project_Taimanin Squad" target="_blank" rel="noopener">PDF로 보기</a>
           </div>
         </div>
 
@@ -631,24 +650,66 @@
             <a class="btn btn--quiet" href="pdf/dark/postmortem.pdf" data-pdf-variant data-pdf-label="포스트모템" target="_blank" rel="noopener">PDF로 보기</a>
           </div>
         </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">배틀 옵션 <span class="tag">전투 데이터</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">발동 단계, 대상, 조건과 실행 기능을 조합하는 전투 효과 데이터 명세.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/battle-option.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/battle-option.pdf" data-pdf-variant data-pdf-label="배틀 옵션" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">전술 연구 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">일일 피해 측정, 결과 등급, 보상 상한과 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tactics-research.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tactics-research.pdf" data-pdf-variant data-pdf-label="전술 연구" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 <span class="tag">콘텐츠</span> <span class="tag">시스템</span></h3>
+            <p class="docs__desc">층 진행, 미션 효과, 반복 보상, 월간 순위와 초기화 규칙.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
+
+        <div class="docs__row" data-reveal>
+          <div class="docs__info">
+            <h3 class="docs__title">타워 UI <span class="tag">UI</span></h3>
+            <p class="docs__desc">층 진행, 강화 효과와 랭킹 보상 화면 정의.</p>
+          </div>
+          <div class="docs__actions">
+            <a class="btn btn--secondary" href="documents/tower-ui.html">웹으로 보기</a>
+            <a class="btn btn--quiet" href="pdf/dark/tower-ui.pdf" data-pdf-variant data-pdf-label="타워 UI" target="_blank" rel="noopener">PDF로 보기</a>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ================================================================
-       06 CONTACT
-       ================================================================ -->
-  <section class="section section--tight section--inset" id="contact">
+  <section class="section section--tight" id="contact">
     <div class="shell">
       <div class="section-head section-head--indexed" data-reveal>
-        <span class="section-index">06</span>
+        <span class="section-index">07</span>
         <span class="eyebrow">Contact</span>
         <h2 class="section-head__title">연락</h2>
       </div>
 
       <div class="contact">
         <p class="contact__statement" data-reveal>
-          전투의 재미를 재사용 가능한 시스템으로 설계합니다.
+          전투 규칙과 콘텐츠 데이터를 설계합니다.
         </p>
 
         <div class="contact__list" data-reveal="right">

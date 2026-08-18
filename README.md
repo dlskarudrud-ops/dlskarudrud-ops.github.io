@@ -12,11 +12,15 @@ web/
 │
 ├── projects/
 │   ├── fire-vow.html           FireVow: DarkFantasy 상세
-│   └── project-ts.html         Project-TS 시스템 & 전투 설계 상세
+│   └── project-taimanin-squad.html  Project_Taimanin Squad 시스템 & 전투 설계 상세
 │
 ├── documents/
 │   ├── career.html             경력 기술서
-│   └── postmortem.html         포스트모템
+│   ├── postmortem.html         포스트모템
+│   ├── battle-option.html      배틀 옵션
+│   ├── tactics-research.html   전술 연구
+│   ├── tower.html              타워
+│   └── tower-ui.html           타워 UI
 │
 ├── assets/
 │   ├── css/
@@ -24,6 +28,7 @@ web/
 │   │   ├── global.css          리셋 · 레이아웃 · 공통 컴포넌트
 │   │   ├── home.css            홈 전용 레이아웃
 │   │   ├── project.css         상세 · 문서 페이지 레이아웃
+│   │   ├── wiki.css            실무 포트폴리오 · 타워 UI 보조 스타일
 │   │   └── print.css           인쇄 전용 스타일
 │   │
 │   ├── js/
@@ -37,8 +42,8 @@ web/
 │   └── icons/                  파비콘
 │
 └── pdf/
-    ├── dark/                   다크 모드 PDF 5종
-    └── light/                  화이트 모드 PDF 5종
+    ├── dark/                   다크 모드 PDF
+    └── light/                  화이트 모드 PDF
 ```
 
 ## 문서 연결 방식
@@ -49,12 +54,18 @@ web/
 | --- | --- | --- |
 | 이력서 | `resume.html` | `pdf/{테마}/resume.pdf` |
 | 경력 기술서 | `documents/career.html` | `pdf/{테마}/career.pdf` |
-| Project-TS | `projects/project-ts.html` | `pdf/{테마}/project-ts.pdf` |
+| Project_Taimanin Squad | `projects/project-taimanin-squad.html` | `pdf/{테마}/project-taimanin-squad.pdf` |
 | Fire Vow | `projects/fire-vow.html` | `pdf/{테마}/fire-vow.pdf` |
 | 포스트모템 | `documents/postmortem.html` | `pdf/{테마}/postmortem.pdf` |
+| 배틀 옵션 | `documents/battle-option.html` | `pdf/{테마}/battle-option.pdf` |
+| 전술 연구 | `documents/tactics-research.html` | `pdf/{테마}/tactics-research.pdf` |
+| 타워 | `documents/tower.html` | `pdf/{테마}/tower.pdf` |
+| 타워 UI | `documents/tower-ui.html` | `pdf/{테마}/tower-ui.pdf` |
 
 `data-pdf-variant`가 붙은 링크는 현재 테마에 맞춰 `pdf/dark/` ↔ `pdf/light/`
 경로를 바꿉니다. JavaScript가 없으면 다크 버전이 그대로 열립니다.
+
+위 네 문서의 PDF도 기존 포트폴리오와 같은 16:9 형식으로 다크·화이트 두 판을 제공합니다.
 
 ## 디자인 규칙
 

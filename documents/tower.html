@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko" class="no-js" data-theme="dark" data-accent="steel">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>타워 — 이남경</title>
+<meta name="description" content="월간 타워의 층 진행, 재도전, 보상, 미션, 순위와 초기화 규칙을 정리한 문서.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="타워">
+<meta property="og:description" content="층 진행, 보상, 미션, 순위와 월간 초기화 규칙.">
+<meta property="og:image" content="../assets/images/portfolio-og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/tokens.css?v=15">
+<link rel="stylesheet" href="../assets/css/global.css?v=15">
+<link rel="stylesheet" href="../assets/css/project.css?v=15">
+<link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
+<script>
+  (function () {
+    var root = document.documentElement;
+    var theme = "dark";
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") theme = saved;
+      else if (window.matchMedia && !window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "light";
+    } catch (e) {}
+    root.setAttribute("data-theme", theme);
+    root.classList.remove("no-js");
+  })();
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 건너뛰기</a>
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="../index.html">이남경<span class="nav__brand-role">System &amp; Combat Design</span></a>
+    <nav class="nav__links" aria-label="주요 섹션">
+      <a class="nav__link" href="../index.html#profile">프로필</a><a class="nav__link" href="../index.html#skills">역량</a>
+      <a class="nav__link" href="../index.html#experience">경력</a><a class="nav__link" href="../index.html#work">프로젝트</a>
+      <a class="nav__link" href="../index.html#documents" aria-current="location">문서</a><a class="nav__link" href="../index.html#contact">연락</a>
+    </nav>
+    <div class="nav__actions">
+      <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="true" aria-label="테마 전환">
+        <svg class="theme-toggle__moon" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 12.4A7 7 0 0 1 7.6 3.5a7 7 0 1 0 8.9 8.9z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="10" cy="10" r="3.6"/><path d="M10 2.2v1.6M10 16.2v1.6M2.2 10h1.6M16.2 10h1.6M4.5 4.5l1.1 1.1M14.4 14.4l1.1 1.1M15.5 4.5l-1.1 1.1M5.6 14.4l-1.1 1.1"/></svg>
+      </button>
+      <button type="button" class="nav__burger" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기"><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-menu" id="mobile-menu" data-menu aria-label="모바일 메뉴" aria-hidden="true">
+  <a href="../index.html#profile">프로필</a><a href="../index.html#skills">역량</a><a href="../index.html#experience">경력</a>
+  <a href="../index.html#work">프로젝트</a><a href="../index.html#documents" aria-current="location">문서</a><a href="../index.html#contact">연락</a>
+</nav>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="shell shell--narrow">
+      <nav class="page-hero__crumb print-hide" aria-label="현재 위치"><a href="../index.html">홈</a><span aria-hidden="true">/</span><a href="../index.html#documents">문서</a><span aria-hidden="true">/</span><span aria-current="page">타워</span></nav>
+      <h1 class="page-hero__title">타워</h1>
+      <p class="page-hero__lede">입장 재화를 사용해 층을 순서대로 공략하고, 최초·반복 보상, 층별 미션, 월간 순위와 초기화를 함께 처리하는 콘텐츠다.</p>
+      <div class="btn-row print-hide" style="margin-top: var(--space-5);"><a class="btn btn--primary" href="../pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a></div>
+    </div>
+  </section>
+
+  <div class="shell shell--narrow">
+    <div class="doc">
+      <section class="doc-block" id="progress">
+        <div class="doc-block__label"><h2>01 · 진행 규칙</h2><p>현재 진행 상태에 따라 입장 가능한 층을 제한.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">진행, 반복 보상, 미션 재도전의 구분</h3>
+          <div class="table-wrap"><table class="spec"><caption>입장 가능한 층</caption><thead><tr><th scope="col">구분</th><th scope="col">대상 층</th><th scope="col">목적</th></tr></thead><tbody>
+            <tr><th scope="row">진행</th><td>다음 미클리어 층</td><td>다음 층을 열고 최초 보상과 반복 보상을 함께 획득.</td></tr>
+            <tr><th scope="row">재도전</th><td>가장 최근에 클리어한 층</td><td>반복 보상 획득.</td></tr>
+            <tr><th scope="row">미션</th><td>이미 클리어한 미션 층</td><td>달성하지 못한 층 목표 재도전.</td></tr>
+            <tr><th scope="row">입장 불가</th><td>위 조건에 해당하지 않는 일반 클리어 층</td><td>진행 경로와 반복 보상 지점을 제한.</td></tr>
+          </tbody></table></div>
+          <ul class="facts"><li>전투 진입 시 전용 입장 재화를 사용한다.</li><li>속성과 희귀도를 복수 편성 제한으로 사용할 수 있다.</li><li>특정 층의 클리어 상태를 상품 노출 조건으로 사용할 수 있다.</li></ul>
+        </div>
+      </section>
+
+      <section class="doc-block" id="fields">
+        <div class="doc-block__label"><h2>02 · 데이터 항목</h2><p>층 진행과 미션 효과를 설명하는 대표 항목.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">진행, 보상, 미션을 연결하는 값</h3>
+          <div class="table-wrap"><table class="spec"><caption>대표 항목</caption><thead><tr><th scope="col">항목</th><th scope="col">컬럼명</th><th scope="col">형식</th><th scope="col">용도</th></tr></thead><tbody>
+            <tr><th scope="row">층 참조값</th><td><code>stage_ref_id</code></td><td>integer</td><td>미션 효과가 적용되는 층 지정.</td></tr>
+            <tr><th scope="row">진행 연결값</th><td><code>next_stage_id</code></td><td>integer</td><td>선행 층과 다음 층의 관계 확인.</td></tr>
+            <tr><th scope="row">편성 제한 목록</th><td><code>formation_rules</code></td><td>object[]</td><td>속성과 희귀도 제한을 복수 적용.</td></tr>
+            <tr><th scope="row">보상 참조값</th><td><code>first_clear_reward_id</code><br><code>repeat_reward_id</code></td><td>integer</td><td>최초 보상과 반복 보상을 구분.</td></tr>
+            <tr><th scope="row">달성 단계별 효과</th><td><code>mission_effect_id</code><br><code>mission_effect_value</code></td><td>integer · float</td><td>달성 단계에 대응하는 효과 한 건과 적용값 지정.</td></tr>
+            <tr><th scope="row">이용자 식별값</th><td><code>player_uuid</code></td><td>UUID</td><td>순위 기록과 클리어 편성의 소유자 식별.</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
+
+      <section class="doc-block" id="rewards">
+        <div class="doc-block__label"><h2>03 · 보상과 미션</h2><p>최초·반복 보상과 층 목표 효과의 처리.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">클리어 경로에 따라 지급 항목을 분리</h3>
+          <div class="table-wrap"><table class="spec"><caption>보상 처리</caption><thead><tr><th scope="col">상황</th><th scope="col">지급</th><th scope="col">추가 처리</th></tr></thead><tbody>
+            <tr><th scope="row">다음 층 최초 클리어</th><td>최초 보상 + 반복 보상</td><td>진행 상태와 순위 기록 갱신.</td></tr>
+            <tr><th scope="row">최근 클리어 층 재도전</th><td>반복 보상</td><td>월간 재료 상한 확인.</td></tr>
+            <tr><th scope="row">미션 재도전</th><td>달성 단계에 대응하는 효과 한 건</td><td>하위 단계 효과는 중복 적용하지 않음.</td></tr>
+            <tr><th scope="row">상한 초과</th><td>남은 수량까지만 지급</td><td>초과분은 지급하지 않음.</td></tr>
+          </tbody></table></div>
+          <div class="split split--pair">
+            <div class="split__col"><h4 class="split__label">재료 상한</h4><ul class="facts"><li>스테이지 보상으로 얻는 전용 성장 재료에 월간 상한을 적용한다.</li><li>다른 획득 경로는 별도 규칙으로 처리한다.</li><li>상한 검사는 반복 보상 위치를 대상으로 한다.</li></ul></div>
+            <div class="split__col"><h4 class="split__label">층 미션</h4><ul class="facts"><li>특정 층에 단계별 목표를 둔다.</li><li>달성 단계에 해당하는 효과 하나만 적용한다.</li><li>미션 성공 판정과 달성 단계 계산은 클라이언트 처리로 적혀 있다.</li></ul></div>
+          </div>
+          <blockquote class="callout">최초·보조·추가 보상 위치에 같은 재료를 넣는 경우 상한 검사 범위를 서버와 다시 확인해야 한다.</blockquote>
+        </div>
+      </section>
+
+      <section class="doc-block" id="ranking">
+        <div class="doc-block__label"><h2>04 · 순위 판정</h2><p>클리어 직후 기록을 아래 순서로 비교.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">동률을 해소하는 비교 순서</h3>
+          <div class="table-wrap"><table class="spec"><caption>순위 비교</caption><thead><tr><th scope="col">순서</th><th scope="col">기준</th><th scope="col">우선 기록</th></tr></thead><tbody>
+            <tr><th scope="row">1</th><td>도달 층</td><td>더 높은 층.</td></tr>
+            <tr><th scope="row">2</th><td>클리어 턴 수</td><td>더 적은 턴.</td></tr>
+            <tr><th scope="row">3</th><td>기록 시각</td><td>먼저 생성된 기록.</td></tr>
+          </tbody></table></div>
+          <div class="case-prose"><p>순위에는 UUID, 소속 태그, 최고 도달 층, 해당 층의 턴 수, 클리어 편성을 표시한다. 노출 인원은 운영 설정값으로 관리한다.</p></div>
+        </div>
+      </section>
+
+      <section class="doc-block" id="reset">
+        <div class="doc-block__label"><h2>05 · 월간 초기화</h2><p>진행·미션·보상·순위 상태를 월 단위로 교체.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">초기화 대상과 전투 귀속 시점</h3>
+          <ul class="facts">
+            <li>층 진행과 클리어 기록을 초기화한다.</li>
+            <li>스테이지 보상으로 획득한 전용 재료 수량을 초기화한다.</li>
+            <li>미션 보상 상태, 관련 구매 기록, 순위 상태를 초기화한다.</li>
+            <li>이전 시즌 순위를 기준으로 보상을 정하고, 다음 타워 화면 진입 시 지급한다.</li>
+            <li>초기화 전에 시작한 전투를 이후에 끝내도 시작 시점의 시즌으로 정산한다.</li>
+          </ul>
+          <blockquote class="callout">화면 진입 시 지급하는 이전 시즌 보상은 미접속, 재접속, 중복 요청을 구분하는 지급 상태가 필요하다.</blockquote>
+        </div>
+      </section>
+
+      <section class="doc-block" id="checks">
+        <div class="doc-block__label"><h2>06 · 이상 결과</h2><p>검증 조건과 추가 확인 사항.</p></div>
+        <div class="doc-block__body">
+          <h3 class="h3">진행 연결과 전투 결과 확인</h3>
+          <div class="table-wrap"><table class="spec"><caption>결과 검사</caption><thead><tr><th scope="col">항목</th><th scope="col">처리</th><th scope="col">추가 확인</th></tr></thead><tbody>
+            <tr><th scope="row">층 건너뛰기</th><td>선행 층과 다음 층의 연결 관계를 서버에서 확인.</td><td>동시 완료 요청의 순서 처리.</td></tr>
+            <tr><th scope="row">0턴 클리어</th><td>문서 작성 시점에는 성립하지 않는 결과로 처리.</td><td>향후 전투 시작 효과가 추가되면 조건 재검토.</td></tr>
+            <tr><th scope="row">빈 편성</th><td>유닛 없이 클리어한 결과를 비정상으로 처리.</td><td>전투 시작 편성과 결과 편성의 일치 여부.</td></tr>
+            <tr><th scope="row">미션 결과</th><td>달성 단계를 전달받아 효과 적용.</td><td>서버 재검증 방식 별도 확인.</td></tr>
+          </tbody></table></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="shell shell--narrow"><div class="case-footer"><div class="case-footer__row"><div><p class="case-footer__label">PDF</p><p class="case-footer__title">타워</p></div><a class="btn btn--primary" href="../pdf/dark/tower.pdf" data-pdf-variant data-pdf-label="타워" target="_blank" rel="noopener">PDF로 보기</a></div><hr><div class="case-footer__row"><div><p class="case-footer__label">다음 문서</p><p class="case-footer__title">타워 UI</p></div><a class="arrow-link" href="tower-ui.html">문서 열기</a></div></div></div>
+</main>
+<footer class="footer"><div class="shell"><div class="footer__inner"><div><div class="footer__name">이남경</div><div class="footer__role">System &amp; Combat Designer</div></div><div class="footer__links"><a href="mailto:dlskarudrud@gmail.com">dlskarudrud@gmail.com</a><a href="tel:+821063897045">010-6389-7045</a><a href="../index.html">포트폴리오 홈</a></div></div><div class="footer__colophon"><span>© <span data-year>2026</span> 이남경. All rights reserved.</span><span>Built with HTML · CSS · JavaScript · WebGL</span></div></div></footer>
+<script src="../assets/js/theme.js?v=15" defer></script><script src="../assets/js/main.js?v=15" defer></script><script src="../assets/js/motion.js?v=15" defer></script>
+</body>
+</html>
