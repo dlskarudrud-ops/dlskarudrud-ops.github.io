@@ -41,6 +41,18 @@ FONT_REG = "Malgun"
 FONT_BOLD = "MalgunBold"
 
 
+def jpeg_reader(path: Path, quality: int = 85) -> ImageReader:
+    """Embed images as JPEG (DCT passthrough) instead of lossless PNG — keeps the PDF small."""
+    import io
+    from PIL import Image as PILImage
+
+    pil = PILImage.open(str(path)).convert("RGB")
+    buf = io.BytesIO()
+    pil.save(buf, "JPEG", quality=quality, optimize=True)
+    buf.seek(0)
+    return ImageReader(buf)
+
+
 def set_theme(theme: str) -> None:
     global BG, SURFACE, PALE, PALE_2, INK, MUTED, BLUE, BLUE_DARK, BORDER, WARN, WARN_BG
     if theme == "dark":
@@ -353,7 +365,7 @@ def add_battle_pages(c: canvas.Canvas, styles: dict[str, ParagraphStyle]) -> Non
     total = 5
     add_cover(
         c,
-        "배틀 옵션",
+        "전투 모듈 테이블",
         "데이터 항목, 입력 예시, 발동 순서와 조합 제한",
     )
 
@@ -418,7 +430,7 @@ def add_tactical_pages(c: canvas.Canvas, styles: dict[str, ParagraphStyle]) -> N
     total = 5
     add_cover(
         c,
-        "전술 연구",
+        "턴 제한 피해 측정 콘텐츠",
         "일일 피해 측정과 보상 정산 규칙",
     )
 
@@ -553,8 +565,11 @@ def draw_combat_slide(
         c.setStrokeColor(BORDER)
         c.line(left_x + 18, current_top, left_x + left_w - 18, current_top)
         c.setFillColor(MUTED)
-        c.setFont(FONT_REG, font_meta)
-        c.drawString(left_x + 18, row_bottom + row_h / 2 - 2, label)
+        label_size = 10
+        while label_size > 7 and c.stringWidth(label, FONT_REG, label_size) > 72:
+            label_size -= 0.5
+        c.setFont(FONT_REG, label_size)
+        c.drawString(left_x + 18, row_bottom + row_h / 2 - label_size * 0.35, label)
         value_p.wrapOn(c, 158, row_h - 4)
         _, value_h = value_p.wrap(158, row_h - 4)
         value_p.drawOn(c, left_x + 96, row_bottom + (row_h - value_h) / 2)
@@ -630,9 +645,9 @@ def add_combat_presentation_pages(c: canvas.Canvas, styles: dict[str, ParagraphS
     for path in (COMBAT_PHANTOM_IMAGE, COMBAT_STATE_IMAGE, COMBAT_STATUS_IMAGE):
         if not path.exists():
             raise FileNotFoundError(f"Missing combat presentation image: {path}")
-    phantom_sheet = ImageReader(str(COMBAT_PHANTOM_IMAGE))
-    state_sheet = ImageReader(str(COMBAT_STATE_IMAGE))
-    status_sheet = ImageReader(str(COMBAT_STATUS_IMAGE))
+    phantom_sheet = jpeg_reader(COMBAT_PHANTOM_IMAGE)
+    state_sheet = jpeg_reader(COMBAT_STATE_IMAGE)
+    status_sheet = jpeg_reader(COMBAT_STATUS_IMAGE)
 
     draw_combat_slide(
         c, styles, phantom_sheet, 1, "캐릭터 연출", "이기어검 · 환영검 방출",
@@ -737,7 +752,7 @@ def add_tower_pages(c: canvas.Canvas, styles: dict[str, ParagraphStyle]) -> None
         [
             ["층 참조값", "stage_ref_id", "integer", "미션 효과가 적용되는 층 지정."],
             ["진행 연결값", "next_stage_id", "integer", "선행 층과 다음 층의 관계 확인."],
-            ["편성 제한 목록", "formation_rules", "integer", "속성과 희귀도 제한값을 '/' 구분자로 복수 입력."],
+            ["편성 제한 목록", "formation_rules", "integer", "속성과 희귀도 제한값을 구분자(세미콜론 등)로 복수 입력."],
             ["보상 참조값", "first_clear_reward_id<br/>repeat_reward_id", "integer", "최초 보상과 반복 보상을 구분."],
             ["달성 단계별 효과", "mission_effect_id<br/>mission_effect_value", "integer · float", "달성 단계에 대응하는 효과 한 건과 적용값 지정."],
         ], [130, 180, 120, 418], row_padding=5.2)
@@ -1095,9 +1110,9 @@ def generate_one(output_path: Path, kind: str, theme: str) -> None:
     set_theme(theme)
     styles = build_styles()
     titles = {
-        "battle": ("배틀 옵션", "전투 효과 데이터의 대표 항목과 처리 규칙"),
+        "battle": ("전투 모듈 테이블", "전투 효과 데이터의 대표 항목과 처리 규칙"),
         "combat-presentation": ("캐릭터 연출", "이기어검 제자리 공격, 전투 상태와 상태이상 연출"),
-        "tactical": ("전술 연구", "일일 피해 측정과 보상 정산 규칙"),
+        "tactical": ("턴 제한 피해 측정 콘텐츠", "일일 피해 측정과 보상 정산 규칙"),
         "tower": ("타워", "층 진행, 보상, 순위와 초기화 규칙"),
         "tower-ui": ("타워 UI", "층 진행, 강화 효과와 랭킹 보상 화면 정의"),
     }
@@ -1131,9 +1146,9 @@ def main() -> None:
     output_dir = args.output_dir.resolve()
     for theme in ("dark", "light"):
         theme_dir = output_dir / theme
-        generate_one(theme_dir / "battle-option.pdf", "battle", theme)
+        generate_one(theme_dir / "combat-module-table.pdf", "battle", theme)
         generate_one(theme_dir / "combat-presentation.pdf", "combat-presentation", theme)
-        generate_one(theme_dir / "tactics-research.pdf", "tactical", theme)
+        generate_one(theme_dir / "turn-limit-damage-measure.pdf", "tactical", theme)
         generate_one(theme_dir / "tower.pdf", "tower", theme)
         generate_one(theme_dir / "tower-ui.pdf", "tower-ui", theme)
 

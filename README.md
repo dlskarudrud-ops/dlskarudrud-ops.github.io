@@ -17,9 +17,9 @@ web/
 ├── documents/
 │   ├── career.html             경력 기술서
 │   ├── postmortem.html         포스트모템
-│   ├── battle-option.html      배틀 옵션
+│   ├── combat-module-table.html      전투 모듈 테이블
 │   ├── combat-presentation.html 캐릭터 연출
-│   ├── tactics-research.html   전술 연구
+│   ├── turn-limit-damage-measure.html   턴 제한 피해 측정 콘텐츠
 │   ├── tower.html              타워
 │   └── tower-ui.html           타워 UI
 │
@@ -61,9 +61,9 @@ web/
 | Project_Taimanin Squad | `projects/project-taimanin-squad.html` | `pdf/{테마}/project-taimanin-squad.pdf` |
 | Fire Vow | `projects/fire-vow.html` | `pdf/{테마}/fire-vow.pdf` |
 | 포스트모템 | `documents/postmortem.html` | `pdf/{테마}/postmortem.pdf` |
-| 배틀 옵션 | `documents/battle-option.html` | `pdf/{테마}/battle-option.pdf` |
+| 전투 모듈 테이블 | `documents/combat-module-table.html` | `pdf/{테마}/combat-module-table.pdf` |
 | 캐릭터 연출 | `documents/combat-presentation.html` | `pdf/{테마}/combat-presentation.pdf` · `pptx/combat-presentation.pptx` |
-| 전술 연구 | `documents/tactics-research.html` | `pdf/{테마}/tactics-research.pdf` |
+| 턴 제한 피해 측정 콘텐츠 | `documents/turn-limit-damage-measure.html` | `pdf/{테마}/turn-limit-damage-measure.pdf` |
 | 타워 | `documents/tower.html` | `pdf/{테마}/tower.pdf` |
 | 타워 UI | `documents/tower-ui.html` | `pdf/{테마}/tower-ui.pdf` |
 
