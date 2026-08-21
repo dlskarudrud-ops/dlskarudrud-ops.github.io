@@ -218,6 +218,61 @@
     syncPdfLinks(event.detail && event.detail.theme);
   });
 
+  /* ---------------------------------------------------------------------
+     Email and phone links copy their value instead of opening a handler.
+     Without JS (or a clipboard API) the mailto:/tel: links work as-is.
+     --------------------------------------------------------------------- */
+
+  var copyToast = null;
+  var copyToastTimer = 0;
+
+  var showCopyToast = function (message) {
+    if (!copyToast) {
+      copyToast = document.createElement("div");
+      copyToast.className = "copy-toast";
+      copyToast.setAttribute("role", "status");
+      document.body.appendChild(copyToast);
+    }
+    copyToast.textContent = message;
+    copyToast.setAttribute("data-open", "true");
+    window.clearTimeout(copyToastTimer);
+    copyToastTimer = window.setTimeout(function () {
+      copyToast.setAttribute("data-open", "false");
+    }, 2200);
+  };
+
+  var bindCopyLink = function (link, title, getValue) {
+    link.setAttribute("title", title);
+    link.addEventListener("click", function (event) {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+      event.preventDefault();
+      navigator.clipboard.writeText(getValue()).then(
+        function () {
+          showCopyToast("복사되었습니다!");
+        },
+        function () {
+          window.location.href = link.getAttribute("href");
+        }
+      );
+    });
+  };
+
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function (link) {
+    bindCopyLink(link, "클릭하면 이메일 주소가 복사됩니다", function () {
+      return (link.getAttribute("href") || "")
+        .replace(/^mailto:/, "")
+        .split("?")[0];
+    });
+  });
+
+  document.querySelectorAll('a[href^="tel:"]').forEach(function (link) {
+    bindCopyLink(link, "클릭하면 전화번호가 복사됩니다", function () {
+      var valueEl = link.querySelector(".contact__value");
+      var text = ((valueEl || link).textContent || "").trim();
+      return text || (link.getAttribute("href") || "").replace(/^tel:/, "");
+    });
+  });
+
   /* Page transitions are declared in CSS (@view-transition) rather than by
      intercepting clicks here. Nothing may stand between a link and its
      navigation. */

@@ -11,7 +11,7 @@ web/
 ├── resume.html                 이력서
 │
 ├── projects/
-│   ├── fire-vow.html           FireVow: DarkFantasy 상세
+│   ├── fire-vow.html           Fire Vow: Dark Fantasy 상세
 │   └── project-taimanin-squad.html  Project_Taimanin Squad 시스템 & 전투 설계 상세
 │
 ├── documents/

@@ -503,7 +503,7 @@ def draw_combat_slide(
     font_title = 26
     font_heading = 14
     font_sub = 11.5
-    font_body = 8.4
+    font_body = 12
     font_meta = 7.5
     draw_background(c)
     margin = 24
@@ -528,22 +528,22 @@ def draw_combat_slide(
     c.setFont(FONT_BOLD, font_sub)
     c.drawString(left_x + 18, left_y + left_h - 85, subtitle)
 
-    portrait_size = 154
-    draw_portrait(c, sheet, 1, left_x + (left_w - portrait_size) / 2, left_y + 228, portrait_size)
+    portrait_size = 122
+    draw_portrait(c, sheet, 1, left_x + (left_w - portrait_size) / 2, left_y + 266, portrait_size)
 
     value_style = ParagraphStyle(
         "CombatFieldValue", parent=styles["table_body"], fontName=FONT_BOLD,
-        fontSize=font_body, leading=11, textColor=INK,
+        fontSize=font_body, leading=14, textColor=INK,
     )
-    field_top = left_y + 216
+    field_top = left_y + 252
     remaining_height = field_top - (left_y + 14)
     row_heights: list[float] = []
     value_paragraphs: list[Paragraph] = []
     for _, value in fields:
         value_p = paragraph(value, value_style)
-        _, value_h = value_p.wrap(145, remaining_height)
+        _, value_h = value_p.wrap(158, remaining_height)
         value_paragraphs.append(value_p)
-        row_heights.append(max(25, value_h + 10))
+        row_heights.append(max(22, value_h + 6))
     total_rows = sum(row_heights)
     if total_rows > remaining_height:
         raise ValueError(f"Combat field list crosses slide boundary: {title}")
@@ -555,9 +555,9 @@ def draw_combat_slide(
         c.setFillColor(MUTED)
         c.setFont(FONT_REG, font_meta)
         c.drawString(left_x + 18, row_bottom + row_h / 2 - 2, label)
-        value_p.wrapOn(c, 145, row_h - 8)
-        _, value_h = value_p.wrap(145, row_h - 8)
-        value_p.drawOn(c, left_x + 108, row_bottom + (row_h - value_h) / 2)
+        value_p.wrapOn(c, 158, row_h - 4)
+        _, value_h = value_p.wrap(158, row_h - 4)
+        value_p.drawOn(c, left_x + 96, row_bottom + (row_h - value_h) / 2)
         current_top = row_bottom
     c.line(left_x + 18, current_top, left_x + left_w - 18, current_top)
 
@@ -567,7 +567,7 @@ def draw_combat_slide(
         c.setFillColor(SURFACE)
         c.setStrokeColor(BORDER)
         c.rect(x, scene_y, scene_w, scene_h, fill=1, stroke=1)
-        caption_h = 72
+        caption_h = 96
         image_size = scene_h - caption_h
         image_x = x + (scene_w - image_size) / 2
         draw_portrait(c, sheet, index + 2, image_x, scene_y + caption_h, image_size)
@@ -578,7 +578,7 @@ def draw_combat_slide(
         c.drawString(x + 12, scene_y + caption_h - 22, scene_title)
         note_p = paragraph(scene_note, ParagraphStyle(
             f"CombatSceneNote{page_no}{index}", parent=styles["card_body"],
-            fontSize=font_body, leading=11.5, textColor=MUTED,
+            fontSize=font_body, leading=14.5, textColor=MUTED,
         ))
         _, note_h = note_p.wrap(scene_w - 24, caption_h - 38)
         if note_h > caption_h - 38:
@@ -605,11 +605,15 @@ def draw_combat_slide(
         c.rect(x, step_y, step_w, step_h, fill=1, stroke=0)
         c.setFillColor(BLUE)
         c.rect(x, step_y, 4, step_h, fill=1, stroke=0)
-        c.setFont(FONT_BOLD, font_body)
-        c.drawString(x + 14, step_y + step_h - 24, f"0{index + 1} · {step_title}")
+        title_text = f"0{index + 1} · {step_title}"
+        title_size = font_body
+        while title_size > 8 and c.stringWidth(title_text, FONT_BOLD, title_size) > step_w - 28:
+            title_size -= 0.5
+        c.setFont(FONT_BOLD, title_size)
+        c.drawString(x + 14, step_y + step_h - 24, title_text)
         body_p = paragraph(step_body, ParagraphStyle(
             f"CombatStep{page_no}{index}", parent=styles["card_body"],
-            fontSize=font_body, leading=12, textColor=MUTED,
+            fontSize=font_body, leading=15, textColor=MUTED,
         ))
         _, body_h = body_p.wrap(step_w - 28, step_h - 52)
         if body_h > step_h - 52:

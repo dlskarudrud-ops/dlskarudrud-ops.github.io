@@ -29,7 +29,7 @@
   --cp-fs-title: 2.25cqi;
   --cp-fs-heading: 1.55cqi;
   --cp-fs-sub: 1.15cqi;
-  --cp-fs-body: 0.93cqi;
+  --cp-fs-body: 1.25cqi;
   --cp-fs-tag: 0.8cqi;
   display: grid;
   grid-template-columns: 30% minmax(0, 1fr);
@@ -111,7 +111,7 @@
 .combat-character {
   width: 100%;
   min-height: 0;
-  aspect-ratio: 1.9 / 1;
+  aspect-ratio: 2.35 / 1;
   border: 1px solid var(--cp-line);
   background-image: url("../images/combat-presentation-v2/phantom-1.png");
   background-size: contain;
@@ -196,8 +196,8 @@
 }
 
 .combat-spec__list .is-long dd {
-  font-size: var(--cp-fs-tag);
-  line-height: 1.42;
+  font-size: var(--cp-fs-body);
+  line-height: 1.35;
 }
 
 .combat-scenes {
