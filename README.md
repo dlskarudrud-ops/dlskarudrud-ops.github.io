@@ -102,7 +102,7 @@ CSS · JS 링크에는 `?v=15` 같은 버전이 붙어 있습니다. GitHub Page
 python -m http.server 8000
 ```
 
-브라우저에서 `http://localhost:8000` 을 엽니다. `file://` 로 직접 열면 히어로 배경
+브라우저에서 `http://localhost:8000`을 엽니다. `file://`로 직접 열면 히어로 배경
 (ES 모듈)이 동작하지 않습니다. 이 경우에도 CSS 폴백 배경이 대신 표시되므로 나머지
 화면은 정상입니다.
 

@@ -110,7 +110,7 @@
             <li class="flow__step"><b class="flow__title">발동 판정</b><span class="flow__text">설정된 확률 방식을 적용.</span></li>
             <li class="flow__step"><b class="flow__title">기능 실행</b><span class="flow__text">계산 전용 또는 연출 포함 처리로 결과 반영.</span></li>
           </ol>
-          <blockquote class="callout"><strong>처리 기준:</strong> 각 전투 상태의 기본 처리가 끝난 뒤 효과를 호출한다. 조건·대상·확률의 내부 호출 순서는 코드 확인이 필요하다.</blockquote>
+          <blockquote class="callout"><strong>처리 기준:</strong> 각 전투 상태의 기본 처리가 끝난 뒤 효과를 호출한다.</blockquote>
         </div>
       </section>
 
@@ -136,11 +136,9 @@
           <ul class="facts">
             <li>실행 기능마다 기능 인수의 의미와 자료형이 달라 입력 검사가 필요하다.</li>
             <li>문자열 안에 추가 값을 넣는 형식은 빈 값, 구분자, 잘못된 열거값 처리가 필요하다.</li>
-            <li>턴 종료 단계는 정의에 남아 있으나 본문 규칙에서는 사용하지 않는 것으로 적혀 있다.</li>
-            <li>명칭 변경 기록과 현재 본문 사이에 차이가 있어 실제 열거값과 대조가 필요하다.</li>
+            <li>명칭 변경 기록과 본문 명칭이 실제 열거값과 일치하는지 대조한다.</li>
             <li>협동 공격, 추가 행동, 후속 스킬에는 중복 발동과 재귀 호출 제한이 필요하다.</li>
           </ul>
-          <blockquote class="callout">자동 검사 도구와 런타임 내부 호출 순서는 구현 자료 확인이 필요하다.</blockquote>
         </div>
       </section>
     </div>
