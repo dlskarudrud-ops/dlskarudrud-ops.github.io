@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="../assets/css/tokens.css?v=15">
 <link rel="stylesheet" href="../assets/css/global.css?v=16">
 <link rel="stylesheet" href="../assets/css/project.css?v=16">
-<link rel="stylesheet" href="../assets/css/wiki.css?v=11">
+<link rel="stylesheet" href="../assets/css/wiki.css?v=13">
 <link rel="stylesheet" href="../assets/css/print.css?v=15" media="print">
 
 <script>
@@ -166,7 +166,7 @@
                     <span class="squad-portrait squad-portrait--2" role="img" aria-label="오리지널 캐릭터 초상"></span>
                     <strong>랭킹 정보</strong>
                   </div>
-                  <span class="ui-tool">랭킹 보상</span>
+                  <button type="button" class="ui-tool" data-ui-open="reward" aria-haspopup="dialog">랭킹 보상</button>
                   <span class="ui-tool">구매 보상</span>
                 </div>
                 <div class="ui-season-summary">
@@ -181,10 +181,10 @@
                 <div class="ui-effect-track" aria-label="타워 강화 효과 단계">
                   <strong>타워 강화 효과</strong>
                   <div class="ui-effect-nodes">
-                    <span class="ui-effect-node is-active"><strong>1단계</strong><b>10층</b></span>
-                    <span class="ui-effect-node"><strong>2단계</strong><b>20층</b></span>
-                    <span class="ui-effect-node"><strong>3단계</strong><b>30층</b></span>
-                    <span class="ui-effect-node"><strong>4단계</strong><b>40층</b></span>
+                    <button type="button" class="ui-effect-node is-active" data-ui-open="effect" aria-haspopup="dialog"><strong>1단계</strong><b>10층</b></button>
+                    <button type="button" class="ui-effect-node" data-ui-open="effect" aria-haspopup="dialog"><strong>2단계</strong><b>20층</b></button>
+                    <button type="button" class="ui-effect-node" data-ui-open="effect" aria-haspopup="dialog"><strong>3단계</strong><b>30층</b></button>
+                    <button type="button" class="ui-effect-node" data-ui-open="effect" aria-haspopup="dialog"><strong>4단계</strong><b>40층</b></button>
                   </div>
                 </div>
                 <div class="ui-main-actions">
@@ -196,9 +196,13 @@
                 </div>
               </div>
             </div>
+            <div class="ui-live-overlay" data-ui-overlay hidden>
+              <div class="ui-live-overlay__scrim" data-ui-close aria-hidden="true"></div>
+              <div class="ui-live-overlay__slot"></div>
+            </div>
           </div>
           </div>
-          <p class="ui-note">좌측 레일에서 층을 이동하고, 화면 안의 정보 버튼에서 관련 팝업을 엽니다.</p>
+          <p class="ui-note">좌측 레일에서 층을 이동하고, <b>랭킹 보상</b> 버튼이나 <b>강화 효과</b> 노드를 누르면 해당 팝업이 화면 위에 열립니다.</p>
         </div>
       </section>
 
@@ -354,5 +358,6 @@
 <script src="../assets/js/theme.js?v=15" defer></script>
 <script src="../assets/js/main.js?v=16" defer></script>
 <script src="../assets/js/motion.js?v=15" defer></script>
+<script src="../assets/js/tower-ui.js?v=1" defer></script>
 </body>
 </html>

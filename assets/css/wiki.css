@@ -216,7 +216,7 @@ table.spec.wk-spec td {
 .ui-popup-canvas {
   width: 100%;
   min-width: 1120px;
-  aspect-ratio: 1980 / 1080;
+  aspect-ratio: 1920 / 1080;
 }
 
 .ui-frame--desktop {
@@ -905,7 +905,7 @@ table.spec.wk-spec td {
   }
 }
 
-/* Tower UI — 1980×1080 game-screen composition */
+/* Tower UI — 1920×1080 game-screen composition */
 .ui-frame--desktop,
 .ui-popup-canvas {
   --ui-bg: #111629;
@@ -1307,4 +1307,113 @@ table.spec.wk-spec td {
   border-color: var(--ui-accent);
   background: var(--ui-accent);
   color: #111629;
+}
+
+/* ------------------------------------------------------------------
+   Tower UI — interactive mockup (reward / effect popups over the base
+   screen, hover + focus states). Without JS the buttons are inert and
+   the static popup sections below still document the screens.
+   ------------------------------------------------------------------ */
+.ui-frame--desktop {
+  position: relative;
+}
+
+:where(.ui-frame button) {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.ui-tool[data-ui-open],
+.ui-effect-node[data-ui-open] {
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.ui-tool[data-ui-open]:hover,
+.ui-tool[data-ui-open]:focus-visible {
+  border-color: var(--ui-accent);
+  color: var(--ui-ink);
+  filter: brightness(1.18);
+  transform: translateY(-1px);
+}
+
+.ui-effect-node[data-ui-open]:hover,
+.ui-effect-node[data-ui-open]:focus-visible {
+  border-color: var(--ui-accent);
+  filter: brightness(1.14);
+  transform: scale(1.08);
+}
+
+.ui-tool[data-ui-open]:active,
+.ui-effect-node[data-ui-open]:active {
+  transform: scale(0.97);
+  filter: brightness(0.96);
+}
+
+.ui-tool[data-ui-open]:focus-visible,
+.ui-effect-node[data-ui-open]:focus-visible {
+  outline: 2px solid var(--ui-accent);
+  outline-offset: 3px;
+}
+
+.ui-live-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  container-type: inline-size;
+}
+
+.ui-live-overlay[hidden] {
+  display: none;
+}
+
+.ui-live-overlay__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 14, 19, 0.76);
+  cursor: pointer;
+  animation: ui-scrim-in 0.18s ease;
+}
+
+.ui-live-overlay .ui-panel--dialog {
+  animation: ui-dialog-in 0.22s ease;
+}
+
+.ui-live-overlay [data-ui-close] {
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+
+.ui-live-overlay [data-ui-close]:hover,
+.ui-live-overlay [data-ui-close]:focus-visible {
+  color: var(--ui-accent);
+  outline: none;
+}
+
+@keyframes ui-scrim-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ui-dialog-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-tool[data-ui-open],
+  .ui-effect-node[data-ui-open],
+  .ui-live-overlay__scrim,
+  .ui-live-overlay .ui-panel--dialog,
+  .ui-live-overlay [data-ui-close] {
+    transition: none;
+    animation: none;
+  }
 }
